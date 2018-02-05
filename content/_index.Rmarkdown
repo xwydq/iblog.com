@@ -12,7 +12,7 @@ title: Home
 
 ```{bash, comment='', echo=2, eval=Sys.which('bash') != '' && .Platform$OS.type != 'windows'}
 # cd ../..;
-find . -not -path '*/exampleSite/*' \( -name '*.html' -o -name '*.css' \) | xargs wc -l
+#find . -not -path '*/exampleSite/*' \( -name '*.html' -o -name '*.css' \) | xargs wc -l
 ```
 
 I can certainly further reduce the code, for example, by eliminating the CSS, but I believe a tiny bit CSS can greatly improve readability. You cannot really find many CSS frameworks that only contain 50 lines of code.

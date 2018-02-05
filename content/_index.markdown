@@ -12,13 +12,7 @@ title: Home
 
 
 ```bash
-find . -not -path '*/exampleSite/*' \( -name '*.html' -o -name '*.css' \) | xargs wc -l
-```
-
-```
-  16 ./post/2018-02-05-try中嗯.html
-  49 ./post/2015-07-23-r-rmarkdown.html
-  65 总用量
+#find . -not -path '*/exampleSite/*' \( -name '*.html' -o -name '*.css' \) | xargs wc -l
 ```
 
 I can certainly further reduce the code, for example, by eliminating the CSS, but I believe a tiny bit CSS can greatly improve readability. You cannot really find many CSS frameworks that only contain 50 lines of code.

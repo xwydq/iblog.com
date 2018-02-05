@@ -14,3 +14,7 @@ tags:
 plot(rnorm(100), main = "ashjd及安防监控")
 ```
 
+
+```{r}
+plot(rnorm(100), main = "ashjd及安防监控")
+```
