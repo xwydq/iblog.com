@@ -19,3 +19,8 @@ p + geom_boxplot() + ggtitle("火车fadrivr啦")
 plot(rnorm(100), main = "another图片")
 ```
 
+```{r}
+library(recharts)
+echart(iris, ~ Sepal.Length, ~ Sepal.Width)
+```
+
