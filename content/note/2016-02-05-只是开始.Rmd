@@ -12,6 +12,6 @@ tags:
 ```{r}
 library(ggplot2)
 p <- ggplot(mpg, aes(class, hwy))
-p + geom_boxplot() + ggtitle("火车fadriver啦")
+p + geom_boxplot() + ggtitle("火车fadrive   r啦")
 ```
 
