@@ -15,3 +15,7 @@ p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot() + ggtitle("火车fadrivr啦")
 ```
 
+```{r}
+plot(rnorm(100), main = "another图片")
+```
+
