@@ -1,0 +1,171 @@
+]0;~/iblog.com[?1034h[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ [K[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ git
+usage: git [--version] [--help] [-c name=value]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+最常用的 git 命令有：
+   add        添加文件内容至索引
+   bisect     通过二分查找定位引入 bug 的变更
+   branch     列出、创建或删除分支
+   checkout   检出一个分支或路径到工作区
+   clone      克隆一个版本库到一个新目录
+   commit     记录变更到版本库
+   diff       显示提交之间、提交和工作区之间等的差异
+   fetch      从另外一个版本库下载对象和引用
+   grep       输出和模式匹配的行
+   init       创建一个空的 Git 版本库或重新初始化一个已存在的版本库
+   log        显示提交日志
+   merge      合并两个或更多开发历史
+   mv         移动或重命名一个文件、目录或符号链接
+   pull       获取并合并另外的版本库或一个本地分支
+   push       更新远程引用和相关的对象
+   rebase     本地提交转移至更新后的上游分支中
+   reset      重置当前HEAD到指定状态
+   rm         从工作区和索引中删除文件
+   show       显示各种类型的对象
+   status     显示工作区状态
+   tag        创建、列出、删除或校验一个GPG签名的 tag 对象
+
+命令 'git help -a' 和 'git help -g' 显示可用的子命令和一些指南。参见
+'git help <命令>' 或 'git help <指南>' 来查看给定的子命令帮助或指南。
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ git init
+重新初始化现存的 Git 版本库于 /home/xuwy/iblog.com/.git/
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$  echo AA13678 && /usr/bin/env && echo B0409B71[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kgit add .
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ git commit -m "first comment"
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <xuwy@izuf6fj8vthezwgb0b8mhrz.(none)>) not allowed
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ 
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ ll -a
+总用量 72
+drwxr-xr-x 12 xuwy xuwy 4096 2月   5 11:36 [0m[38;5;27m.[0m
+drwxr-xr-x 24 xuwy xuwy 4096 2月   5 11:09 [38;5;27m..[0m
+drwxr-xr-x  2 xuwy xuwy 4096 2月   5 11:34 [38;5;27marchetypes[0m
+-rw-r--r--  1 xuwy xuwy  916 2月   5 11:35 config.toml
+drwxr-xr-x  4 xuwy xuwy 4096 2月   5 11:35 [38;5;27mcontent[0m
+drwxr-xr-x  2 xuwy xuwy 4096 2月   5 11:34 [38;5;27mdata[0m
+drwxr-xr-x  8 xuwy xuwy 4096 2月   5 11:42 [38;5;27m.git[0m
+-rw-r--r--  1 xuwy xuwy   85 2月   5 11:35 .gitignore
+-rw-r--r--  1 xuwy xuwy  223 2月   5 11:36 iblog.com.Rproj
+-rw-r--r--  1 xuwy xuwy   39 2月   5 11:35 index.Rmd
+drwxr-xr-x  3 xuwy xuwy 4096 2月   5 11:35 [38;5;27mlayouts[0m
+drwxr-xr-x  8 xuwy xuwy 4096 2月   5 11:35 [38;5;27mpublic[0m
+drwxr-xr-x  2 xuwy xuwy 4096 2月   5 11:35 [38;5;27mR[0m
+-rw-r--r--  1 xuwy xuwy   11 2月   5 11:09 README.md
+-rw-r--r--  1 xuwy xuwy   28 2月   5 11:36 .Rhistory
+drwxr-xr-x  4 xuwy xuwy 4096 2月   5 11:09 [38;5;27m.Rproj.user[0m
+drwxr-xr-x  3 xuwy xuwy 4096 2月   5 11:35 [38;5;27mstatic[0m
+drwxr-xr-x  3 xuwy xuwy 4096 2月   5 11:35 [38;5;27mthemes[0m
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ cd .git
+]0;~/iblog.com/.git[xuwy@izuf6fj8vthezwgb0b8mhrz .git]$ ll
+总用量 48
+drwxr-xr-x  2 xuwy xuwy 4096 2月   5 11:09 [0m[38;5;27mbranches[0m
+-rw-rw-r--  1 xuwy xuwy  259 2月   5 11:41 config
+-rw-r--r--  1 xuwy xuwy   73 2月   5 11:09 description
+-rw-r--r--  1 xuwy xuwy   23 2月   5 11:09 HEAD
+drwxr-xr-x  2 xuwy xuwy 4096 2月   5 11:09 [38;5;27mhooks[0m
+-rw-rw-r--  1 xuwy xuwy 4784 2月   5 11:41 index
+drwxr-xr-x  2 xuwy xuwy 4096 2月   5 11:09 [38;5;27minfo[0m
+drwxr-xr-x  3 xuwy xuwy 4096 2月   5 11:09 [38;5;27mlogs[0m
+drwxr-xr-x 41 xuwy xuwy 4096 2月   5 11:41 [38;5;27mobjects[0m
+-rw-r--r--  1 xuwy xuwy  107 2月   5 11:09 packed-refs
+drwxr-xr-x  5 xuwy xuwy 4096 2月   5 11:09 [38;5;27mrefs[0m
+]0;~/iblog.com/.git[xuwy@izuf6fj8vthezwgb0b8mhrz .git]$ cat config 
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/xwydq/iblog.com
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+]0;~/iblog.com/.git[xuwy@izuf6fj8vthezwgb0b8mhrz .git]$ [K[xuwy@izuf6fj8vthezwgb0b8mhrz .git]$  echo AA13678 && /usr/bin/env && echo B0409B71[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat config [K[C[1P[1P[1P[1@v[1@i[1@m
+]0;~/iblog.com/.git[xuwy@izuf6fj8vthezwgb0b8mhrz .git]$ [K[xuwy@izuf6fj8vthezwgb0b8mhrz .git]$  echo AA13678 && /usr/bin/env && echo B0409B71[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cvim config [K echo AA13678 && /usr/bin/env && echo B0409B71[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat config [K echo AA13678 && /usr/bin/env && echo B0409B71[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cll[Kcd .git echo AA13678 && /usr/bin/env && echo B0409B71[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cll -a[K echo AA13678 && /usr/bin/env && echo B0409B71[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[17Pgit commit -m "first comment"
+fatal: This operation must be run in a work tree
+]0;~/iblog.com/.git[xuwy@izuf6fj8vthezwgb0b8mhrz .git]$ cd ..
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ git commit -m "first comment"
+[master a56ec9e] first comment
+ 35 files changed, 869 insertions(+), 33 deletions(-)
+ rewrite .gitignore (98%)
+ create mode 100644 content/about.md
+ create mode 100644 content/post/2015-07-23-r-rmarkdown.Rmd
+ create mode 100644 content/post/2015-07-23-r-rmarkdown.html
+ create mode 100644 content/post/2016-02-14-hello-markdown.md
+ create mode 100644 layouts/partials/foot_custom.html
+ create mode 100644 static/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png
+ create mode 100644 themes/hugo-xmin/.gitignore
+ create mode 100644 themes/hugo-xmin/LICENSE.md
+ create mode 100644 themes/hugo-xmin/README.md
+ create mode 100644 themes/hugo-xmin/archetypes/default.md
+ create mode 100644 themes/hugo-xmin/exampleSite/R/build.R
+ create mode 100644 themes/hugo-xmin/exampleSite/config.toml
+ create mode 100644 themes/hugo-xmin/exampleSite/content/_index.Rmarkdown
+ create mode 100644 themes/hugo-xmin/exampleSite/content/_index.markdown
+ create mode 100644 themes/hugo-xmin/exampleSite/content/about.md
+ create mode 100644 themes/hugo-xmin/exampleSite/content/note/2017-06-13-a-quick-note.md
+ create mode 100644 themes/hugo-xmin/exampleSite/content/note/2017-06-14-another-note.md
+ create mode 100644 themes/hugo-xmin/exampleSite/content/post/2015-07-23-lorem-ipsum.md
+ create mode 100644 themes/hugo-xmin/exampleSite/content/post/2016-02-14-hello-markdown.md
+ create mode 100644 themes/hugo-xmin/exampleSite/layouts/partials/foot_custom.html
+ create mode 100644 themes/hugo-xmin/hugo-xmin.Rproj
+ create mode 100644 themes/hugo-xmin/images/screenshot.png
+ create mode 100644 themes/hugo-xmin/images/tn.png
+ create mode 100644 themes/hugo-xmin/layouts/404.html
+ create mode 100644 themes/hugo-xmin/layouts/_default/list.html
+ create mode 100644 themes/hugo-xmin/layouts/_default/single.html
+ create mode 100644 themes/hugo-xmin/layouts/_default/terms.html
+ create mode 100644 themes/hugo-xmin/layouts/partials/foot_custom.html
+ create mode 100644 themes/hugo-xmin/layouts/partials/footer.html
+ create mode 100644 themes/hugo-xmin/layouts/partials/head_custom.html
+ create mode 100644 themes/hugo-xmin/layouts/partials/header.html
+ create mode 100644 themes/hugo-xmin/static/css/fonts.css
+ create mode 100644 themes/hugo-xmin/static/css/style.css
+ create mode 100644 themes/hugo-xmin/theme.toml
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ git push -u origin master
+error: cannot run rpostback-askpass: No such file or directory
+Username for 'https://github.com': xwydq
+error: cannot run rpostback-askpass: No such file or directory
+Password for 'https://xwydq@github.com': 
+Counting objects: 57, done.
+Delta compression using up to 8 threads.
+Compressing objects:   2% (1/44)   Compressing objects:   4% (2/44)   Compressing objects:   6% (3/44)   Compressing objects:   9% (4/44)   Compressing objects:  11% (5/44)   Compressing objects:  13% (6/44)   Compressing objects:  15% (7/44)   Compressing objects:  18% (8/44)   Compressing objects:  20% (9/44)   Compressing objects:  22% (10/44)   Compressing objects:  25% (11/44)   Compressing objects:  27% (12/44)   Compressing objects:  29% (13/44)   Compressing objects:  31% (14/44)   Compressing objects:  34% (15/44)   Compressing objects:  36% (16/44)   Compressing objects:  38% (17/44)   Compressing objects:  40% (18/44)   Compressing objects:  43% (19/44)   Compressing objects:  45% (20/44)   Compressing objects:  47% (21/44)   Compressing objects:  50% (22/44)   Compressing objects:  52% (23/44)   Compressing objects:  54% (24/44)   Compressing objects:  56% (25/44)   Compressing objects:  59% (26/44)   Compressing objects:  61% (27/44)   Compressing objects:  63% (28/44)   Compressing objects:  65% (29/44)   Compressing objects:  68% (30/44)   Compressing objects:  70% (31/44)   Compressing objects:  72% (32/44)   Compressing objects:  75% (33/44)   Compressing objects:  77% (34/44)   Compressing objects:  79% (35/44)   Compressing objects:  81% (36/44)   Compressing objects:  84% (37/44)   Compressing objects:  86% (38/44)   Compressing objects:  88% (39/44)   Compressing objects:  90% (40/44)   Compressing objects:  93% (41/44)   Compressing objects:  95% (42/44)   Compressing objects:  97% (43/44)   Compressing objects: 100% (44/44)   Compressing objects: 100% (44/44), done.
+Writing objects:   1% (1/55)   Writing objects:   3% (2/55)   Writing objects:   5% (3/55)   Writing objects:   7% (4/55)   Writing objects:   9% (5/55)   Writing objects:  10% (6/55)   Writing objects:  12% (7/55)   Writing objects:  14% (8/55)   Writing objects:  16% (9/55)   Writing objects:  18% (10/55)   Writing objects:  20% (11/55)   Writing objects:  21% (12/55)   Writing objects:  23% (13/55)   Writing objects:  25% (14/55)   Writing objects:  27% (15/55)   Writing objects:  29% (16/55)   Writing objects:  30% (17/55)   Writing objects:  32% (18/55)   Writing objects:  34% (19/55)   Writing objects:  36% (20/55)   Writing objects:  38% (21/55)   Writing objects:  40% (22/55)   Writing objects:  41% (23/55)   Writing objects:  43% (24/55)   Writing objects:  45% (25/55)   Writing objects:  47% (26/55)   Writing objects:  49% (27/55)   Writing objects:  50% (28/55)   Writing objects:  52% (29/55)   Writing objects:  54% (30/55)   Writing objects:  56% (31/55)   Writing objects:  58% (32/55)   Writing objects:  60% (33/55)   Writing objects:  61% (34/55)   Writing objects:  63% (35/55)   Writing objects:  65% (36/55)   Writing objects:  67% (37/55)   Writing objects:  69% (38/55)   Writing objects:  70% (39/55)   Writing objects:  72% (40/55)   Writing objects:  74% (41/55)   Writing objects:  76% (42/55)   Writing objects:  78% (43/55)   Writing objects:  80% (44/55)   Writing objects:  81% (45/55)   Writing objects:  83% (46/55)   Writing objects:  85% (47/55)   Writing objects:  87% (48/55)   Writing objects:  89% (49/55)   Writing objects:  90% (50/55)   Writing objects:  92% (51/55)   Writing objects:  94% (52/55)   Writing objects:  96% (53/55)   Writing objects:  98% (54/55)   Writing objects: 100% (55/55)   Writing objects: 100% (55/55), 93.14 KiB | 0 bytes/s, done.
+Total 55 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/1)   [Kremote: Resolving deltas: 100% (1/1)   [Kremote: Resolving deltas: 100% (1/1), done.[K
+To https://github.com/xwydq/iblog.com
+   39acb9e..a56ec9e  master -> master
+分支 master 设置为跟踪来自 origin 的远程分支 master。
+]0;~/iblog.com[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ [K[xuwy@izuf6fj8vthezwgb0b8mhrz iblog.com]$ cd /srv/sgu[K[K[Kshiny-server/jc-apps/
+]0;/srv/shiny-server/jc-apps[xuwy@izuf6fj8vthezwgb0b8mhrz jc-apps]$ ll
+总用量 0
+lrwxrwxrwx 1 root root 28 1月  25 13:47 [0m[38;5;51mwtest[0m -> [38;5;27m/home/xuwy/test/widgets-test[0m
+]0;/srv/shiny-server/jc-apps[xuwy@izuf6fj8vthezwgb0b8mhrz jc-apps]$ ln -s /home/xuwy/iblog.com iblog
+ln: 无法创建符号链接"iblog": 权限不够
+]0;/srv/shiny-server/jc-apps[xuwy@izuf6fj8vthezwgb0b8mhrz jc-apps]$ ln -s /home/xuwy/iblog.com iblog[1@s[1@u[1@d[1@o[1@ 
+[sudo] xuwy 的密码：
+]0;/srv/shiny-server/jc-apps[xuwy@izuf6fj8vthezwgb0b8mhrz jc-apps]$ ll
+总用量 0
+lrwxrwxrwx 1 root root 20 2月   5 13:05 [0m[38;5;51miblog[0m -> [38;5;27m/home/xuwy/iblog.com[0m
+lrwxrwxrwx 1 root root 28 1月  25 13:47 [38;5;51mwtest[0m -> [38;5;27m/home/xuwy/test/widgets-test[0m
+]0;/srv/shiny-server/jc-apps[xuwy@izuf6fj8vthezwgb0b8mhrz jc-apps]$ 
