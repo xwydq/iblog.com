@@ -10,11 +10,6 @@ tags:
   - selectize.js
 ---
 
----
-typora-copy-images-to: ipic
-
----
-
 > [selectize.js](http://selectize.github.io/selectize.js/)是基于jQuery开发的混合了文本输入框与下拉选择框功能的JS库，对应的[GITHUB地址](https://github.com/selectize/selectize.js)
 
 最新版本的shiny已经整合了selectize.js 到 selectInput
