@@ -10,6 +10,7 @@ tags:
   - selectize.js
 ---
 
+
 > [selectize.js](http://selectize.github.io/selectize.js/)是基于jQuery开发的混合了文本输入框与下拉选择框功能的JS库，对应的[GITHUB地址](https://github.com/selectize/selectize.js)
 
 最新版本的shiny已经整合了selectize.js 到 selectInput
@@ -22,8 +23,10 @@ other attached packages:
 [1] shiny_1.0.5
 ```
 
-1. 打标签
+### 打标签
+
    使用 selectInput/selectizeInput 实现打标签功能
+
    ```r
      selectizeInput(inputId='ids1', 
                     label= tags$h5('标签效果'), 
@@ -46,24 +49,38 @@ other attached packages:
                                    }") # onDelete 触发删除确认的作用
                         ))
    ```
+
    默认样式显示的标签效果较差，可以使用自定义css样式的方式修改
+
    - 默认样式
+
      <img src="https://ws2.sinaimg.cn/large/006tNc79gy1fo6rhjd5amj30ki07g74n.jpg" style="zoom:50%" />
+
    - 修改后效果，使用css显示标签的渐变色
+
      <img src="https://ws3.sinaimg.cn/large/006tNc79gy1fo6rhiwqagj30t8090t9l.jpg" style="zoom:50%" />
+
    - 修改过程
+
      定位原标签的的具体位置确定起作用的css样式，可以下载 [GITHUB](https://github.com/selectize/selectize.js)的示例在Chrome中查看
+
      ![1517884574736](https://ws1.sinaimg.cn/large/006tNc79gy1fo6rhgkf6pj31kw0l0qj3.jpg)
+
      自定义的CSS样式
+
      ```css
      .selectize-control.multi .selectize-input [data-value] {
      	background-image: linear-gradient(to bottom, #ddd7ee, #1e9);
      }
      ```
-2. 下拉选择添加邮箱地址的功能
+
+### 下拉选择添加邮箱地址的功能
+
    实现邮箱正则匹配，设置展示规则等。直接将原示例转移到shiny，需要注意：
+
    - `I()`函数及R的`AsIs`类型的使用
    - JS代码作为R字符串时需转义`'; "; \` to `\'; \"; \\`
+
    ```r
    selectizeInput(inputId='ids2', 
                   label= tags$h5(em('选择添加邮箱（正则限制）')), 
@@ -137,7 +154,14 @@ other attached packages:
                           delimiter = ','
                         ))
    ```
+
    具体效果
+
    <img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo6rhhr8nrj315y09s40p.jpg" style="zoom:50%" />
-3. 具体实例见[shinyapps.io](https://xwydq.shinyapps.io/selectize/)
+
+### 具体实例见[shinyapps.io](https://xwydq.shinyapps.io/selectize/)
+
    [shinyapps.io的部署](http://docs.rstudio.com/shinyapps.io/)
+
+
+
