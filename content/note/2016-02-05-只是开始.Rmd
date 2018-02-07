@@ -5,6 +5,9 @@ date: '2016-02-05'
 slug: 只是开始
 tags: 标签功能
 categories: HTML
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 ```{r}
@@ -17,11 +20,6 @@ p + geom_boxplot() + ggtitle("火车fadrivr啦")
 plot(rnorm(100), main = "another图片")
 ```
 
-
-```{r section_1, echo=FALSE, message=FALSE}
-library(DT)
-DT::datatable(iris)
-```
 
 ```{r}
 library(knitr)
