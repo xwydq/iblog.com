@@ -5,9 +5,6 @@ date: '2016-02-05'
 slug: 只是开始
 tags: 标签功能
 categories: HTML
-output:
-  blogdown::html_page:
-    toc: true
 ---
 
 ```{r}
