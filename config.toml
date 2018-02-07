@@ -1,9 +1,9 @@
-baseurl = "/"
+baseurl = "https://xwydq.netlify.com"
 languageCode = "zh-CN"
 title = "飞舞的尘埃"
 theme = "hugo-xmin"
 googleAnalytics = "UA-113712825-1"
-disqusShortname = "weiyun"
+disqusShortname = "flydust"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 preserveTaxonomyNames = true
 footnotereturnlinkcontents = "↩"
@@ -14,7 +14,7 @@ footnotereturnlinkcontents = "↩"
 
 [[menu.main]]
     name = "Home"
-    url = "/"
+    url = "https://xwydq.netlify.com"
     weight = 1
 [[menu.main]]
     name = "About"
