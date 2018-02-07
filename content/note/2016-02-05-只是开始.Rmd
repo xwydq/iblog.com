@@ -24,3 +24,8 @@ library(recharts)
 echart(iris, ~ Sepal.Length, ~ Sepal.Width)
 ```
 
+```{r}
+library(knitr)
+kable(head(iris))
+```
+

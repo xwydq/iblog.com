@@ -1,4 +1,4 @@
-baseurl = "https://xwydq.netlify.com"
+baseurl = "/"
 languageCode = "zh-CN"
 title = "飞舞的尘埃"
 theme = "hugo-xmin"
@@ -14,7 +14,7 @@ footnotereturnlinkcontents = "↩"
 
 [[menu.main]]
     name = "Home"
-    url = "https://xwydq.netlify.com"
+    url = "/"
     weight = 1
 [[menu.main]]
     name = "About"
