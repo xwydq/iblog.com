@@ -1,12 +1,13 @@
 ---
-title: 只是开始
-author: 徐伟云
+title: "只是开始"
+author: "徐伟云"
 date: '2016-02-05'
 slug: 只是开始
-categories:
-  - HTML
-tags:
-  - 标签功能
+tags: 标签功能
+categories: HTML
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 ```{r}
