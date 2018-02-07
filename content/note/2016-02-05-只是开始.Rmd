@@ -21,9 +21,9 @@ plot(rnorm(100), main = "another图片")
 ```
 
 
-```{r}
+```{r section_1, echo=FALSE, message=FALSE}
 library(DT)
-datatable(iris)
+DT::datatable(iris)
 ```
 
 ```{r}
