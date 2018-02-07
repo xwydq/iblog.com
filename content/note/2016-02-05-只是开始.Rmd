@@ -25,6 +25,12 @@ library(recharts)
 echart(iris, ~ Sepal.Length, ~ Sepal.Width)
 ```
 
+
+```{r}
+library(DT)
+datatable(iris)
+```
+
 ```{r}
 library(knitr)
 kable(head(iris))
