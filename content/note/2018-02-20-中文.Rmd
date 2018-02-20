@@ -21,4 +21,7 @@ fit <- lm(dist ~ speed, data = cars)
 fit
 ```
 
+```{r}
+plot(rnorm(10), main = "童话的世界")
+```
 
