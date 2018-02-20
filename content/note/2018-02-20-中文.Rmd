@@ -1,0 +1,24 @@
+---
+title: 中文
+author: gXcloud
+date: '2018-02-20'
+slug: 中文
+categories: []
+tags:
+  - error
+  - test
+---
+
+```{r}
+library(knitr)
+kable(head(iris))
+```
+
+
+```{r cars}
+summary(cars)
+fit <- lm(dist ~ speed, data = cars)
+fit
+```
+
+
