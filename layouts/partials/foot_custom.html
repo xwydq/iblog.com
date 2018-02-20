@@ -16,4 +16,8 @@ hljs.initHighlightingOnLoad();
 
 {{ template "_internal/google_analytics.html" . }}
 
-{{ template "_internal/disqus.html" . }}
+
+{{if .IsPage }}
+  {{ template "_internal/disqus.html" . }}
+{{ end }}
+
