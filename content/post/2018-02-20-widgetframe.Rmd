@@ -11,36 +11,44 @@ tags:
   - blogdown
 ---
 
-> R的画图包千千万，其中有许多优秀的交互式画图、数据展示包，如leaflet; dygraphs; DT等。但是如果要线上使用这些结果常常存在JS加载冲突的问题，因为加载这些包同时要引入许多相关的JS库
+> `R`的画图包千千万，其中有许多优秀的交互式画图、数据展示包，如`leaflet`; `dygraphs`; `DT`等。但是如果要线上使用这些结果常常存在`JS`加载冲突的问题，因为加载这些包同时要引入许多相关的`JS`库
 
-其中一个解决方法就是把相关的R展示模块当作一个iframe来处理，具体操作已有包![widgetframe](https://github.com/bhaskarvk/widgetframe)
+其中一个解决方法就是把相关的`R`展示模块当作一个`iframe`来处理，具体操作已有包[`widgetframe`](https://github.com/bhaskarvk/widgetframe)，使用`frameWidget`将输出结果进行包装
 
 示例
 
-- leaflet地图效果
+- `leaflet`地图效果
 
-```{r example-leaflet}
+```{r example-leaflet, warning=FALSE}
 library(leaflet)
 library(widgetframe)
-l <- leaflet(height=300) %>% addTiles() %>% setView(0,0,1)
+l <- leaflet() %>% addProviderTiles(providers$CartoDB.DarkMatter) %>% setView(0,0,2)
 frameWidget(l)
 ```
 
-- dygraphs交互图表
+- `dygraphs`交互图表
 
-```{r example-dygraphs}
+```{r example-dygraphs, warning=FALSE}
 library(dygraphs)
 ts <- dygraph(nhtemp, main = "New Haven Temperatures",
               height=250, width='95%')
 frameWidget(ts)
 ```
 
-- DT数据表格
+- `DT`数据表格
 
-```{r example-DT}
+```{r example-DT, warning=FALSE}
 library(DT)
-dtb <- datatable(iris)
-frameWidget(dtb)
+dt <-  datatable(
+  head(iris, 20), 
+  options = list(
+     columnDefs = list(list(className = 'dt-center', targets = 5)),
+     pageLength = 5, lengthMenu = c(5, 10, 15, 20)),
+  fillContainer = T)
+
+frameWidget(dt, height = 350, width = '95%')
 ```
+
+------
 
 注：目前还不支持shiny
