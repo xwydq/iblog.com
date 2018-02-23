@@ -61,9 +61,9 @@ cp /usr/include/oracle/11.2/client64/* .
 ```
 
 - 设置环境变量    
+
 ```shell
-vi /etc/profile
-# 加入：
+vi /etc/profile # 加入：
 
 export ORACLE_HOME=/usr/lib/oracle/11.2/client64
 export TNS_ADMIN=$ORACLE_HOME/network/admin
@@ -76,6 +76,7 @@ export PATH
 chmod +x /etc/profile
 source /etc/profile
 ```
+
 **注**：设置环境变量`NLS_LANG`可以选择`GBK`，只要其他local、系统语言变量设置好，R在console下读取数据中文是没有乱码问题的，但是使用`rstudio-server`却始终不能正常显示中文，查来查去是`rstudio-server`的问题-对`GBK`支持有问题（不能确定），所以这里使用`UTF-8`作为变量可以解决中文显示的问题    
 
 - `sqlplus`测试    
