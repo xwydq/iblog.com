@@ -38,7 +38,7 @@ rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
 rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
 rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm
 rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm
-```
+```    
 安装完成后，`ORACLE Instant Client` 相关的头文件在 `/usr/include/oracle/11.2/client64/`下；库文件在`/usr/lib/oracle/11.2/client64/`下(cliient目录下有 lib 和 bin两个目录.)    
 
 - 指定TNS文件目录    
@@ -47,21 +47,20 @@ rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm
 ```shell
 mkdir -p /usr/lib/oracle/11.2/client64/network/admin
 # 将已有的TNS文件（tnsnames.ora）复制到该目录下
-```
+```    
 
 - 头文件的转移    
 相关的头文件在`/usr/include/oracle/11.2/client64/`目录下    
-![img](http://img.blog.csdn.net/20150211162254038?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![img](http://img.blog.csdn.net/20150211162254038?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)    
 但是需要转移到目录（如果不复制过去，安装`ROracle`时就提示`~/rdbms/public`目录不存在，真的不存在啊，为啥去这个路径找？`ROracle`安装文档尽然没有提到，太坑了）：`/usr/lib/oracle/11.2/client64/rdbms/public`    
 如下命令：    
 ```shell
 mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public
 cd /usr/lib/oracle/11.2/client64/rdbms/public
 cp /usr/include/oracle/11.2/client64/* .
-```
+```    
 
 - 设置环境变量    
-
 ```shell
 vi /etc/profile # 加入：
 
@@ -75,57 +74,49 @@ export PATH
 
 chmod +x /etc/profile
 source /etc/profile
-```
-
+```    
 **注**：设置环境变量`NLS_LANG`可以选择`GBK`，只要其他local、系统语言变量设置好，R在console下读取数据中文是没有乱码问题的，但是使用`rstudio-server`却始终不能正常显示中文，查来查去是`rstudio-server`的问题-对`GBK`支持有问题（不能确定），所以这里使用`UTF-8`作为变量可以解决中文显示的问题    
 
 - `sqlplus`测试    
 使用`sqlplus`测试是否可以成功连接数据库    
-![img](http://img.blog.csdn.net/20150211162359745?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![img](http://img.blog.csdn.net/20150211162359745?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)    
 
 ### 二、ROracle安装    
 以上安装正常的话就可以直接安装`ROracle`，建议`root`，其他用户也可以    
 ```shell
 R CMD INSTALLROracle_1.1-12.tar.gz
-```
-![img](http://img.blog.csdn.net/20150211162443267)
-如此就表示安装成功    
+```    
+![img](http://img.blog.csdn.net/20150211162443267)    
+如此就表示安装成功        
 
 ### 三、加载使用    
-![img](http://img.blog.csdn.net/20150211162510660)
+![img](http://img.blog.csdn.net/20150211162510660)    
 
 ### 四、rstudio-server加载出错及中文乱码解决
 
-使用`rstudio-server`加载`ROracle`一直报错
-
+使用`rstudio-server`加载`ROracle`一直报错    
 ```R
 Error in dyn.load(file, DLLpath =DLLpath, ...) :
  unable to load shared object '/usr/lib64/R/library/ROracle/libs/ROracle.so':
  libclntsh.so.11.1: cannot open shared object file: No such file ordirectory
 Error: package or namespace load failedfor ‘ROracle’
-```
-
-![img](http://img.blog.csdn.net/20150211162527090)
-
+```    
+![img](http://img.blog.csdn.net/20150211162527090)    
 按官方文档说是没有环境变量`LD_LIBRARY_PATH`，但是即使指定了之后还是报错，想到`rstudio-server`每次都要一个新的R进程（理解可能不当），而启动`R`时可以可以设置一些默认的启动命令，这样就把一些环境变量的设定语句直接加到`Rprofile.site`（文件不存在可直接新建），命令：
-
+    
 ```R
 cd /usr/local/lib64/R/etc/
 mkdir -p Rprofile.site
-vi Rprofile.site
+vi Rprofile.site # 加入：
 
-# 加入：
 Sys.setenv(LD_LIBRARY_PATH="/usr/local/lib64/R/lib:/usr/local/lib64:/usr/java/jdk1.6.0_45/jre/lib/amd64/server:/usr/local/lib:/usr/lib/oracle/11.2/client64/lib")
 Sys.setenv(ORACLE_HOME="/usr/lib/oracle/11.2/client64")
 Sys.setenv(TNS_ADMIN="/usr/lib/oracle/11.2/client64/network/admin")
 Sys.setenv(PATH="/usr/java/jdk1.6.0_45/bin:/usr/java/jdk1.6.0_45/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/hadoop/hadoop-1.2.1/bin:/usr/lib/oracle/11.2/client64/bin:/home/hadoop/bin:/home/hadoop/hadoop-1.2.1/bin:/usr/lib/oracle/11.2/client64/bin:/usr/local/lib64/R/bin")
 Sys.setenv(NLS_LANG="Simplified Chinese_china.AL32UTF8")
-```
-
-具体的环境变量值可以通过`R console`查看
-
-重启`rstudio-server`发现还是没有成功，但是其他环境变量已经有值，再设置：
-
+```    
+具体的环境变量值可以通过`R console`查看    
+重启`rstudio-server`发现还是没有成功，但是其他环境变量已经有值，再设置：    
 ```R
 cd /etc/rstudio
 vi rserver.conf
@@ -133,11 +124,9 @@ vi rserver.conf
 # 加入：
 # Server Configuration File
 rsession-ld-library-path=/usr/local/lib64/R/lib:/usr/local/lib64:/usr/java/jdk1.6.0_45/jre/lib/amd64/server:/usr/local/lib:/usr/lib/oracle/11.2/client64/lib
-```
-
-结果终于OK了！（中文乱码就是用UTF-8解决）
-
-![img](http://img.blog.csdn.net/20150211161318818)
+```    
+结果终于OK了！（中文乱码就是用UTF-8解决）    
+![img](http://img.blog.csdn.net/20150211161318818)    
 
 ------
 
