@@ -15,69 +15,52 @@ tags:
 
 ### 一、oracle-instantclient的安装
 
-1. `Oracle Instant Client`下载（与数据库版本一致）
-
-下载地址：[官网](http://www.oracle.com/technetwork/topics/linuxsoft-082809.html)
-
-可以下载`rpm`包或者`zip`包进行安装,这里已`rpm包（64位）`为例
-
-下载`rpm`包[csdn下载地址](http://download.csdn.net/detail/xwydq/8440629)
-
+1. `Oracle Instant Client`下载（与数据库版本一致）    
+下载地址：[官网](http://www.oracle.com/technetwork/topics/linuxsoft-082809.html)    
+可以下载`rpm`包或者`zip`包进行安装,这里已`rpm包（64位）`为例    
+下载`rpm`包[csdn下载地址](http://download.csdn.net/detail/xwydq/8440629)    
 ```
 oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
 oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
 oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
 ```
 
-2. 查看默认安装路径
-
+2. 查看默认安装路径    
 ```Shell
 rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
 rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
 rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
 ```
 
-3.  安装
-
-使用如下命令进行安装：
-
+3.  安装    
+使用如下命令进行安装：    
 ```shell
 rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
 rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm
 rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm
 ```
+安装完成后，`ORACLE Instant Client` 相关的头文件在 `/usr/include/oracle/11.2/client64/`下；库文件在`/usr/lib/oracle/11.2/client64/`下(cliient目录下有 lib 和 bin两个目录.)    
 
-安装完成后，`ORACLE Instant Client` 相关的头文件在 `/usr/include/oracle/11.2/client64/`下；库文件在`/usr/lib/oracle/11.2/client64/`下(cliient目录下有 lib 和 bin两个目录.)
-
-4. 指定TNS文件目录
-
-一般情况将TNS文件（`tnsnames.ora`）保存到以下目录：
-
-目录不存在，建目录先：
-
+4. 指定TNS文件目录    
+一般情况将TNS文件（`tnsnames.ora`）保存到以下目录：    
+目录不存在，建目录先：    
 ```shell
 mkdir -p /usr/lib/oracle/11.2/client64/network/admin
 # 将已有的TNS文件（tnsnames.ora）复制到该目录下
 ```
 
-5. 头文件的转移
-
-相关的头文件在`/usr/include/oracle/11.2/client64/`目录下
-
+5. 头文件的转移    
+相关的头文件在`/usr/include/oracle/11.2/client64/`目录下    
 ![img](http://img.blog.csdn.net/20150211162254038?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
-
-但是需要转移到目录（如果不复制过去，安装`ROracle`时就提示`~/rdbms/public`目录不存在，真的不存在啊，为啥去这个路径找？`ROracle`安装文档尽然没有提到，太坑了）：`/usr/lib/oracle/11.2/client64/rdbms/public`
-
-如下命令：
-
+但是需要转移到目录（如果不复制过去，安装`ROracle`时就提示`~/rdbms/public`目录不存在，真的不存在啊，为啥去这个路径找？`ROracle`安装文档尽然没有提到，太坑了）：`/usr/lib/oracle/11.2/client64/rdbms/public`    
+如下命令：    
 ```shell
 mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public
 cd /usr/lib/oracle/11.2/client64/rdbms/public
 cp /usr/include/oracle/11.2/client64/* .
 ```
 
-6. 设置环境变量
-
+6. 设置环境变量    
 ```shell
 vi /etc/profile
 # 加入：
@@ -93,30 +76,22 @@ export PATH
 chmod +x /etc/profile
 source /etc/profile
 ```
+**注**：设置环境变量`NLS_LANG`可以选择`GBK`，只要其他local、系统语言变量设置好，R在console下读取数据中文是没有乱码问题的，但是使用`rstudio-server`却始终不能正常显示中文，查来查去是`rstudio-server`的问题-对`GBK`支持有问题（不能确定），所以这里使用`UTF-8`作为变量可以解决中文显示的问题    
 
-**注**：设置环境变量`NLS_LANG`可以选择`GBK`，只要其他local、系统语言变量设置好，R在console下读取数据中文是没有乱码问题的，但是使用`rstudio-server`却始终不能正常显示中文，查来查去是`rstudio-server`的问题-对`GBK`支持有问题（不能确定），所以这里使用`UTF-8`作为变量可以解决中文显示的问题
-
-7. `sqlplus`测试
-
-使用`sqlplus`测试是否可以成功连接数据库
-
+7. `sqlplus`测试    
+使用`sqlplus`测试是否可以成功连接数据库    
 ![img](http://img.blog.csdn.net/20150211162359745?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
 
-### 二、ROracle安装
-
-以上安装正常的话就可以直接安装`ROracle`，建议`root`，其他用户也可以
-
+### 二、ROracle安装    
+以上安装正常的话就可以直接安装`ROracle`，建议`root`，其他用户也可以    
 ```shell
 R CMD INSTALLROracle_1.1-12.tar.gz
 ```
-
 ![img](http://img.blog.csdn.net/20150211162443267)
+如此就表示安装成功    
 
-如此就表示安装成功
-
-### 三、加载使用
-
- ![img](http://img.blog.csdn.net/20150211162510660)
+### 三、加载使用    
+![img](http://img.blog.csdn.net/20150211162510660)
 
 ### 四、rstudio-server加载出错及中文乱码解决
 
