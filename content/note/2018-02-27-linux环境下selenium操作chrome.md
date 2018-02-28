@@ -127,3 +127,12 @@ typora-copy-images-to: ipic
 
   
 
+
+------
+
+### 参考
+
+[使用 headless chrome进行测试](https://segmentfault.com/a/1190000009399609)
+
+[Driving Headless Chrome with Python](https://duo.com/blog/driving-headless-chrome-with-python)
+
