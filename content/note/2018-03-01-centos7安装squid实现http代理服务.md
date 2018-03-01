@@ -150,9 +150,12 @@ print(resp.json())
 
 
 ------
+### 参考
+[1]: [how-to-install-and-configure-squid-proxy-on-centos-7](https://hostpresto.com/community/tutorials/how-to-install-and-configure-squid-proxy-on-centos-7/)
 
-[^1]: [how-to-install-and-configure-squid-proxy-on-centos-7](https://hostpresto.com/community/tutorials/how-to-install-and-configure-squid-proxy-on-centos-7/)
-[^2]: [SQUID正向代理实现翻墙访问FACEBOOK/GOOGLE](https://putty.biz/181)
-[^3]: [使用squid为爬虫添加二级代理](https://rookiefly.cn/detail/192)
-[^4]: [搭建需要身份认证的 Squid 代理](https://maoxian.de/2016/06/1415.html)
+[2]: [SQUID正向代理实现翻墙访问FACEBOOK/GOOGLE](https://putty.biz/181)
+
+[3]: [使用squid为爬虫添加二级代理](https://rookiefly.cn/detail/192)
+
+[4]: [搭建需要身份认证的 Squid 代理](https://maoxian.de/2016/06/1415.html)
 
