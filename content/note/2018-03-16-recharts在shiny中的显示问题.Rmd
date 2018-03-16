@@ -1,0 +1,76 @@
+---
+title: recharts在shiny中的显示问题
+author: gXcloud
+date: '2018-03-16'
+slug: shiny-display-recharts
+categories:
+  - shiny
+tags:
+  - R
+  - plot
+  - package
+  - recharts
+  - JS
+  - 可视化
+---
+
+### `ePlot`函数画图
+
+`Create rEcharts from an R object`，直接使用`ePlot`函数画图可以正常显示
+```{r}
+library(recharts)
+# 定义数据部分
+series = list(list(
+  name = 'Sales',
+  type = 'bar',
+  data = c(5, 20, 36, 10, 10, 20)
+))
+# 定义坐标轴部分
+ext = list(
+  xAxis = list(list( 
+    data = c('shirt','cardign','chiffon shirt','pants','heels','socks')
+  )),
+  yAxis = list(list())
+)
+# 绘制
+e1 = ePlot(series, ext)
+e1
+```
+
+
+### `eBar`函数画图
+
+`Create an HTML bar charts widget using the ECharts(version:3.2.2) library`，使用`eBar`函数画图`Rmd`生成`HTML`正常，但是在`shiny`中使用`eBar`不显示
+
+- `Rmd`显示效果
+```{r}
+dat=data.frame(x1 = c('shirt','cardign','chiffon shirt','pants','heels','socks'),
+               Sales = c(5, 20, 36, 10, 10, 20))
+e2 = eBar(dat, ~x1, ~Sales)
+e2
+```
+
+- shiny显示失败，在Rmd中运行shiny需要设置`runtime: shiny`
+```{r}
+# renderEChart({
+#   e2
+# })
+```
+
+
+### 比较e1、e2的区别
+```{r}
+str(e1)
+str(e2)
+```
+
+比较发现e1与e2结构基本相同的list，最大区别
+
+```{r}
+e1$dependencies
+
+e2$dependencies
+```
+
+将`e2$dependencies = NULL` 就可以实现e2在shiny中的正常显示，目前应该是依赖指向的问题
+
