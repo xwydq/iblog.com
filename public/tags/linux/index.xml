@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 飞舞的尘埃</title>
+    <link>/tags/linux/</link>
+    <description>Recent content in Linux on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 01 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>centos7安装squid实现http代理服务</title>
+      <link>/note/2018/03/01/centos7-squid-http/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/03/01/centos7-squid-http/</guid>
+      <description>在centos7环境搭建带认证功能的squid代理服务
+ yum安装 squid实现代理功能，httpd-tools文件加密
+yum -y install squid yum -y install httpd-tools  squid的使用参数 进程启动、状态控制
+systemctl enable squid systemctl status/restart/stop squid systemctl status squid ● squid.service - Squid caching proxy Loaded: loaded (/usr/lib/systemd/system/squid.service; enabled; vendor preset: disabled) Active: active (running) since 三 2018-02-28 05:56:10 CST; 23h ago Process: 4889 ExecStop=/usr/sbin/squid -k shutdown -f $SQUID_CONF (code=exited, status=0/SUCCESS) Process: 4898 ExecStart=/usr/sbin/squid $SQUID_OPTS -f $SQUID_CONF (code=exited, status=0/SUCCESS) Process: 4892 ExecStartPre=/usr/libexec/squid/cache_swap.sh (code=exited, status=0/SUCCESS) Main PID: 4900 (squid) CGroup: /system.</description>
+    </item>
+    
+    <item>
+      <title>Linux下安装ROracle及rstudio-server使用ROracle中文乱码解决</title>
+      <link>/note/2015/02/20/linux-rstudioserver-roracle/</link>
+      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2015/02/20/linux-rstudioserver-roracle/</guid>
+      <description>rstudio-server安装在Linux服务器中，数据库一般也部署在服务器，所以在Linux服务器上使用R直连数据库操作更加方便，由于ROracle文档理解不到位，安装遇到一些问题在此补充，本文安装环境centos 6.5并测试通过
+ 一、oracle-instantclient的安装  Oracle Instant Client下载（与数据库版本一致）
+下载地址：官网
+可以下载rpm包或者zip包进行安装,这里已rpm包（64位）为例
+下载rpm包csdn下载地址
+oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  查看默认安装路径
+rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  安装
+使用如下命令进行安装：
+rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm  安装完成后，ORACLE Instant Client 相关的头文件在 /usr/include/oracle/11.2/client64/下；库文件在/usr/lib/oracle/11.2/client64/下(cliient目录下有 lib 和 bin两个目录.)
+ 指定TNS文件目录
+一般情况将TNS文件（tnsnames.ora）保存到以下目录：
+目录不存在，建目录先：
+mkdir -p /usr/lib/oracle/11.2/client64/network/admin # 将已有的TNS文件（tnsnames.ora）复制到该目录下  头文件的转移
+相关的头文件在/usr/include/oracle/11.2/client64/目录下
+但是需要转移到目录（如果不复制过去，安装ROracle时就提示~/rdbms/public目录不存在，真的不存在啊，为啥去这个路径找？ROracle安装文档尽然没有提到，太坑了）：/usr/lib/oracle/11.2/client64/rdbms/public
+如下命令：
+mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public cd /usr/lib/oracle/11.2/client64/rdbms/public cp /usr/include/oracle/11.</description>
+    </item>
+    
+    <item>
+      <title>R语言选择导入文本数据部分字段</title>
+      <link>/note/2015/02/06/r-readtable-bycolumn/</link>
+      <pubDate>Fri, 06 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2015/02/06/r-readtable-bycolumn/</guid>
+      <description>背景：文本数据字段太多，只需要读取有用字段，以此降低内存压力方便分析
+ 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
+dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = c(-27L, -27L, -27L), Mar = c(-25L, -25L, -2L), Apr = c(-31L, -31L, -6L), May = c(-31L, -31L, -10L), Jun = c(-39L, -39L, -32L), Jul = c(-25L, -25L, -13L), Aug = c(-15L, -15L, -12L), Sep = c(-30L, -30L, -27L), Oct = c(-27L, -27L, -30L), Nov = c(-21L, -21L, -38L), Dec = c(-25L, -25L, -29L)), .</description>
+    </item>
+    
+  </channel>
+</rss>

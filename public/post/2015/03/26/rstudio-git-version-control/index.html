@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>在rstudio中使用git版本控制 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">在rstudio中使用git版本控制</span></h1>
+<h2 class="date">2015/03/26</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/r'>R</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/git'>git</a>
+  
+  <a href='/tags/github'>github</a>
+  
+  <a href='/tags/rstudio'>RStudio</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h3 id="git安装">git安装</h3>
+
+<ul>
+<li>方法一：源码安装</li>
+</ul>
+
+<pre><code class="language-shell"># //先安装git依赖的包 
+yum install zlib-devel 
+yum install openssl-devel 
+yum install perl 
+yum install cpio 
+yum install expat-devel 
+yum install gettext-devel 
+//安装autoconf 
+yum install autoconf 
+# //安装git 
+wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz 
+tar xzvf git-latest.tar.gz 
+cd git-{date} 
+autoconf 
+./configure --with-curl=/usr/local 
+make 
+make install
+</code></pre>
+
+<ul>
+<li>方法二：yum安装（epel源）</li>
+</ul>
+
+<pre><code class="language-shell">yum install git  
+测试安装成功：
+git --version
+</code></pre>
+
+<ul>
+<li>生成github的测试项目</li>
+</ul>
+
+<pre><code class="language-shell">mkdir ~/githubtest
+touch README.md
+echo intime-data-analyse &gt;&gt; README.md
+git init
+git add README.md
+git commit -m &quot;first commit&quot;
+git remote add origin https://github.com/username/rstudio-intime.git
+git push -u origin master
+</code></pre>
+
+<h3 id="生成密钥">生成密钥</h3>
+
+<pre><code>#生成rsa密钥对
+ssh-keygen -t rsa
+#查看公钥
+cat /home/gXcloud/.ssh/id_rsa.pub
+</code></pre>
+
+<h3 id="将公钥上传到github">将公钥上传到github</h3>
+
+<p><img src="http://img.blog.csdn.net/20150326172454731" alt="img" /></p>
+
+<h3 id="使用rstudio-server新建项目">使用rstudio-server新建项目</h3>
+
+<p><img src="http://img.blog.csdn.net/20150326172853562?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img" /></p>
+
+<h3 id="添加comment">添加comment</h3>
+
+<p><img src="http://img.blog.csdn.net/20150326173302637" alt="img" /></p>
+
+<h3 id="同步-push-上传-pull-下载-文件">同步（push-上传; pull-下载）文件</h3>
+
+<p><img src="http://img.blog.csdn.net/20150326173212478" alt="img" /></p>
+
+<hr />
+
+<p><strong>参考：</strong></p>
+
+<p><a href="http://blog.fens.me/r-rstudio-server/">多人在线开发R</a></p>
+
+<p><a href="http://www.zhihu.com/question/20070065">知乎git学习建议</a></p>
+
+<p><a href="http://git-scm.com/book/zh">git pro book 教程</a></p>
+
+<p><a href="https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN">rstudio官网说明</a></p>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 飞舞的尘埃</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 20 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>widgetframe</title>
+      <link>/post/2018/02/20/widgetframe/</link>
+      <pubDate>Tue, 20 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/02/20/widgetframe/</guid>
+      <description>R的画图包千千万，其中有许多优秀的交互式画图、数据展示包，如leaflet; dygraphs; DT等。但是如果要线上使用这些结果常常存在JS加载冲突的问题，因为加载这些包同时要引入许多相关的JS库
+ 其中一个解决方法就是把相关的R展示模块当作一个iframe来处理，具体操作已有包widgetframe，使用frameWidget将输出结果进行包装
+示例
+ leaflet地图效果  library(leaflet) library(widgetframe) ## 载入需要的程辑包：htmlwidgets l &amp;lt;- leaflet() %&amp;gt;% addProviderTiles(providers$CartoDB.DarkMatter) %&amp;gt;% setView(0,0,2) frameWidget(l)  {&#34;x&#34;:{&#34;url&#34;:&#34;/post/2018-02-20-widgetframe_files/figure-html//widgets/widget_example-leaflet.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}  dygraphs交互图表  library(dygraphs) ts &amp;lt;- dygraph(nhtemp, main = &amp;quot;New Haven Temperatures&amp;quot;, height=250, width=&amp;#39;95%&amp;#39;) frameWidget(ts)  {&#34;x&#34;:{&#34;url&#34;:&#34;/post/2018-02-20-widgetframe_files/figure-html//widgets/widget_example-dygraphs.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}  DT数据表格  library(DT) dt &amp;lt;- datatable( head(iris, 20), options = list( columnDefs = list(list(className = &amp;#39;dt-center&amp;#39;, targets = 5)), pageLength = 5, lengthMenu = c(5, 10, 15, 20)), fillContainer = T) frameWidget(dt, height = 350, width = &amp;#39;95%&amp;#39;)  {&#34;</description>
+    </item>
+    
+    <item>
+      <title>shiny tagsInput by selectizejs</title>
+      <link>/post/2018/02/06/shiny-tagsinput-by-selectizejs/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/02/06/shiny-tagsinput-by-selectizejs/</guid>
+      <description>selectize.js是基于jQuery开发的混合了文本输入框与下拉选择框功能的JS库，对应的GITHUB地址
+ 最新版本的shiny已经整合了selectize.js 到 selectInput
+&amp;gt; sessionInfo() R version 3.4.3 (2017-11-30) ... other attached packages: [1] shiny_1.0.5  打标签 使用 selectInput/selectizeInput 实现打标签功能
+selectizeInput(inputId=&#39;ids1&#39;, label= tags$h5(&#39;标签效果&#39;), choices = NULL, multiple = TRUE, options = list( placeholder = &#39;Please select/type something&#39;, maxItems = 3, # 最大数量限制 onInitialize = I(&#39;function() { this.setValue(&amp;quot;hello world&amp;quot;); }&#39;), # 未发现具体作用 # class=&amp;quot;demo&amp;quot;, plugins = list(&#39;restore_on_backspace&#39;, # backspace 按钮可以起到编辑效果 &#39;remove_button&#39;, # 显示移除按钮 &#39;drag_drop&#39;), # 可以拖动编辑顺序 create = TRUE, delimiter = &#39;,&#39;, persist = FALSE, onDelete = I(&amp;quot;function(values) { return confirm(values.</description>
+    </item>
+    
+    <item>
+      <title>在rstudio中使用git版本控制</title>
+      <link>/post/2015/03/26/rstudio-git-version-control/</link>
+      <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2015/03/26/rstudio-git-version-control/</guid>
+      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install   方法二：yum安装（epel源）  yum install git 测试安装成功： git --version   生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.</description>
+    </item>
+    
+  </channel>
+</rss>

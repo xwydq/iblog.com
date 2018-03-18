@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data.frame on 飞舞的尘埃</title>
+    <link>/tags/data.frame/</link>
+    <description>Recent content in Data.frame on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 14 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/data.frame/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>shiny分级菜单实现</title>
+      <link>/note/2016/04/14/shiny-update-selectinput/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2016/04/14/shiny-update-selectinput/</guid>
+      <description>本文主要目的实现R shiny中的分级菜单 选择地区A之后，再选择A地区的门店（下拉选项中只显示A地区门店）
+实现效果 代码  global.R
+ options(stringsAsFactors=FALSE, scipen=10, digits=4) library(dplyr) df_sample &amp;lt;- data.frame(region=rep(LETTERS[1:3], 4), store=paste(rep(LETTERS[1:3], 4), 1:4, sep=&amp;quot;&amp;quot;), result=sample(1:100, 12)) region &amp;lt;- unique(df_sample$region)   ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;分级菜单&amp;quot;), dashboardSidebar( sidebarMenu( selectInput(&amp;quot;region&amp;quot;, &amp;quot;地区:&amp;quot;, choices = region), uiOutput(&amp;quot;slt_store&amp;quot;), menuItem(&amp;quot;分级菜单&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( # 原始数据 box(h1(&amp;quot;原始数据&amp;quot;), tableOutput(&amp;quot;df1&amp;quot;)), # 筛选结果 box(h1(&amp;quot;筛选结果&amp;quot;), tableOutput(&amp;quot;df2&amp;quot;)) ) ) ) ) ) )   server.</description>
+    </item>
+    
+    <item>
+      <title>使用shiny实现对年、季度、月取值的连锁更新</title>
+      <link>/note/2016/04/14/shiny-updatexinput-example/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2016/04/14/shiny-updatexinput-example/</guid>
+      <description>使用shiny实现对年、季度、月取值的连锁更新 实现目标 点击按钮年预算更新对所有的提升百分比更新 点击按钮季度预算更新对对应季度以及季度对应的月份的提升百分比更新 点击按钮月份预算更新对对应月份的提升百分比更新
+代码  global.R
+ # 小数转化为百分数输出 numtop &amp;lt;- function(num, p=2){ num1 &amp;lt;- num * 100 formt &amp;lt;- paste0(&amp;quot;%.&amp;quot;, p, &amp;quot;f&amp;quot;) percent &amp;lt;- sprintf(formt, num1) percent &amp;lt;- paste0(percent, &amp;quot;%&amp;quot;) percent } # 年的预算提升百分比初始值 bg_year &amp;lt;- data.frame(year=2016, bg_year_pct=3) # 季度的预算提升百分比初始值 bg_quarter &amp;lt;- data.frame(quarter=1:4, bg_quarter_pct=3) # 月度的预算提升百分比初始值 bg_month &amp;lt;- data.frame(month=1:12, quarter=rep(1:4, each=3), bg_month_pct=3)   ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;门店销售预算达成分析&amp;quot;), dashboardSidebar( sidebarMenu( menuItem(&amp;quot;预算百分比设置&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 140, textInput(&amp;quot;bg_year&amp;quot;, &amp;quot;年预算&amp;quot;, 3), actionButton(&#39;btn_year&#39;,&amp;quot;年预算更新&amp;quot;) ), box(&amp;quot;年预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 140, tableOutput(&amp;quot;tab_bg_year&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 240, selectInput(&amp;quot;slt_quarter&amp;quot;, label = &amp;quot;季度&amp;quot;, choices = unique(bg_quarter$quarter), selected = unique(bg_quarter$quarter)[1]), textInput(&amp;quot;num_quarter&amp;quot;, label = &amp;quot;季度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_quarter&#39;,&amp;quot;季度预算更新&amp;quot;) ), box(&amp;quot;季度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 240, tableOutput(&amp;quot;tab_bg_quarter&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 300, selectInput(&amp;quot;slt_month&amp;quot;, label = &amp;quot;月度&amp;quot;, choices = unique(bg_month$month), selected = unique(bg_month$month)[1]), textInput(&amp;quot;num_month&amp;quot;, label = &amp;quot;月度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_month&#39;,&amp;quot;月度预算更新&amp;quot;) ), box(&amp;quot;月度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 460, tableOutput(outputId=&amp;quot;tab_bg_month&amp;quot;) ) ) ) ) ) ) )   server.</description>
+    </item>
+    
+    <item>
+      <title>R中data.frame与matrix循环效率比较</title>
+      <link>/note/2013/09/22/r-loop-dataframe-vs-matrix/</link>
+      <pubDate>Sun, 22 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2013/09/22/r-loop-dataframe-vs-matrix/</guid>
+      <description>一直以来，在R中使用data.frame处理数据跟方便，大多数统计函数直接支持data.frame类型的运算，虽说在R中要尽可能避免使用循环，but由于能力与临时需要，循环还是不经意间就出现了。今天对一个例子测试下，R循环中使用matrix的速度明显大于使用data.frame。有如下简单循环代码：
+test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 0.310 0.015 0.324 test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 1.868 0.002 1.868  结果差距明显（5倍多）！！</description>
+    </item>
+    
+  </channel>
+</rss>

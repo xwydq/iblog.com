@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R画图标题换行 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">R画图标题换行</span></h1>
+<h2 class="date">2013/10/24</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/r'>R</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/plot'>plot</a>
+  
+  <a href='/tags/%E7%94%BB%E5%9B%BE'>画图</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<blockquote>
+<p>在画图是有label; main等字符串太长，或者为美观的需要进行分行。只需在分行的位置添加换行符<code>\n</code></p>
+</blockquote>
+
+<pre><code class="language-r">plot(3, 3, type = &quot;n&quot;, main = &quot;五角星\nI LOVE R \n R is GREAT&quot;)
+points(3, 3, pch = &quot;☆&quot;, cex = 2, col = &quot;blue&quot;)
+</code></pre>
+
+<p>效果</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1forbfvk1s2j30go0gomxg.jpg" alt="Rplot" /></p>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

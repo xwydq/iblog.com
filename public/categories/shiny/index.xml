@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shiny on 飞舞的尘埃</title>
+    <link>/categories/shiny/</link>
+    <description>Recent content in Shiny on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/shiny/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>recharts在shiny中的显示问题</title>
+      <link>/note/2018/03/16/shiny-display-recharts/</link>
+      <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/03/16/shiny-display-recharts/</guid>
+      <description>ePlot函数画图 Create rEcharts from an R object，直接使用ePlot函数画图可以正常显示
+library(recharts) # 定义数据部分 series = list(list( name = &amp;#39;Sales&amp;#39;, type = &amp;#39;bar&amp;#39;, data = c(5, 20, 36, 10, 10, 20) )) # 定义坐标轴部分 ext = list( xAxis = list(list( data = c(&amp;#39;shirt&amp;#39;,&amp;#39;cardign&amp;#39;,&amp;#39;chiffon shirt&amp;#39;,&amp;#39;pants&amp;#39;,&amp;#39;heels&amp;#39;,&amp;#39;socks&amp;#39;) )), yAxis = list(list()) ) # 绘制 e1 = ePlot(series, ext) e1  {&#34;x&#34;:{&#34;legend&#34;:{&#34;show&#34;:true,&#34;orient&#34;:&#34;horizontal&#34;,&#34;x&#34;:&#34;left&#34;,&#34;y&#34;:&#34;top&#34;,&#34;data&#34;:[&#34;Sales&#34;]},&#34;title&#34;:{&#34;text&#34;:&#34;&#34;,&#34;subtext&#34;:&#34;&#34;,&#34;x&#34;:&#34;center&#34;,&#34;y&#34;:&#34;top&#34;},&#34;calculable&#34;:true,&#34;theme&#34;:&#34;default&#34;,&#34;tooltip&#34;:{&#34;show&#34;:true,&#34;trigger&#34;:&#34;item&#34;,&#34;formatter&#34;:&#34;{a} {b} : {c}&#34;},&#34;series&#34;:[{&#34;name&#34;:&#34;Sales&#34;,&#34;type&#34;:&#34;bar&#34;,&#34;data&#34;:[5,20,36,10,10,20]}],&#34;xAxis&#34;:[{&#34;data&#34;:[&#34;shirt&#34;,&#34;cardign&#34;,&#34;chiffon shirt&#34;,&#34;pants&#34;,&#34;heels&#34;,&#34;socks&#34;]}],&#34;yAxis&#34;:[[]]},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}  eBar函数画图 Create an HTML bar charts widget using the ECharts(version:3.</description>
+    </item>
+    
+    <item>
+      <title>shinyapp登陆认证功能的实现方式及示例</title>
+      <link>/note/2018/03/04/shinyapp-login-auth/</link>
+      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/03/04/shinyapp-login-auth/</guid>
+      <description>shiny-server可以方便实现交互式文档报告、web应用的开发，很快生成示例性的展示效果。但是基于开源的shiny-server并不支持用户认证，该功能在pro版本。在实际业务场景中由于数据的敏感性及重要程度都需要对每个应用有相关的认证功能并实现权限管理
+ shiny-server的权限管理 shiny-server的权限管理可以看作两个不同的方面：
+ 直接对shiny-server的应用程序做权限管理  如shiny-server的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置adding-authentication-to-shiny-server，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦
+ 对单个shiny app进行认证/权限管理  为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多
+本文针对第二种方式实现两类shiny app的认证/权限管理
+基于单页面认证/权限管理 主要实现功能：
+ 登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 recharts一个交互式画图的示例展示 登陆界面到应用界面的过度，将UI全部设为变量  效果展示：
+代码地址：single-page
+关于登陆界面的样式还要做进一步调整，在此未细化
+在shinydashboard包基础上实现dashboard模式的认证/权限管理 因为shinydashboard不能使用上述方法直接直接所有UI（dashboardHeader;dashboardSidebar;dashboardBody）作为整体使用uiOutput输出，只能将这三部分分别动态输出，这里使用shinyjs调整加载登陆页面、及加载后的页面，即在加载登陆页面时隐藏（dashboardHeader;dashboardSidebar）,判断登陆成功再展示
+# 登陆前 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;) # 登陆成功 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;)  具体代码地址：dashboard-page
+主要实现功能：
+ 登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 调用shinyjs动态操作相关页面样式 将ui; server分离增加扩展性  效果展示：</description>
+    </item>
+    
+    <item>
+      <title>shiny tagsInput by selectizejs</title>
+      <link>/post/2018/02/06/shiny-tagsinput-by-selectizejs/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/02/06/shiny-tagsinput-by-selectizejs/</guid>
+      <description>selectize.js是基于jQuery开发的混合了文本输入框与下拉选择框功能的JS库，对应的GITHUB地址
+ 最新版本的shiny已经整合了selectize.js 到 selectInput
+&amp;gt; sessionInfo() R version 3.4.3 (2017-11-30) ... other attached packages: [1] shiny_1.0.5  打标签 使用 selectInput/selectizeInput 实现打标签功能
+selectizeInput(inputId=&#39;ids1&#39;, label= tags$h5(&#39;标签效果&#39;), choices = NULL, multiple = TRUE, options = list( placeholder = &#39;Please select/type something&#39;, maxItems = 3, # 最大数量限制 onInitialize = I(&#39;function() { this.setValue(&amp;quot;hello world&amp;quot;); }&#39;), # 未发现具体作用 # class=&amp;quot;demo&amp;quot;, plugins = list(&#39;restore_on_backspace&#39;, # backspace 按钮可以起到编辑效果 &#39;remove_button&#39;, # 显示移除按钮 &#39;drag_drop&#39;), # 可以拖动编辑顺序 create = TRUE, delimiter = &#39;,&#39;, persist = FALSE, onDelete = I(&amp;quot;function(values) { return confirm(values.</description>
+    </item>
+    
+    <item>
+      <title>shiny分级菜单实现</title>
+      <link>/note/2016/04/14/shiny-update-selectinput/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2016/04/14/shiny-update-selectinput/</guid>
+      <description>本文主要目的实现R shiny中的分级菜单 选择地区A之后，再选择A地区的门店（下拉选项中只显示A地区门店）
+实现效果 代码  global.R
+ options(stringsAsFactors=FALSE, scipen=10, digits=4) library(dplyr) df_sample &amp;lt;- data.frame(region=rep(LETTERS[1:3], 4), store=paste(rep(LETTERS[1:3], 4), 1:4, sep=&amp;quot;&amp;quot;), result=sample(1:100, 12)) region &amp;lt;- unique(df_sample$region)   ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;分级菜单&amp;quot;), dashboardSidebar( sidebarMenu( selectInput(&amp;quot;region&amp;quot;, &amp;quot;地区:&amp;quot;, choices = region), uiOutput(&amp;quot;slt_store&amp;quot;), menuItem(&amp;quot;分级菜单&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( # 原始数据 box(h1(&amp;quot;原始数据&amp;quot;), tableOutput(&amp;quot;df1&amp;quot;)), # 筛选结果 box(h1(&amp;quot;筛选结果&amp;quot;), tableOutput(&amp;quot;df2&amp;quot;)) ) ) ) ) ) )   server.</description>
+    </item>
+    
+    <item>
+      <title>使用shiny实现对年、季度、月取值的连锁更新</title>
+      <link>/note/2016/04/14/shiny-updatexinput-example/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2016/04/14/shiny-updatexinput-example/</guid>
+      <description>使用shiny实现对年、季度、月取值的连锁更新 实现目标 点击按钮年预算更新对所有的提升百分比更新 点击按钮季度预算更新对对应季度以及季度对应的月份的提升百分比更新 点击按钮月份预算更新对对应月份的提升百分比更新
+代码  global.R
+ # 小数转化为百分数输出 numtop &amp;lt;- function(num, p=2){ num1 &amp;lt;- num * 100 formt &amp;lt;- paste0(&amp;quot;%.&amp;quot;, p, &amp;quot;f&amp;quot;) percent &amp;lt;- sprintf(formt, num1) percent &amp;lt;- paste0(percent, &amp;quot;%&amp;quot;) percent } # 年的预算提升百分比初始值 bg_year &amp;lt;- data.frame(year=2016, bg_year_pct=3) # 季度的预算提升百分比初始值 bg_quarter &amp;lt;- data.frame(quarter=1:4, bg_quarter_pct=3) # 月度的预算提升百分比初始值 bg_month &amp;lt;- data.frame(month=1:12, quarter=rep(1:4, each=3), bg_month_pct=3)   ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;门店销售预算达成分析&amp;quot;), dashboardSidebar( sidebarMenu( menuItem(&amp;quot;预算百分比设置&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 140, textInput(&amp;quot;bg_year&amp;quot;, &amp;quot;年预算&amp;quot;, 3), actionButton(&#39;btn_year&#39;,&amp;quot;年预算更新&amp;quot;) ), box(&amp;quot;年预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 140, tableOutput(&amp;quot;tab_bg_year&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 240, selectInput(&amp;quot;slt_quarter&amp;quot;, label = &amp;quot;季度&amp;quot;, choices = unique(bg_quarter$quarter), selected = unique(bg_quarter$quarter)[1]), textInput(&amp;quot;num_quarter&amp;quot;, label = &amp;quot;季度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_quarter&#39;,&amp;quot;季度预算更新&amp;quot;) ), box(&amp;quot;季度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 240, tableOutput(&amp;quot;tab_bg_quarter&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 300, selectInput(&amp;quot;slt_month&amp;quot;, label = &amp;quot;月度&amp;quot;, choices = unique(bg_month$month), selected = unique(bg_month$month)[1]), textInput(&amp;quot;num_month&amp;quot;, label = &amp;quot;月度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_month&#39;,&amp;quot;月度预算更新&amp;quot;) ), box(&amp;quot;月度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 460, tableOutput(outputId=&amp;quot;tab_bg_month&amp;quot;) ) ) ) ) ) ) )   server.</description>
+    </item>
+    
+    <item>
+      <title>shiny-server 安装与配置、问题汇总</title>
+      <link>/note/2014/04/01/centos6-install-shiny-server/</link>
+      <pubDate>Tue, 01 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2014/04/01/centos6-install-shiny-server/</guid>
+      <description>1 安装 环境：centos6.5
+ 1.1 安装R  $ sudo yum install R   1.2 进入R，安装包shiny,rmarkdown  install.packages(&#39;shiny&#39;) install.packages(&#39;rmarkdown&#39;)   1.3 安装shiny-server  $ wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.2.786-rh5-x86_64.rpm $ sudo yum install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm  查看是否安装成功：进入ip:3838
+##2 启动
+start shiny-server stop shiny-server status shiny-server reload shiny-server  ##3 配置
+ 3.1 默认配置  cat /etc/shiny-server/shiny-server.conf  首页：/srv/shiny-server/index.html shiny app 的目录：/srv/shiny-server/sample-apps 详细配置参数见：shiny-server conf settings
+##4 注意问题
+ 4.1 The application took too long to respond.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Materail on 飞舞的尘埃</title>
+    <link>/categories/materail/</link>
+    <description>Recent content in Materail on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 17 Feb 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/materail/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>资源整理不定期</title>
+      <link>/note/2015/02/17/materail-resource-update/</link>
+      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2015/02/17/materail-resource-update/</guid>
+      <description>大牛： 路由器-翻墙
+下载youtube上视频
+你不知道的Google search
+Jark&amp;rsquo;s blog(当你的才华还撑不起你的野心时，你就应该静下心来学习)
+张丹：粉丝日志&amp;ndash;跨界的IT博客|Hadoop家族, R, RHadoop, Nodejs, AngularJS, KVM, NoSQL, IT金融
+刘未鹏 ：Mind Hacks 思维改变生活
+MOLECULAR, CELL &amp;amp; CANCER BIOLOGY Computational Biology and Bioinformatics Supporting Group
+R资源+机器学习： R语言-生信-糗世界
+Rmakedown
+An R Introduction to Statistics
+R语言资料+R与运筹学
+quick-R快速入门
+Andrew W. Moore统计机器学习资源&amp;ndash;常用算法的pdf文档
+UCLA-统计
+量化交易-Quantitative Trading, Statistical Arbitrage, Machine Learning and Binary Options
+统计机器学习
+数据科学中的R和Python
+谢益辉
+Marketing analytics and data visualization：市场分析数据可视化
+Python： 廖雪峰&amp;ndash;Python教程
+Python视频教程
+hadoop： 虾皮&amp;ndash;hadoop安装配置
+Spark书籍资料整理</description>
+    </item>
+    
+  </channel>
+</rss>

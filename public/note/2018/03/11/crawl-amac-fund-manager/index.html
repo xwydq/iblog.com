@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>爬虫：AMAC私募基金管理人 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">爬虫：AMAC私募基金管理人</span></h1>
+<h2 class="date">2018/03/11</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/%E5%9F%BA%E9%87%91'>基金</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h2 id="基金业协会备案信息之-基金管理人-http-gs-amac-org-cn-amac-infodisc-res-pof-manager-index-html">基金业协会备案信息之：<a href="http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html">基金管理人</a></h2>
+
+<h3 id="模块引入">模块引入</h3>
+
+<pre><code class="language-python">import requests
+import pandas as pd
+import random
+import math
+import time
+import datetime
+from sqlalchemy import create_engine
+from lxml import etree
+import re
+
+requests.__version__
+# '2.18.4'
+</code></pre>
+
+<h3 id="基金管理人列表">基金管理人列表</h3>
+
+<p><code>chrome</code>打开<code>network</code>查看请求，具体请求API为 POST，接口：<code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager</code>，参数：<code>?rand=0.24323480064904235&amp;page=1&amp;size=20</code></p>
+
+<ul>
+<li>rand：0-1随机数</li>
+<li>page：页码(第1页：page=0)</li>
+<li>size：每页显示的记录数</li>
+</ul>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fp449zir50j31kw0q2kb3.jpg" alt="network请求" />
+<img src="https://ws1.sinaimg.cn/large/006tNc79ly1fp8n9t1i8tj311m0q4dks.jpg" alt="具体参数" /></p>
+
+<p>参数说明：</p>
+
+<ul>
+<li>Query String Parameters: params，查询参数</li>
+<li>Request Payload: json，为空{}时，也需要添加该参数，否则有可能报错</li>
+</ul>
+
+<pre><code class="language-python"># url = 'http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;page=0&amp;size=20'
+url = 'http://gs.amac.org.cn/amac-infodisc/api/pof/manager'
+
+paras = {&quot;rand&quot;: 0.24121315630506435,
+         &quot;page&quot;: 4,
+         &quot;size&quot;: 2}
+
+headers = {
+    'Content-Type': 'application/json'
+}
+  
+rs = requests.post(url=url, headers=headers, params = paras, json={})
+print(rs.url)
+print(rs.text)
+
+</code></pre>
+
+<pre><code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;page=4&amp;size=2
+{&quot;content&quot;:[{&quot;id&quot;:&quot;101000000446&quot;,&quot;managerName&quot;:&quot;鼎晖股权投资管理（天津）有限公司&quot;,&quot;artificialPersonName&quot;:&quot;吴尚志&quot;,&quot;registerNo&quot;:&quot;P1000301&quot;,&quot;establishDate&quot;:1211414400000,&quot;managerHasProduct&quot;:null,&quot;url&quot;:&quot;101000000446.html&quot;,&quot;registerDate&quot;:1395014400000,&quot;registerAddress&quot;:&quot;天津市滨海新区滨海新区经济技术开发区南港工业区综合服务区办公楼D座二层202室（开发区金融服务中心托管第77号）&quot;,&quot;registerProvince&quot;:&quot;天津市&quot;,&quot;registerCity&quot;:&quot;滨海新区&quot;,&quot;regAdrAgg&quot;:&quot;天津市&quot;,&quot;fundCount&quot;:12,&quot;fundScale&quot;:1381634.712859,&quot;paidInCapital&quot;:2049953.1490,&quot;subscribedCapital&quot;:2642307.0000,&quot;hasSpecialTips&quot;:false,&quot;inBlacklist&quot;:false,&quot;hasCreditTips&quot;:false,&quot;regCoordinate&quot;:null,&quot;officeCoordinate&quot;:&quot;39.92271378228864,116.46714895633674&quot;,&quot;officeAddress&quot;:&quot;北京市朝阳区朝阳区东三环中路5号财富金融中心25层&quot;,&quot;officeProvince&quot;:&quot;北京市&quot;,&quot;officeCity&quot;:&quot;朝阳区&quot;,&quot;primaryInvestType&quot;:&quot;私募股权、创业投资基金管理人&quot;},{&quot;id&quot;:&quot;101000000308&quot;,&quot;managerName&quot;:&quot;广东中科招商创业投资管理有限责任公司&quot;,&quot;artificialPersonName&quot;:&quot;杜昌焘&quot;,&quot;registerNo&quot;:&quot;P1000302&quot;,&quot;establishDate&quot;:1247616000000,&quot;managerHasProduct&quot;:null,&quot;url&quot;:&quot;101000000308.html&quot;,&quot;registerDate&quot;:1395014400000,&quot;registerAddress&quot;:&quot;广东省广州市萝岗区广州高新技术产业开发区科学大道235号1001房之八&quot;,&quot;registerProvince&quot;:&quot;广东省&quot;,&quot;registerCity&quot;:&quot;广州市&quot;,&quot;regAdrAgg&quot;:&quot;广东省&quot;,&quot;fundCount&quot;:27,&quot;fundScale&quot;:1111650.707103,&quot;paidInCapital&quot;:972690.4115,&quot;subscribedCapital&quot;:979315.4115,&quot;hasSpecialTips&quot;:false,&quot;inBlacklist&quot;:false,&quot;hasCreditTips&quot;:false,&quot;regCoordinate&quot;:&quot;23.17761537939722,113.463880297835&quot;,&quot;officeCoordinate&quot;:&quot;23.123979636327483,113.32975831850844&quot;,&quot;officeAddress&quot;:&quot;广东省广州市天河区天河区珠江新城珠江西路5号广州国际金融中心西塔21层&quot;,&quot;officeProvince&quot;:&quot;广东省&quot;,&quot;officeCity&quot;:&quot;广州市&quot;,&quot;primaryInvestType&quot;:&quot;私募股权、创业投资基金管理人&quot;}],&quot;last&quot;:false,&quot;totalPages&quot;:11631,&quot;totalElements&quot;:23262,&quot;sort&quot;:[{&quot;direction&quot;:&quot;ASC&quot;,&quot;property&quot;:&quot;registerDate&quot;,&quot;ignoreCase&quot;:false,&quot;nullHandling&quot;:&quot;NATIVE&quot;,&quot;ascending&quot;:true,&quot;descending&quot;:false}],&quot;size&quot;:2,&quot;number&quot;:4,&quot;first&quot;:false,&quot;numberOfElements&quot;:2}
+</code></pre>
+
+<p>结果转化为pandas.DataFrame类型</p>
+
+<pre><code class="language-python">dict_dat = rs.json()
+df_pd = pd.DataFrame.from_dict(dict_dat['content'])
+df_pd
+</code></pre>
+
+<div>
+<style>
+
+```
+.dataframe thead tr:only-child th {
+    text-align: right;
+}
+
+.dataframe thead th {
+    text-align: left;
+}
+
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+```
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+
+```
+<tr style="text-align: right;">
+  <th></th>
+  <th>artificialPersonName</th>
+  <th>establishDate</th>
+  <th>fundCount</th>
+  <th>fundScale</th>
+  <th>hasCreditTips</th>
+  <th>hasSpecialTips</th>
+  <th>id</th>
+  <th>inBlacklist</th>
+  <th>managerHasProduct</th>
+  <th>managerName</th>
+  <th>...</th>
+  <th>primaryInvestType</th>
+  <th>regAdrAgg</th>
+  <th>regCoordinate</th>
+  <th>registerAddress</th>
+  <th>registerCity</th>
+  <th>registerDate</th>
+  <th>registerNo</th>
+  <th>registerProvince</th>
+  <th>subscribedCapital</th>
+  <th>url</th>
+</tr>
+```
+
+  </thead>
+  <tbody>
+
+```
+<tr>
+  <th>0</th>
+  <td>吴尚志</td>
+  <td>1211414400000</td>
+  <td>12</td>
+  <td>1.381635e+06</td>
+  <td>False</td>
+  <td>False</td>
+  <td>101000000446</td>
+  <td>False</td>
+  <td>None</td>
+  <td>鼎晖股权投资管理（天津）有限公司</td>
+  <td>...</td>
+  <td>私募股权、创业投资基金管理人</td>
+  <td>天津市</td>
+  <td>None</td>
+  <td>天津市滨海新区滨海新区经济技术开发区南港工业区综合服务区办公楼D座二层202室（开发区金融服...</td>
+  <td>滨海新区</td>
+  <td>1395014400000</td>
+  <td>P1000301</td>
+  <td>天津市</td>
+  <td>2.642307e+06</td>
+  <td>101000000446.html</td>
+</tr>
+<tr>
+  <th>1</th>
+  <td>杜昌焘</td>
+  <td>1247616000000</td>
+  <td>27</td>
+  <td>1.111651e+06</td>
+  <td>False</td>
+  <td>False</td>
+  <td>101000000308</td>
+  <td>False</td>
+  <td>None</td>
+  <td>广东中科招商创业投资管理有限责任公司</td>
+  <td>...</td>
+  <td>私募股权、创业投资基金管理人</td>
+  <td>广东省</td>
+  <td>23.17761537939722,113.463880297835</td>
+  <td>广东省广州市萝岗区广州高新技术产业开发区科学大道235号1001房之八</td>
+  <td>广州市</td>
+  <td>1395014400000</td>
+  <td>P1000302</td>
+  <td>广东省</td>
+  <td>9.793154e+05</td>
+  <td>101000000308.html</td>
+</tr>
+```
+
+  </tbody>
+</table>
+<p>2 rows × 25 columns</p>
+</div>
+
+<p>加入日期范围筛选</p>
+
+<pre><code class="language-python">date_range = {&quot;establishDate&quot;: {&quot;from&quot;: &quot;2017-11-02&quot;, &quot;to&quot;: &quot;2018-02-02&quot;}}
+paras = {&quot;rand&quot;: random.random(),
+         &quot;page&quot;: 0,
+         &quot;size&quot;: 4}
+rs = requests.post(url=url, headers=headers, params = paras,
+                   json=date_range)
+print(rs.url)
+dict_dat = rs.json()
+df_pd = pd.DataFrame.from_dict(dict_dat['content'])
+df_pd
+</code></pre>
+
+<pre><code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.9056699244551177&amp;page=0&amp;size=4
+</code></pre>
+
+<div>
+<style>
+
+```
+.dataframe thead tr:only-child th {
+    text-align: right;
+}
+
+.dataframe thead th {
+    text-align: left;
+}
+
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+```
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+
+```
+<tr style="text-align: right;">
+  <th></th>
+  <th>artificialPersonName</th>
+  <th>establishDate</th>
+  <th>fundCount</th>
+  <th>fundScale</th>
+  <th>hasCreditTips</th>
+  <th>hasSpecialTips</th>
+  <th>id</th>
+  <th>inBlacklist</th>
+  <th>managerHasProduct</th>
+  <th>managerName</th>
+  <th>...</th>
+  <th>primaryInvestType</th>
+  <th>regAdrAgg</th>
+  <th>regCoordinate</th>
+  <th>registerAddress</th>
+  <th>registerCity</th>
+  <th>registerDate</th>
+  <th>registerNo</th>
+  <th>registerProvince</th>
+  <th>subscribedCapital</th>
+  <th>url</th>
+</tr>
+```
+
+  </thead>
+  <tbody>
+
+```
+<tr>
+  <th>0</th>
+  <td>张志良</td>
+  <td>1510704000000</td>
+  <td>0</td>
+  <td>0</td>
+  <td>False</td>
+  <td>False</td>
+  <td>1711221511103201</td>
+  <td>False</td>
+  <td>False</td>
+  <td>北京屹唐联合投资管理有限公司</td>
+  <td>...</td>
+  <td>私募股权、创业投资基金管理人</td>
+  <td>北京市</td>
+  <td>39.79008460858685,116.5313401936383</td>
+  <td>北京市大兴区大兴区北京市北京经济技术开发区荣昌东街甲5号3号楼7层701-3室</td>
+  <td>大兴区</td>
+  <td>1514505600000</td>
+  <td>P1066606</td>
+  <td>北京市</td>
+  <td>0.0</td>
+  <td>1711221511103201.html</td>
+</tr>
+<tr>
+  <th>1</th>
+  <td>黎代福</td>
+  <td>1510185600000</td>
+  <td>0</td>
+  <td>0</td>
+  <td>False</td>
+  <td>False</td>
+  <td>1711201409106565</td>
+  <td>False</td>
+  <td>False</td>
+  <td>深圳市建信远致投贷联动股权投资基金管理有限公司</td>
+  <td>...</td>
+  <td>私募股权、创业投资基金管理人</td>
+  <td>深圳市</td>
+  <td>22.54423473206776,114.06008610208522</td>
+  <td>广东省深圳市福田区福田街道深南大道4009投资大厦14A</td>
+  <td>深圳市</td>
+  <td>1515456000000</td>
+  <td>P1066724</td>
+  <td>广东省</td>
+  <td>0.0</td>
+  <td>1711201409106565.html</td>
+</tr>
+<tr>
+  <th>2</th>
+  <td>贾翔宇</td>
+  <td>1509926400000</td>
+  <td>0</td>
+  <td>0</td>
+  <td>False</td>
+  <td>False</td>
+  <td>1711151340101418</td>
+  <td>False</td>
+  <td>False</td>
+  <td>芜湖元祐投资管理有限公司</td>
+  <td>...</td>
+  <td>私募股权、创业投资基金管理人</td>
+  <td>安徽省</td>
+  <td>31.351965582559195,118.38724548573022</td>
+  <td>安徽省芜湖市镜湖区荆峰路60-1号</td>
+  <td>芜湖市</td>
+  <td>1516320000000</td>
+  <td>P1066906</td>
+  <td>安徽省</td>
+  <td>0.0</td>
+  <td>1711151340101418.html</td>
+</tr>
+<tr>
+  <th>3</th>
+  <td>杜炎斌</td>
+  <td>1510790400000</td>
+  <td>0</td>
+  <td>0</td>
+  <td>False</td>
+  <td>False</td>
+  <td>1711232310107506</td>
+  <td>False</td>
+  <td>False</td>
+  <td>西藏聚信发展股权投资基金管理有限公司</td>
+  <td>...</td>
+  <td>私募股权、创业投资基金管理人</td>
+  <td>西藏自治区</td>
+  <td>29.629444241792186,91.07674760971572</td>
+  <td>西藏自治区拉萨市城关区柳梧新区柳梧大厦1602号</td>
+  <td>拉萨市</td>
+  <td>1516320000000</td>
+  <td>P1066927</td>
+  <td>西藏自治区</td>
+  <td>0.0</td>
+  <td>1711232310107506.html</td>
+</tr>
+```
+
+  </tbody>
+</table>
+<p>4 rows × 25 columns</p>
+</div>
+
+<h3 id="基金管理人基本信息">基金管理人基本信息</h3>
+
+<ul>
+<li><code>pd.read_html</code>直接读取<code>&lt;table&gt;</code>标签下的内容为dataframe</li>
+<li>字段名称的中英文转化</li>
+<li>无效/空白值的筛选</li>
+<li>产品列表的提取</li>
+</ul>
+
+<pre><code class="language-python">class ManagerDetail(object):
+    def __init__(self):
+        dfname_dict = {&quot;基金管理人全称(中文):&quot;: &quot;manager_namecn&quot;,
+                       &quot;基金管理人全称(英文):&quot;: &quot;manager_nameen&quot;,
+                       &quot;组织机构代码:&quot;: &quot;manager_gov_code&quot;,
+                       &quot;注册资本(万元)(人民币):&quot;: &quot;reg_capital&quot;,
+                       &quot;企业性质:&quot;: &quot;company_nature&quot;,
+                       &quot;员工人数:&quot;: &quot;employee_num&quot;,
+                       &quot;是否为会员:&quot;: &quot;is_vip&quot;,
+                       &quot;当前会员类型:&quot;: &quot;vip_type&quot;,
+                       &quot;法律意见书状态:&quot;: &quot;legal_status&quot;,
+                       &quot;律师事务所名称:&quot;: &quot;legal_name&quot;,
+                       &quot;律师姓名:&quot;: &quot;lawyer_name&quot;,
+                       &quot;法定代表人/执行事务合伙人(委派代表)姓名:&quot;: &quot;legal_representname&quot;,
+                       &quot;实缴资本(万元)(人民币):&quot;: &quot;reg_capital_real&quot;,
+                       &quot;注册资本实缴比例:&quot;: &quot;reg_capital_pct&quot;,
+                       &quot;机构网址:&quot;: &quot;gov_website&quot;,
+                       &quot;入会时间:&quot;: &quot;admission_date&quot;,
+                       &quot;机构信息最后更新时间:&quot;: &quot;gov_last_update&quot;,
+                       &quot;特别提示信息:&quot;: &quot;special_info&quot;,
+                       &quot;是否有从业资格:&quot;: &quot;is_qualify&quot;,
+                       &quot;资格取得方式:&quot;: &quot;qualify_way&quot;,
+                       &quot;业务类型:&quot;: &quot;business_type&quot;}
+
+        dfname_base = pd.DataFrame()
+        dfname_base['index_cn'] = list(dfname_dict.keys())
+        dfname_base['index_en'] = list(dfname_dict.values())
+
+        self.url_format = 'http://gs.amac.org.cn/amac-infodisc/res/pof/manager/%s.html'
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Connection': 'keep-alive',
+            'Content-Type': 'application/json'
+        }
+        self.dfname_base = dfname_base
+        self.xpath_pro = '//td[@class=&quot;td-content&quot;]/p/a'
+
+    def get_managerInfo(self, id):
+        url = self.url_format % id
+        rs = requests.get(url, headers=self.headers)
+        # rs.text
+        rs.encoding = 'UTF-8'
+
+        tabs = pd.read_html(rs.text)
+
+        # 机构基本信息
+        tab1 = tabs[0].iloc[2:23, 0:2]
+        tab2 = tabs[0].iloc[2:23, 2:4]
+        tab3 = tabs[0]
+        tab3 = tab3.loc[tab3.iloc[:, 0].isin(['机构信息最后更新时间:', '特别提示信息:'])]
+        tab3 = tab3.iloc[:, 0:2]
+        tab3
+
+        tab1.columns = ['index_cn', 'val']
+        tab2.columns = ['index_cn', 'val']
+        tab3.columns = ['index_cn', 'val']
+        tab_base = tab1.append(tab2)
+        tab_base = pd.concat([tab1, tab2, tab3], axis=0, ignore_index=True)
+        tab_base = tab_base.dropna()
+
+        tab_base = pd.merge(self.dfname_base, tab_base, how='left')
+        tab_base.index = tab_base['index_en']
+        tab_base = tab_base[['val']]
+        # tab_base.dropna()
+        # tab_base
+
+        tab_base['val'] = ['' if isinstance(x, float) and math.isnan(x) else x for x in tab_base['val']]
+        tab_base = tab_base.T
+        tab_base['manager_namecn'][0] = tab_base['manager_namecn'][0].split(' ')[1]
+        tab_base['m_id'] = id
+
+
+        ## 法定代表人简历
+        cols_resume = set(['时间', '任职单位', '职务'])
+        cols_admin = set(['高管姓名', '职务', '是否具有基金从业资格'])
+        for ti in range(1, len(tabs)):
+            cols = list(tabs[ti].columns)
+            if (set(cols) == cols_resume):
+                tab_resume = tabs[ti]
+                tab_resume.columns = ['period_date', 'service_company', 'position']
+                tab_resume['m_id'] = id
+            ## 高管信息
+            if (set(cols) == cols_admin):
+                tab_admin = tabs[ti]
+                tab_admin.columns = ['admin_name', 'position', 'is_passfund']
+                tab_admin['m_id'] = id
+                break
+
+        ## 发行产品list
+        try:
+            r1_html = etree.HTML(rs.text)
+            prodts = r1_html.xpath(self.xpath_pro)
+
+            prodt_nm = [re.sub('：|\s', '', x.xpath('string()')) for x in prodts]
+            prodt_id = [re.findall(r&quot;\d+&quot;, x.xpath('@href')[0])[0] for x in prodts]
+            tab_prodt = pd.DataFrame.from_records([prodt_id, prodt_nm]).T
+            tab_prodt.columns = ['prodt_id', 'prodt_nm']
+            tab_prodt['m_id'] = id
+        except:
+            tab_prodt = None
+
+        res = {
+            'tab_base': tab_base,
+            'tab_resume': tab_resume,
+            'tab_admin': tab_admin,
+            'tab_prodt': tab_prodt
+        }
+        return res
+
+</code></pre>
+
+<pre><code class="language-python">managerdel = ManagerDetail()
+managerdel.get_managerInfo(101000000138)
+</code></pre>
+
+<pre><code>{'tab_admin':   admin_name        position is_passfund          m_id
+ 0        杨晓华  法定代表人 总经理 执行董事     是(资格认定)  101000000138
+ 1         周娟    合规风控 信息填报负责人     是(通过考试)  101000000138
+ 2        张存相            副总经理     是(通过考试)  101000000138
+ 3        瞿立杰            副总经理     是(通过考试)  101000000138,
+ 'tab_base': index_en    manager_namecn                                     manager_nameen  \
+ val       平安道远投资管理（上海）有限公司  Ping An DaoYuan Investment Management (Shangha...   
+ 
+ index_en manager_gov_code reg_capital company_nature employee_num is_vip  \
+ val            57075680-3       20000           内资企业           34      是   
+ 
+ index_en vip_type legal_status legal_name      ...      reg_capital_real  \
+ val          观察会员                              ...                 20000   
+ 
+ index_en reg_capital_pct gov_website admission_date gov_last_update  \
+ val                 100%                 2013-05-08      2017-12-18   
+ 
+ index_en special_info is_qualify qualify_way business_type          m_id  
+ val                            是        资格认定                101000000138  
+ 
+ [1 rows x 22 columns],
+ 'tab_prodt':             prodt_id                      prodt_nm          m_id
+ 0       351000131340               平安资产MOM1号资产管理产品  101000000138
+ 1       351000128351                 罗素投资合格投资者中国基金  101000000138
+ 2       351000128367                    平安人寿绝对收益账户  101000000138
+ 3       351000128350     交银国信平安罗素MOM一期多元投资集合资金信托计划  101000000138
+ 4       351000144727             平安资产MOM2号保险资产管理产品  101000000138
+ 5       351000144730             平安资产MOM3号保险资产管理产品  101000000138
+ 6   1708101828100786   平安道远投资管理（上海）有限公司*稳盈8号私募投资基金  101000000138
+ 7   1705030955106523               平安道远STAR21号私募基金  101000000138
+ 8       351000411156               平安道远STAR27号私募基金  101000000138
+ 9       351000398101               平安道远STAR19号私募基金  101000000138
+ 10  1709211826109370   平安道远投资管理（上海）有限公司*聚盈9号私募投资基金  101000000138
+ 11      351000337686                平安道远STAR2号私募基金  101000000138
+ 12      351000411159               平安道远STAR28号私募基金  101000000138
+ 13      351000337690                平安道远STAR3号私募基金  101000000138
+ 14      351000398107               平安道远STAR20号私募基金  101000000138
+ 15      351000337693                平安道远STAR4号私募基金  101000000138
+ 16      351000411165               平安道远STAR29号私募基金  101000000138
+ 17  1707061853100889    平安道远投资管理（上海）有限公司安享2号私募投资基金  101000000138
+ 18      351000398083               平安道远STAR17号私募基金  101000000138
+ 19  1708040848102372   平安道远投资管理（上海）有限公司*聚盈7号私募投资基金  101000000138
+ 20      351000411149               平安道远STAR26号私募基金  101000000138
+ 21  1709291511108826  平安道远投资管理（上海）有限公司*聚盈13号私募投资基金  101000000138
+ 22  1710231813105885  平安道远投资管理（上海）有限公司*聚盈14号私募投资基金  101000000138
+ 23      351000398095               平安道远STAR18号私募基金  101000000138
+ 24  1709291511107303  平安道远投资管理（上海）有限公司*聚盈11号私募投资基金  101000000138
+ 25      351000337328                平安道远STAR1号私募基金  101000000138
+ 26  1707311041109446   平安道远投资管理（上海）有限公司*稳盈7号私募投资基金  101000000138
+ 27      351000264901                    平安道远金锁2号基金  101000000138
+ 28  1708101828100763   平安道远投资管理（上海）有限公司*聚盈8号私募投资基金  101000000138
+ 29      351000398143               平安道远STAR25号私募基金  101000000138
+ ..               ...                           ...           ...
+ 42      351000398044               平安道远STAR10号私募基金  101000000138
+ 43      351000747226    平安道远投资管理（上海）有限公司稳盈1号私募投资基金  101000000138
+ 44      351000221216           平安养老-平安罗素道远1号资产管理产品  101000000138
+ 45  1706161700108793   平安道远投资管理（上海）有限公司*稳盈3号私募投资基金  101000000138
+ 46  1706231903112165   平安道远投资管理（上海）有限公司*稳盈4号私募投资基金  101000000138
+ 47  1710271905100404  平安道远投资管理（上海）有限公司*稳盈12号私募投资基金  101000000138
+ 48  1712061714104717   平安道远投资管理（上海）有限公司*稳信1号私募投资基金  101000000138
+ 49      351000398027                平安道远STAR8号私募基金  101000000138
+ 50  1709291511109788  平安道远投资管理（上海）有限公司*聚盈12号私募投资基金  101000000138
+ 51  1707061853100052    平安道远投资管理（上海）有限公司安享4号私募投资基金  101000000138
+ 52  1707061853100075   平安道远投资管理（上海）有限公司*安享3号私募投资基金  101000000138
+ 53      351000398070               平安道远STAR15号私募基金  101000000138
+ 54  1710271905100484  平安道远投资管理（上海）有限公司*聚盈16号私募投资基金  101000000138
+ 55  1712061714104763   平安道远投资管理（上海）有限公司*稳信3号私募投资基金  101000000138
+ 56  1712081750117313   平安道远投资管理（上海）有限公司*稳信4号私募投资基金  101000000138
+ 57  1707251826105335    平安道远投资管理（上海）有限公司稳盈6号私募投资基金  101000000138
+ 58  1709211826109393   平安道远投资管理（上海）有限公司*稳盈9号私募投资基金  101000000138
+ 59  1709251754104772  平安道远投资管理（上海）有限公司*稳盈10号私募投资基金  101000000138
+ 60      351000398079               平安道远STAR16号私募基金  101000000138
+ 61  1711021522101444  平安道远投资管理（上海）有限公司*聚盈15号私募投资基金  101000000138
+ 62  1705111733104153    平安道远投资管理（上海）有限公司安享1号私募投资基金  101000000138
+ 63  1707131617101515               平安道远BIGBANG私募基金  101000000138
+ 64  1709291511109173  平安道远投资管理（上海）有限公司*稳盈11号私募投资基金  101000000138
+ 65  1709251754104793   平安道远投资管理（上海）有限公司聚盈10号私募投资基金  101000000138
+ 66  1712061714104740   平安道远投资管理（上海）有限公司*稳信2号私募投资基金  101000000138
+ 67      351000767714    平安道远投资管理（上海）有限公司稳盈2号私募投资基金  101000000138
+ 68      351000398054               平安道远STAR11号私募基金  101000000138
+ 69  1707251826105314    平安道远投资管理（上海）有限公司聚盈5号私募投资基金  101000000138
+ 70  1707311041109392   平安道远投资管理（上海）有限公司*聚盈6号私募投资基金  101000000138
+ 71      351000398063               平安道远STAR12号私募基金  101000000138
+ 
+ [72 rows x 3 columns],
+ 'tab_resume':            period_date   service_company position          m_id
+ 0   2015.09 -  2017.04  平安道远投资管理（上海）有限公司  董事长兼总经理  101000000138
+ 1   2010.10 -  2015.09              平安罗素  董事长兼总经理  101000000138
+ 2   2009.11 -  2010.08        平安香港投资管理公司   董事常务副总  101000000138
+ 3   1999.10 -  2009.10            平安香港保险    董事总经理  101000000138
+ 4   1996.11 -  1999.10            平安香港海外      负责人  101000000138
+ 5   1996.02 -  1996.11           平安总部核赔部      总经理  101000000138
+ 6   1995.03 -  1996.02           平安总部核保部      总经理  101000000138
+ 7   1992.04 -  1995.03           平安总部国际部      总经理  101000000138
+ 8   1989.09 -  1992.04       深圳平安公司对外业务部      副经理  101000000138
+ 9   1987.09 -  1989.09            大连海运学院       教师  101000000138
+ 10  1983.09 -  1985.09            大连海运学院       教师  101000000138}
+</code></pre>
+
+<h3 id="产品信息提取">产品信息提取</h3>
+
+<pre><code class="language-python">class Product(object):
+    def __init__(self):
+        dfname_dict = {&quot;基金名称:&quot;: &quot;fund_nm&quot;,
+                       &quot;基金编号:&quot;: &quot;fund_code&quot;,
+                       &quot;成立时间:&quot;: &quot;establish_date&quot;,
+                       &quot;备案时间:&quot;: &quot;record_date&quot;,
+                       &quot;基金备案阶段:&quot;: &quot;record_stage&quot;,
+                       &quot;基金类型:&quot;: &quot;fund_type&quot;,
+                       &quot;币种:&quot;: &quot;currency_type&quot;,
+                       &quot;基金管理人名称:&quot;: &quot;fund_manager&quot;,
+                       &quot;管理类型:&quot;: &quot;manager_type&quot;,
+                       &quot;托管人名称:&quot;: &quot;trustee_name&quot;,
+                       &quot;运作状态:&quot;: &quot;operate_status&quot;,
+                       &quot;基金信息最后更新时间:&quot;: &quot;last_update&quot;,
+                       &quot;基金协会特别提示（针对基金）:&quot;: &quot;specail_message&quot;,
+                       &quot;月报:&quot;: &quot;report_month&quot;,
+                       &quot;半年报:&quot;: &quot;report_halfyear&quot;,
+                       &quot;年报:&quot;: &quot;report_year&quot;,
+                       &quot;季报:&quot;: &quot;report_season&quot;}
+
+        dfname_base = pd.DataFrame()
+        dfname_base['index_cn'] = list(dfname_dict.keys())
+        dfname_base['index_en'] = list(dfname_dict.values())
+
+        self.url_format = 'http://gs.amac.org.cn/amac-infodisc/res/pof/fund/%s.html'
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Encoding': 'gzip, deflate',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Connection': 'keep-alive',
+            'Content-Type': 'application/json'
+        }
+        self.dfname_base = dfname_base
+        self.xpath_pro = '//td[@class=&quot;td-content&quot;]/p/a'
+
+    def get_productInfo(self, id):
+        url = self.url_format % id
+
+        try:
+            rs = requests.get(url, headers=self.headers)
+            # rs.text
+            rs.encoding = 'UTF-8'
+
+            tabs = pd.read_html(rs.text)
+
+            # 机构基本信息
+            tab_base = tabs[0].iloc[:, 0:2]
+
+            tab_base.columns = ['index_cn', 'val']
+            tab_base = tab_base.dropna()
+            # print(tab_base)
+
+            tab_base = pd.merge(self.dfname_base, tab_base, how='left')
+            tab_base.index = tab_base['index_en']
+            tab_base = tab_base[['val']]
+            # tab_base.dropna()
+            # tab_base
+
+            tab_base['val'] = ['' if isinstance(x, float) and math.isnan(x) else x for x in tab_base['val']]
+            tab_base = tab_base.T
+            # print(tab_base)
+            # tab_base['manager_namecn'][0] = tab_base['manager_namecn'][0].split(' ')[1]
+            tab_base['p_id'] = id
+
+            return tab_base
+        except:
+            return None
+</code></pre>
+
+<pre><code class="language-python">prodt = Product()
+prodt.get_productInfo(1707311041109392)
+</code></pre>
+
+<div>
+<style>
+
+```
+.dataframe thead tr:only-child th {
+    text-align: right;
+}
+
+.dataframe thead th {
+    text-align: left;
+}
+
+.dataframe tbody tr th {
+    vertical-align: top;
+}
+```
+
+</style>
+<table border="1" class="dataframe">
+  <thead>
+
+```
+<tr style="text-align: right;">
+  <th>index_en</th>
+  <th>fund_nm</th>
+  <th>fund_code</th>
+  <th>establish_date</th>
+  <th>record_date</th>
+  <th>record_stage</th>
+  <th>fund_type</th>
+  <th>currency_type</th>
+  <th>fund_manager</th>
+  <th>manager_type</th>
+  <th>trustee_name</th>
+  <th>operate_status</th>
+  <th>last_update</th>
+  <th>specail_message</th>
+  <th>report_month</th>
+  <th>report_halfyear</th>
+  <th>report_year</th>
+  <th>report_season</th>
+  <th>p_id</th>
+</tr>
+```
+
+  </thead>
+  <tbody>
+
+```
+<tr>
+  <th>val</th>
+  <td>平安道远投资管理（上海）有限公司*聚盈6号私募投资基金</td>
+  <td>SW3120</td>
+  <td>2017-07-14</td>
+  <td>2017-08-01</td>
+  <td>暂行办法实施后成立的基金</td>
+  <td>私募证券投资基金</td>
+  <td>人民币现钞</td>
+  <td>平安道远投资管理（上海）有限公司</td>
+  <td>受托管理</td>
+  <td>平安银行股份有限公司</td>
+  <td>正在运作</td>
+  <td>2017-08-01</td>
+  <td></td>
+  <td>应披露0条，按时披露0条，未披露0条；</td>
+  <td>应披露0条，按时披露0条，未披露0条；</td>
+  <td>应披露0条，按时披露0条，未披露0条；</td>
+  <td>应披露2条，按时披露2条，未披露0条；</td>
+  <td>1707311041109392</td>
+</tr>
+```
+
+  </tbody>
+</table>
+</div>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

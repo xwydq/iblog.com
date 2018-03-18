@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>置换检验 on 飞舞的尘埃</title>
+    <link>/tags/%E7%BD%AE%E6%8D%A2%E6%A3%80%E9%AA%8C/</link>
+    <description>Recent content in 置换检验 on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 05 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E7%BD%AE%E6%8D%A2%E6%A3%80%E9%AA%8C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>统计基础：R置换检验</title>
+      <link>/note/2018/03/05/statistics-r-permutation-test/</link>
+      <pubDate>Mon, 05 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/03/05/statistics-r-permutation-test/</guid>
+      <description>显著性检验通常可以告诉我们一个观测值是否是有效的，例如检测两组样本均值差异的假设检验可以告诉我们这两组样本的均值是否相等（或者那个均值更大）。我们在实验中经常会因为各种问题（时间、经费、人力、物力）得到一些小样本结果，如果我们想知道这些小样本结果的总体是什么样子的，就需要用到置换检验。
+ Permutation test 置换检验是Fisher于20世纪30年代提出的一种基于大量计算（computationally intensive），利用样本数据的全（或随机）排列，进行统计推断的方法，因其对总体分布自由，应用较为广泛，特别适用于总体分布未知的小样本资料，以及某些难以用常规方法分析资料的假设检验问题。在具体使用上它和Bootstrap Methods类似，通过对样本进行顺序上的置换，重新计算统计检验量，构造经验分布，然后在此基础上求出P-value进行推断。
+下面通过一个简单例子来介绍Permutation test的思想。
+假设我们设计了一个实验来验证加入某种生长素后拟南芥的侧根数量会明显增加。A组是加入某种生长素后，拟南芥的侧根数量；B是不加生长素时，拟南芥的侧根数量（均为假定值）。
+A组侧根数量（共12个数据）：24 43 58 67 61 44 67 49 59 52 62 50 B组侧根数量（共16个数据）：42 43 65 26 33 41 19 54 42 20 17 60 37 42 55 28  我们来用假设检验的方法来判断生长素是否起作用。我们的零假设为：加入的生长素不会促进拟南芥的根系发育。在这个检验中，若零假设成立，那么A组数据的分布和B组数据的分布是一样的，也就是服从同个分布。
+接下来构造检验统计量&amp;ndash;A组侧根数目的均值同B组侧根数目的均值之差。
+statistic:= mean(Xa)-mean(Xb)  对于观测值有
+Sobs:=mean(Xa)-mean(Xb)=(24+43+58+67+61+44+67+49+59+52+62+50)/12(42+43+65+26+33+41+19+54+42+20+17+60+37+42+55+28)/16=14  我们可以通过Sobs在置换分布（permutation distribution）中的位置来得到它的P-value。
+Permutation test的具体步骤是：
+ 将A、B两组数据合并到一个集合中，从中挑选出12个作为A组的数据（X&amp;rsquo;a），剩下的作为B组的数据（X&amp;rsquo;b）。  Gourp:=24 43 58 67 61 44 67 49 59 52 62 50 42 43 65 26 33 41 19 54 42 20 17 60 37 42 55 28 挑选出 X&#39;a:=43 17 44 62 60 26 28 61 50 43 33 19 X&#39;b:=55 41 42 65 59 24 54 52 42 49 37 67 67 20 42 58   计算并记录第一步中A组同B组的均值之差。Sper:=mean(X&#39;a)-mean(X&#39;b)= -7.</description>
+    </item>
+    
+  </channel>
+</rss>

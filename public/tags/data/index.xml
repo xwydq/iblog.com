@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data on 飞舞的尘埃</title>
+    <link>/tags/data/</link>
+    <description>Recent content in Data on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 14 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/data/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>shiny分级菜单实现</title>
+      <link>/note/2016/04/14/shiny-update-selectinput/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2016/04/14/shiny-update-selectinput/</guid>
+      <description>本文主要目的实现R shiny中的分级菜单 选择地区A之后，再选择A地区的门店（下拉选项中只显示A地区门店）
+实现效果 代码  global.R
+ options(stringsAsFactors=FALSE, scipen=10, digits=4) library(dplyr) df_sample &amp;lt;- data.frame(region=rep(LETTERS[1:3], 4), store=paste(rep(LETTERS[1:3], 4), 1:4, sep=&amp;quot;&amp;quot;), result=sample(1:100, 12)) region &amp;lt;- unique(df_sample$region)   ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;分级菜单&amp;quot;), dashboardSidebar( sidebarMenu( selectInput(&amp;quot;region&amp;quot;, &amp;quot;地区:&amp;quot;, choices = region), uiOutput(&amp;quot;slt_store&amp;quot;), menuItem(&amp;quot;分级菜单&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( # 原始数据 box(h1(&amp;quot;原始数据&amp;quot;), tableOutput(&amp;quot;df1&amp;quot;)), # 筛选结果 box(h1(&amp;quot;筛选结果&amp;quot;), tableOutput(&amp;quot;df2&amp;quot;)) ) ) ) ) ) )   server.</description>
+    </item>
+    
+    <item>
+      <title>使用shiny实现对年、季度、月取值的连锁更新</title>
+      <link>/note/2016/04/14/shiny-updatexinput-example/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2016/04/14/shiny-updatexinput-example/</guid>
+      <description>使用shiny实现对年、季度、月取值的连锁更新 实现目标 点击按钮年预算更新对所有的提升百分比更新 点击按钮季度预算更新对对应季度以及季度对应的月份的提升百分比更新 点击按钮月份预算更新对对应月份的提升百分比更新
+代码  global.R
+ # 小数转化为百分数输出 numtop &amp;lt;- function(num, p=2){ num1 &amp;lt;- num * 100 formt &amp;lt;- paste0(&amp;quot;%.&amp;quot;, p, &amp;quot;f&amp;quot;) percent &amp;lt;- sprintf(formt, num1) percent &amp;lt;- paste0(percent, &amp;quot;%&amp;quot;) percent } # 年的预算提升百分比初始值 bg_year &amp;lt;- data.frame(year=2016, bg_year_pct=3) # 季度的预算提升百分比初始值 bg_quarter &amp;lt;- data.frame(quarter=1:4, bg_quarter_pct=3) # 月度的预算提升百分比初始值 bg_month &amp;lt;- data.frame(month=1:12, quarter=rep(1:4, each=3), bg_month_pct=3)   ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;门店销售预算达成分析&amp;quot;), dashboardSidebar( sidebarMenu( menuItem(&amp;quot;预算百分比设置&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 140, textInput(&amp;quot;bg_year&amp;quot;, &amp;quot;年预算&amp;quot;, 3), actionButton(&#39;btn_year&#39;,&amp;quot;年预算更新&amp;quot;) ), box(&amp;quot;年预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 140, tableOutput(&amp;quot;tab_bg_year&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 240, selectInput(&amp;quot;slt_quarter&amp;quot;, label = &amp;quot;季度&amp;quot;, choices = unique(bg_quarter$quarter), selected = unique(bg_quarter$quarter)[1]), textInput(&amp;quot;num_quarter&amp;quot;, label = &amp;quot;季度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_quarter&#39;,&amp;quot;季度预算更新&amp;quot;) ), box(&amp;quot;季度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 240, tableOutput(&amp;quot;tab_bg_quarter&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 300, selectInput(&amp;quot;slt_month&amp;quot;, label = &amp;quot;月度&amp;quot;, choices = unique(bg_month$month), selected = unique(bg_month$month)[1]), textInput(&amp;quot;num_month&amp;quot;, label = &amp;quot;月度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_month&#39;,&amp;quot;月度预算更新&amp;quot;) ), box(&amp;quot;月度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 460, tableOutput(outputId=&amp;quot;tab_bg_month&amp;quot;) ) ) ) ) ) ) )   server.</description>
+    </item>
+    
+    <item>
+      <title>R语言选择导入文本数据部分字段</title>
+      <link>/note/2015/02/06/r-readtable-bycolumn/</link>
+      <pubDate>Fri, 06 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2015/02/06/r-readtable-bycolumn/</guid>
+      <description>背景：文本数据字段太多，只需要读取有用字段，以此降低内存压力方便分析
+ 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
+dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = c(-27L, -27L, -27L), Mar = c(-25L, -25L, -2L), Apr = c(-31L, -31L, -6L), May = c(-31L, -31L, -10L), Jun = c(-39L, -39L, -32L), Jul = c(-25L, -25L, -13L), Aug = c(-15L, -15L, -12L), Sep = c(-30L, -30L, -27L), Oct = c(-27L, -27L, -30L), Nov = c(-21L, -21L, -38L), Dec = c(-25L, -25L, -29L)), .</description>
+    </item>
+    
+  </channel>
+</rss>

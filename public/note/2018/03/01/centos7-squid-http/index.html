@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>centos7安装squid实现http代理服务 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">centos7安装squid实现http代理服务</span></h1>
+<h2 class="date">2018/03/01</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/linux'>linux</a>
+  
+  <a href='/tags/vpn'>vpn</a>
+  
+  <a href='/tags/http'>http</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<blockquote>
+<p>在centos7环境搭建带认证功能的squid代理服务</p>
+</blockquote>
+
+<h3 id="yum安装">yum安装</h3>
+
+<p>squid实现代理功能，httpd-tools文件加密</p>
+
+<pre><code>yum -y install squid
+yum -y install httpd-tools
+</code></pre>
+
+<h3 id="squid的使用参数">squid的使用参数</h3>
+
+<p>进程启动、状态控制</p>
+
+<pre><code class="language-Shell">systemctl enable squid
+systemctl status/restart/stop squid
+systemctl status squid
+● squid.service - Squid caching proxy
+   Loaded: loaded (/usr/lib/systemd/system/squid.service; enabled; vendor preset: disabled)
+   Active: active (running) since 三 2018-02-28 05:56:10 CST; 23h ago
+  Process: 4889 ExecStop=/usr/sbin/squid -k shutdown -f $SQUID_CONF (code=exited, status=0/SUCCESS)
+  Process: 4898 ExecStart=/usr/sbin/squid $SQUID_OPTS -f $SQUID_CONF (code=exited, status=0/SUCCESS)
+  Process: 4892 ExecStartPre=/usr/libexec/squid/cache_swap.sh (code=exited, status=0/SUCCESS)
+ Main PID: 4900 (squid)
+   CGroup: /system.slice/squid.service
+           ├─4900 /usr/sbin/squid -f /etc/squid/squid.conf
+           ├─4902 (squid-1) -f /etc/squid/squid.conf
+           ├─4903 (logfile-daemon) /var/log/squid/access.log
+           └─4907 (basic_ncsa_auth) /etc/squid/passwd
+</code></pre>
+
+<p>版本信息、命令行参数</p>
+
+<pre><code class="language-Shell"># squid -v
+Squid Cache: Version 3.5.20
+Service Name: squid
+configure options:  '--build=x86_64-redhat-linux-gnu' '--host=x86_64-redhat-linux-gnu' '--program-prefix=' '--prefix=/usr' '--exec-prefix=/usr' '--bindir=/usr/bin' '--sbindir=/usr/sbin' '--sysconfdir=/etc' '--datadir=/usr/share' '--includedir=/usr/include' '--libdir=/usr/lib64' '--libexecdir=/usr/libexec' '--sharedstatedir=/var/lib' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-strict-error-checking' '--exec_prefix=/usr' '--libexecdir=/usr/lib64/squid' '--localstatedir=/var' '--datadir=/usr/share/squid' '--sysconfdir=/etc/squid'
+
+# squid -h
+Usage: squid [-cdhvzCFNRVYX] [-n name] [-s | -l facility] [-f config-file] [-[au] port] [-k signal]
+       -a port   Specify HTTP port number (default: 3128).
+       -d level  Write debugging to stderr also.
+       -f file   Use given config-file instead of
+                 /etc/squid/squid.conf
+       -h        Print help message.
+       -k reconfigure|rotate|shutdown|restart|interrupt|kill|debug|check|parse
+                 Parse configuration file, then send signal to
+                 running copy (except -k parse) and exit.
+       -n name   Specify service name to use for service operations
+                 default is: squid.
+       -s | -l facility
+                 Enable logging to syslog.
+       -u port   Specify ICP port number (default: 3130), disable with 0.
+       -v        Print version.
+       -z        Create missing swap directories and then exit.
+       -C        Do not catch fatal signals.
+       -D        OBSOLETE. Scheduled for removal.
+       -F        Don't serve any requests until store is rebuilt.
+       -N        No daemon mode.
+       -R        Do not set REUSEADDR on port.
+       -S        Double-check swap during rebuild.
+       -X        Force full debugging.
+       -Y        Only return UDP_HIT or UDP_MISS_NOFETCH during fast reload.
+</code></pre>
+
+<p>查看日志</p>
+
+<pre><code class="language-Shell">tail -f /var/log/squid/access.log
+</code></pre>
+
+<h3 id="添加认证">添加认证</h3>
+
+<pre><code>#生成密码文件
+touch /etc/squid/passwd &amp;&amp; chown squid /etc/squid/passwd
+#添加认证用户
+htpasswd /etc/squid/passwd user
+</code></pre>
+
+<h3 id="squid配置">squid配置</h3>
+
+<p>匹配认证用户</p>
+
+<pre><code class="language-Shell">vi /etc/squid/squid.conf
+
+auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwd
+auth_param basic children 5
+auth_param basic realm Squid Basic Authentication
+auth_param basic credentialsttl 2 hours
+acl auth_users proxy_auth REQUIRED
+http_access allow auth_users
+</code></pre>
+
+<p>非透明代理</p>
+
+<pre><code class="language-shell">vi /etc/squid/squid.conf
+
+request_header_access Via deny all
+request_header_access X-Forwarded-For deny all
+request_header_access From deny all
+</code></pre>
+
+<h3 id="代理测试">代理测试</h3>
+
+<p>wget命令行</p>
+
+<pre><code class="language-Shell">wget -e &quot;https_proxy=https://user:passwd@106.105.95.26:3128/&quot; https://www.baidu.com/
+</code></pre>
+
+<p>Python requests示例</p>
+
+<pre><code class="language-python">import requests
+
+proxies = {'http': 'http://106.105.95.26:3128', 'https': 'https://106.105.95.26:3128'}
+proxies = {'http': 'http://user:passwd@106.105.95.26:3128', 'https': 'https://user:passwd@106.105.95.26:3128'}
+resp = requests.get('http://httpbin.org/ip', proxies=proxies)
+print(resp.json())
+</code></pre>
+
+<h3 id="备注">备注：</h3>
+
+<p>直接使用这种方式即是在墙外服务器搭建squid的http/https代理服务，也不能实现代理访问墙外网站，还需要进一步加密请求信息等</p>
+
+<hr />
+
+<h3 id="参考">参考</h3>
+
+<ul>
+<li><a href="https://hostpresto.com/community/tutorials/how-to-install-and-configure-squid-proxy-on-centos-7/">how-to-install-and-configure-squid-proxy-on-centos-7</a></li>
+<li><a href="https://putty.biz/181">SQUID正向代理实现翻墙访问FACEBOOK/GOOGLE</a></li>
+<li><a href="https://rookiefly.cn/detail/192">使用squid为爬虫添加二级代理</a></li>
+<li><a href="https://maoxian.de/2016/06/1415.html">搭建需要身份认证的 Squid 代理</a></li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

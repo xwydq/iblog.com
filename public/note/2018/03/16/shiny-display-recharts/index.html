@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>recharts在shiny中的显示问题 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">recharts在shiny中的显示问题</span></h1>
+<h2 class="date">2018/03/16</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/shiny'>shiny</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/r'>R</a>
+  
+  <a href='/tags/plot'>plot</a>
+  
+  <a href='/tags/package'>package</a>
+  
+  <a href='/tags/recharts'>recharts</a>
+  
+  <a href='/tags/js'>JS</a>
+  
+  <a href='/tags/%E5%8F%AF%E8%A7%86%E5%8C%96'>可视化</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/echarts/echarts.min.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/echarts/echarts-wordcloud.min.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/d3/d3.v3.min.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/echarts_shapeFile/china.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/echarts_shapeFile/provinceShape.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/echarts_shapeFile/world.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/echarts-binding/echarts.js"></script>
+<script src="2018-03-16-recharts在shiny中的显示问题_files/default/default.js"></script>
+
+
+<div id="eplot" class="section level3">
+<h3><code>ePlot</code>函数画图</h3>
+<p><code>Create rEcharts from an R object</code>，直接使用<code>ePlot</code>函数画图可以正常显示</p>
+<pre class="r"><code>library(recharts)
+# 定义数据部分
+series = list(list(
+  name = &#39;Sales&#39;,
+  type = &#39;bar&#39;,
+  data = c(5, 20, 36, 10, 10, 20)
+))
+# 定义坐标轴部分
+ext = list(
+  xAxis = list(list( 
+    data = c(&#39;shirt&#39;,&#39;cardign&#39;,&#39;chiffon shirt&#39;,&#39;pants&#39;,&#39;heels&#39;,&#39;socks&#39;)
+  )),
+  yAxis = list(list())
+)
+# 绘制
+e1 = ePlot(series, ext)
+e1</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="echarts html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"legend":{"show":true,"orient":"horizontal","x":"left","y":"top","data":["Sales"]},"title":{"text":"","subtext":"","x":"center","y":"top"},"calculable":true,"theme":"default","tooltip":{"show":true,"trigger":"item","formatter":"{a} <br/>{b} : {c}"},"series":[{"name":"Sales","type":"bar","data":[5,20,36,10,10,20]}],"xAxis":[{"data":["shirt","cardign","chiffon shirt","pants","heels","socks"]}],"yAxis":[[]]},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="ebar" class="section level3">
+<h3><code>eBar</code>函数画图</h3>
+<p><code>Create an HTML bar charts widget using the ECharts(version:3.2.2) library</code>，使用<code>eBar</code>函数画图<code>Rmd</code>生成<code>HTML</code>正常，但是在<code>shiny</code>中使用<code>eBar</code>不显示</p>
+<ul>
+<li><code>Rmd</code>显示效果</li>
+</ul>
+<pre class="r"><code>dat=data.frame(x1 = c(&#39;shirt&#39;,&#39;cardign&#39;,&#39;chiffon shirt&#39;,&#39;pants&#39;,&#39;heels&#39;,&#39;socks&#39;),
+               Sales = c(5, 20, 36, 10, 10, 20))
+e2 = eBar(dat, ~x1, ~Sales)
+e2</code></pre>
+<div id="htmlwidget-2" style="width:672px;height:480px;" class="echarts html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"title":{"text":"","subtext":"","x":"center","y":"top"},"calculable":true,"theme":"default","tooltip":{"show":true,"trigger":"axis"},"toolbox":{"show":true,"x":"right","y":"top","orient":"horizontal","feature":{"mark":{"show":true},"dataZoom":{"show":false},"magicType":{"show":true,"type":["line","bar","stack","tiled"]},"restore":{"show":true},"dataView":{"show":{"readOnly":false}},"saveAsImage":{"show":true}}},"legend":{"show":true,"orient":"horizontal","x":"left","y":"top","data":["Sales"]},"xAxis":{"position":"bottom","name":"","nameLocation":"start","scale":true,"precision":2,"power":2,"axisLine":{"show":true},"axisTick":{"show":false},"axisLable":{"show":true,"textStyle":{"color":"black"}},"splitLine":{"show":true},"splitArea":{"show":false},"type":"category","data":["shirt","cardign","chiffon shirt","pants","heels","socks"],"boundaryGap":true},"yAxis":{"position":"left","name":"","nameLocation":"start","scale":true,"precision":2,"power":2,"axisLine":{"show":true},"axisTick":{"show":false},"axisLable":{"show":true},"splitLine":{"show":true},"splitArea":{"show":false},"type":"value","boundaryGap":[0,0]},"series":[{"type":"bar","name":"Sales","data":[5,20,36,10,10,20]}]},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li>shiny显示失败，在Rmd中运行shiny需要设置<code>runtime: shiny</code></li>
+</ul>
+<pre class="r"><code># renderEChart({
+#   e2
+# })</code></pre>
+</div>
+<div id="e1e2" class="section level3">
+<h3>比较e1、e2的区别</h3>
+<pre class="r"><code>str(e1)</code></pre>
+<pre><code>## List of 8
+##  $ x            :List of 8
+##   ..$ legend    :List of 5
+##   .. ..$ show  : logi TRUE
+##   .. ..$ orient: chr &quot;horizontal&quot;
+##   .. ..$ x     : chr &quot;left&quot;
+##   .. ..$ y     : chr &quot;top&quot;
+##   .. ..$ data  :List of 1
+##   .. .. ..$ : chr &quot;Sales&quot;
+##   ..$ title     :List of 4
+##   .. ..$ text   : chr &quot;&quot;
+##   .. ..$ subtext: chr &quot;&quot;
+##   .. ..$ x      : chr &quot;center&quot;
+##   .. ..$ y      : chr &quot;top&quot;
+##   ..$ calculable: logi TRUE
+##   ..$ theme     : chr &quot;default&quot;
+##   ..$ tooltip   :List of 3
+##   .. ..$ show     : logi TRUE
+##   .. ..$ trigger  : chr &quot;item&quot;
+##   .. ..$ formatter: chr &quot;{a} &lt;br/&gt;{b} : {c}&quot;
+##   ..$ series    :List of 1
+##   .. ..$ :List of 3
+##   .. .. ..$ name: chr &quot;Sales&quot;
+##   .. .. ..$ type: chr &quot;bar&quot;
+##   .. .. ..$ data: num [1:6] 5 20 36 10 10 20
+##   ..$ xAxis     :List of 1
+##   .. ..$ :List of 1
+##   .. .. ..$ data: chr [1:6] &quot;shirt&quot; &quot;cardign&quot; &quot;chiffon shirt&quot; &quot;pants&quot; ...
+##   ..$ yAxis     :List of 1
+##   .. ..$ : list()
+##  $ width        : NULL
+##  $ height       : NULL
+##  $ sizingPolicy :List of 6
+##   ..$ defaultWidth : NULL
+##   ..$ defaultHeight: NULL
+##   ..$ padding      : NULL
+##   ..$ viewer       :List of 6
+##   .. ..$ defaultWidth : NULL
+##   .. ..$ defaultHeight: NULL
+##   .. ..$ padding      : NULL
+##   .. ..$ fill         : logi TRUE
+##   .. ..$ suppress     : logi FALSE
+##   .. ..$ paneHeight   : NULL
+##   ..$ browser      :List of 4
+##   .. ..$ defaultWidth : NULL
+##   .. ..$ defaultHeight: NULL
+##   .. ..$ padding      : NULL
+##   .. ..$ fill         : logi FALSE
+##   ..$ knitr        :List of 3
+##   .. ..$ defaultWidth : NULL
+##   .. ..$ defaultHeight: NULL
+##   .. ..$ figure       : logi TRUE
+##  $ dependencies : NULL
+##  $ elementId    : NULL
+##  $ preRenderHook:function (instance)  
+##  $ jsHooks      : list()
+##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;echarts&quot; &quot;htmlwidget&quot;
+##  - attr(*, &quot;package&quot;)= chr &quot;recharts&quot;</code></pre>
+<pre class="r"><code>str(e2)</code></pre>
+<pre><code>## List of 8
+##  $ x            :List of 9
+##   ..$ title     :List of 4
+##   .. ..$ text   : chr &quot;&quot;
+##   .. ..$ subtext: chr &quot;&quot;
+##   .. ..$ x      : chr &quot;center&quot;
+##   .. ..$ y      : chr &quot;top&quot;
+##   ..$ calculable: logi TRUE
+##   ..$ theme     : chr &quot;default&quot;
+##   ..$ tooltip   :List of 2
+##   .. ..$ show   : logi TRUE
+##   .. ..$ trigger: chr &quot;axis&quot;
+##   ..$ toolbox   :List of 5
+##   .. ..$ show   : logi TRUE
+##   .. ..$ x      : chr &quot;right&quot;
+##   .. ..$ y      : chr &quot;top&quot;
+##   .. ..$ orient : chr &quot;horizontal&quot;
+##   .. ..$ feature:List of 6
+##   .. .. ..$ mark       :List of 1
+##   .. .. .. ..$ show: logi TRUE
+##   .. .. ..$ dataZoom   :List of 1
+##   .. .. .. ..$ show: logi FALSE
+##   .. .. ..$ magicType  :List of 2
+##   .. .. .. ..$ show: logi TRUE
+##   .. .. .. ..$ type: chr [1:4] &quot;line&quot; &quot;bar&quot; &quot;stack&quot; &quot;tiled&quot;
+##   .. .. ..$ restore    :List of 1
+##   .. .. .. ..$ show: logi TRUE
+##   .. .. ..$ dataView   :List of 1
+##   .. .. .. ..$ show:List of 1
+##   .. .. .. .. ..$ readOnly: logi FALSE
+##   .. .. ..$ saveAsImage:List of 1
+##   .. .. .. ..$ show: logi TRUE
+##   ..$ legend    :List of 5
+##   .. ..$ show  : logi TRUE
+##   .. ..$ orient: chr &quot;horizontal&quot;
+##   .. ..$ x     : chr &quot;left&quot;
+##   .. ..$ y     : chr &quot;top&quot;
+##   .. ..$ data  :List of 1
+##   .. .. ..$ : chr &quot;Sales&quot;
+##   ..$ xAxis     :List of 14
+##   .. ..$ position    : chr &quot;bottom&quot;
+##   .. ..$ name        : chr &quot;&quot;
+##   .. ..$ nameLocation: chr &quot;start&quot;
+##   .. ..$ scale       : logi TRUE
+##   .. ..$ precision   : num 2
+##   .. ..$ power       : num 2
+##   .. ..$ axisLine    :List of 1
+##   .. .. ..$ show: logi TRUE
+##   .. ..$ axisTick    :List of 1
+##   .. .. ..$ show: logi FALSE
+##   .. ..$ axisLable   :List of 2
+##   .. .. ..$ show     : logi TRUE
+##   .. .. ..$ textStyle:List of 1
+##   .. .. .. ..$ color: chr &quot;black&quot;
+##   .. ..$ splitLine   :List of 1
+##   .. .. ..$ show: logi TRUE
+##   .. ..$ splitArea   :List of 1
+##   .. .. ..$ show: logi FALSE
+##   .. ..$ type        : chr &quot;category&quot;
+##   .. ..$ data        : chr [1:6] &quot;shirt&quot; &quot;cardign&quot; &quot;chiffon shirt&quot; &quot;pants&quot; ...
+##   .. ..$ boundaryGap : logi TRUE
+##   ..$ yAxis     :List of 13
+##   .. ..$ position    : chr &quot;left&quot;
+##   .. ..$ name        : chr &quot;&quot;
+##   .. ..$ nameLocation: chr &quot;start&quot;
+##   .. ..$ scale       : logi TRUE
+##   .. ..$ precision   : num 2
+##   .. ..$ power       : num 2
+##   .. ..$ axisLine    :List of 1
+##   .. .. ..$ show: logi TRUE
+##   .. ..$ axisTick    :List of 1
+##   .. .. ..$ show: logi FALSE
+##   .. ..$ axisLable   :List of 1
+##   .. .. ..$ show: logi TRUE
+##   .. ..$ splitLine   :List of 1
+##   .. .. ..$ show: logi TRUE
+##   .. ..$ splitArea   :List of 1
+##   .. .. ..$ show: logi FALSE
+##   .. ..$ type        : chr &quot;value&quot;
+##   .. ..$ boundaryGap : num [1:2] 0 0
+##   ..$ series    :List of 1
+##   .. ..$ :List of 3
+##   .. .. ..$ type: chr &quot;bar&quot;
+##   .. .. ..$ name: chr &quot;Sales&quot;
+##   .. .. ..$ data: num [1:6] 5 20 36 10 10 20
+##  $ width        : NULL
+##  $ height       : NULL
+##  $ sizingPolicy :List of 6
+##   ..$ defaultWidth : NULL
+##   ..$ defaultHeight: NULL
+##   ..$ padding      : NULL
+##   ..$ viewer       :List of 6
+##   .. ..$ defaultWidth : NULL
+##   .. ..$ defaultHeight: NULL
+##   .. ..$ padding      : NULL
+##   .. ..$ fill         : logi TRUE
+##   .. ..$ suppress     : logi FALSE
+##   .. ..$ paneHeight   : NULL
+##   ..$ browser      :List of 4
+##   .. ..$ defaultWidth : NULL
+##   .. ..$ defaultHeight: NULL
+##   .. ..$ padding      : NULL
+##   .. ..$ fill         : logi FALSE
+##   ..$ knitr        :List of 3
+##   .. ..$ defaultWidth : NULL
+##   .. ..$ defaultHeight: NULL
+##   .. ..$ figure       : logi TRUE
+##  $ dependencies :List of 1
+##   ..$ :List of 10
+##   .. ..$ name      : chr &quot;default&quot;
+##   .. ..$ version   : chr &quot;0.0.4&quot;
+##   .. ..$ src       :List of 1
+##   .. .. ..$ file: chr &quot;/home/xuwy/R/x86_64-redhat-linux-gnu-library/3.4/recharts/htmlwidgets/themes&quot;
+##   .. ..$ meta      : NULL
+##   .. ..$ script    : chr &quot;default.js&quot;
+##   .. ..$ stylesheet: NULL
+##   .. ..$ head      : NULL
+##   .. ..$ attachment: NULL
+##   .. ..$ package   : NULL
+##   .. ..$ all_files : logi TRUE
+##   .. ..- attr(*, &quot;class&quot;)= chr &quot;html_dependency&quot;
+##  $ elementId    : NULL
+##  $ preRenderHook:function (instance)  
+##  $ jsHooks      : list()
+##  - attr(*, &quot;class&quot;)= chr [1:3] &quot;echarts&quot; &quot;htmlwidget&quot; &quot;eBar&quot;
+##  - attr(*, &quot;package&quot;)= chr &quot;recharts&quot;</code></pre>
+<p>比较发现e1与e2结构基本相同的list，最大区别</p>
+<pre class="r"><code>e1$dependencies</code></pre>
+<pre><code>## NULL</code></pre>
+<pre class="r"><code>e2$dependencies</code></pre>
+<pre><code>## [[1]]
+## List of 10
+##  $ name      : chr &quot;default&quot;
+##  $ version   : chr &quot;0.0.4&quot;
+##  $ src       :List of 1
+##   ..$ file: chr &quot;/home/xuwy/R/x86_64-redhat-linux-gnu-library/3.4/recharts/htmlwidgets/themes&quot;
+##  $ meta      : NULL
+##  $ script    : chr &quot;default.js&quot;
+##  $ stylesheet: NULL
+##  $ head      : NULL
+##  $ attachment: NULL
+##  $ package   : NULL
+##  $ all_files : logi TRUE
+##  - attr(*, &quot;class&quot;)= chr &quot;html_dependency&quot;</code></pre>
+<p>将<code>e2$dependencies = NULL</code> 就可以实现e2在shiny中的正常显示，目前应该是依赖指向的问题</p>
+</div>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

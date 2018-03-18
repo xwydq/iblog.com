@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTML on 飞舞的尘埃</title>
+    <link>/categories/html/</link>
+    <description>Recent content in HTML on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 05 Feb 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/html/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>只是开始</title>
+      <link>/note/2016/02/05/%E5%8F%AA%E6%98%AF%E5%BC%80%E5%A7%8B/</link>
+      <pubDate>Fri, 05 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2016/02/05/%E5%8F%AA%E6%98%AF%E5%BC%80%E5%A7%8B/</guid>
+      <description>library(ggplot2) p &amp;lt;- ggplot(mpg, aes(class, hwy)) p + geom_boxplot() + ggtitle(&amp;quot;火车fadrivr啦&amp;quot;) plot(rnorm(100), main = &amp;quot;another图片&amp;quot;) library(knitr) kable(head(iris))   Sepal.Length Sepal.Width Petal.Length Petal.Width Species    5.1 3.5 1.4 0.2 setosa  4.9 3.0 1.4 0.2 setosa  4.7 3.2 1.3 0.2 setosa  4.6 3.1 1.5 0.2 setosa  5.0 3.6 1.4 0.2 setosa  5.4 3.9 1.7 0.4 setosa    </description>
+    </item>
+    
+  </channel>
+</rss>

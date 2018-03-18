@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>配置 on 飞舞的尘埃</title>
+    <link>/tags/%E9%85%8D%E7%BD%AE/</link>
+    <description>Recent content in 配置 on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 18 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E9%85%8D%E7%BD%AE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>centos7 中rstudio-server画图中文显示问题</title>
+      <link>/note/2017/08/18/centos7-rstudio-server-chinese/</link>
+      <pubDate>Fri, 18 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2017/08/18/centos7-rstudio-server-chinese/</guid>
+      <description>关于centos 7中rstudio-server画图中文不显示问题整理
+ 修改操作系统默认字符编码的支持  vi /etc/locale.conf LANG=&amp;quot;zh_CN.UTF-8&amp;quot; SUPPORTED=&amp;quot;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&amp;quot; SYSFONT=&amp;quot;Microsoft YaHei&amp;quot; # LANG变量，设置系统语言。 # SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。 # SYSFONT变量表示系统字体。 reboot #需要重启后生效   查看已经安装的中文字体  fc-list :lang=zh  如果查询为空就需安装中文字体
+安装部分中文字体后的查询结果如下
+fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持 /usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style=Regular,Normal,obyčejné,Standard,Κανονικά,No rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style=常规,Regular /usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style=Regular,Normal,obyčejné,Standard,Κανον ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style=常规,Regular   无中文字体时安装  yum install -y fontconfig mkfontscale #1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。 #2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下： mkdir /usr/share/fonts/win #3) 将上传的字体解压至/usr/share/fonts/win目录 #4) 建立字体索引信息，更新字体缓存： cd /usr/share/fonts/win mkfontscale mkfontdir fc-cache #至此，字体已经安装完毕！ #5) 重启系统，实测只需要重启对应的应用即可 reboot  同样centos7.</description>
+    </item>
+    
+    <item>
+      <title>shiny-server 安装与配置、问题汇总</title>
+      <link>/note/2014/04/01/centos6-install-shiny-server/</link>
+      <pubDate>Tue, 01 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2014/04/01/centos6-install-shiny-server/</guid>
+      <description>1 安装 环境：centos6.5
+ 1.1 安装R  $ sudo yum install R   1.2 进入R，安装包shiny,rmarkdown  install.packages(&#39;shiny&#39;) install.packages(&#39;rmarkdown&#39;)   1.3 安装shiny-server  $ wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.2.786-rh5-x86_64.rpm $ sudo yum install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm  查看是否安装成功：进入ip:3838
+##2 启动
+start shiny-server stop shiny-server status shiny-server reload shiny-server  ##3 配置
+ 3.1 默认配置  cat /etc/shiny-server/shiny-server.conf  首页：/srv/shiny-server/index.html shiny app 的目录：/srv/shiny-server/sample-apps 详细配置参数见：shiny-server conf settings
+##4 注意问题
+ 4.1 The application took too long to respond.</description>
+    </item>
+    
+  </channel>
+</rss>

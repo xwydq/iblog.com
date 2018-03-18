@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Selenium on 飞舞的尘埃</title>
+    <link>/tags/selenium/</link>
+    <description>Recent content in Selenium on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 27 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/selenium/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>linux环境下selenium操作Chrome</title>
+      <link>/note/2018/02/27/linux-selenium-chromeheadless-install-test/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/02/27/linux-selenium-chromeheadless-install-test/</guid>
+      <description>typora-copy-images-to: ipic
+ centos7及以上Linux环境。使用PhantomJS设置cookie报错Can only set Cookies for the current domain，看样子后期相关维护也很慢。google chrome已经开始支持headless，可以考虑换大腿了
+ 环境配置安装 可以直接使用配置yum源的方法来安装，但是由于伟大的墙可能访问不到Google服务，也可以先下载指定版本的安装文件再安装
+ chromedriver安装  $ wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip $ unzip chromedriver_linux64.zip $ chromedriver --version #ChromeDriver 2.35.528139 # 将chromedriver执行文件所在的路径添加到PATH环境变量   chromebrowser安装  $ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm $ sudo yum install google-chrome-stable_current_x86_64.rpm $ google-chrome --version #Google Chrome 61.0.3163.100   Xvfb安装  Xvfb（virtual framebuffer X server for X Version 11）， Xvfb 可以直接处理 Window 的图形化功能，且不把图像輸出到屏幕，目的就是在没有 Xwindow的情况下仍然可以执行相关图像界面操作。实现一种虚拟窗口（window）的操作。安裝 XVFB 做 Selenium 測試</description>
+    </item>
+    
+  </channel>
+</rss>

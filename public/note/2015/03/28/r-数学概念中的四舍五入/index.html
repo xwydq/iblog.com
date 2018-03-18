@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R-数学概念中的四舍五入 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">R-数学概念中的四舍五入</span></h1>
+<h2 class="date">2015/03/28</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/r'>R</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/round'>round</a>
+  
+  <a href='/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5'>四舍五入</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<blockquote>
+<p>最近被R中的round函数搞得郁闷，有人说round函数的规则是如此定义。引用cos 版主肖楠：这个规则有个俗名叫「四舍六入五凑偶」，也叫「银行家舍入」，完整版如下：</p>
+
+<ol>
+<li>被修约的数字等于或小于 4 时，该数字舍去；</li>
+<li>被修约的数字等于或大于 6 时，则进位；</li>
+<li>被修约的数字等于 5 时，要看 5 前面的数字，若是奇数则进位，若是偶数则将 5 舍掉，即修约后末尾数字都成为偶数；若 5 的后面还有不为 “0” 的任何数，则此时无论 5 的前面是奇数还是偶数，均应进位。</li>
+</ol>
+</blockquote>
+
+<p>举例，用上述规则对下列数据保留 3 位有效数字：</p>
+
+<pre><code>9.8249=9.82, 9.82671=9.83
+9.8350=9.84, 9.8351 =9.84
+9.8250=9.82, 9.82501=9.83
+</code></pre>
+
+<p>好像是说明了问题，但是：</p>
+
+<pre><code class="language-r">round(9.9995,3)
+# 9.999
+</code></pre>
+
+<p>难道9是奇数中一个特例？</p>
+
+<p><strong>以下为自己在R中实现的小数的四舍五入（主要是想按照数学中的规则：对该数的的绝对值四舍五入再加上正负号）。代码还有许多改进的方面，目前只是满足个人需要示例（对某个数小数位后保留n位后四舍五入）：</strong></p>
+
+<pre><code class="language-R">myRound &lt;- function(x, keep=4){
+  x &lt;- as.character(x)
+  if(grepl(&quot;[.]&quot;, x)){
+    xSplit &lt;- unlist(strsplit(x, &quot;[.]&quot;))
+    xSplitBef &lt;- xSplit[1]
+    minusYN &lt;- substring(xSplitBef, 1, 1)
+    #     minusYN &lt;- minusYN == &quot;-&quot;
+    xSplitAft &lt;- xSplit[2]
+    xSplitAft &lt;- substring(xSplitAft, 1:nchar(xSplitAft), 1:nchar(xSplitAft))
+    
+    if(minusYN == &quot;-&quot;){
+      xSplitBef &lt;- substring(xSplitBef, 2:nchar(xSplitBef), 2:nchar(xSplitBef))
+      lenBef &lt;- length(xSplitBef)
+      lenAft &lt;- length(xSplitAft)
+      
+      if(lenAft &gt; keep){
+        all &lt;- c(xSplitBef, xSplitAft[1:(keep + 1)])
+        if(as.integer(tail(all,1)) &lt; 5){
+          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
+          res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
+          res1 &lt;- -as.numeric(res1)
+        }else{
+          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
+          res1 &lt;- as.integer(res1)
+          for(i in length(res1):1){
+            if(i == length(res1)){
+              res1[i] &lt;- res1[i] + 1
+            }
+            if(res1[i] != 10){
+              break
+            }else{
+              res1[i - 1] &lt;- res1[i - 1] + 1
+            }
+          }
+          
+          if(res1[1] == 10){
+            res1[-1] &lt;- 0
+            res1 &lt;- c(1,0,res1[-1])
+            res1 &lt;- paste(c(res1[1:(lenBef+1)], &quot;.&quot;, res1[(lenBef+2):length(res1)]), collapse=&quot;&quot;)
+            res1 &lt;- -as.numeric(res1)
+          }else{
+            res1[which(res1 == 10)] &lt;- 0
+            res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
+            res1 &lt;- -as.numeric(res1)
+          }
+
+        }
+      }else{
+        res1 &lt;- as.numeric(x)
+      }
+    }else{
+      xSplitBef &lt;- substring(xSplitBef, 1:nchar(xSplitBef), 1:nchar(xSplitBef))
+      lenBef &lt;- length(xSplitBef)
+      lenAft &lt;- length(xSplitAft)
+      
+      if(lenAft &gt; keep){
+        all &lt;- c(xSplitBef, xSplitAft[1:(keep + 1)])
+        if(as.integer(tail(all,1)) &lt; 5){
+          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
+          res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
+          res1 &lt;- as.numeric(res1)
+        }else{
+          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
+          res1 &lt;- as.integer(res1)
+          for(i in length(res1):1){
+            if(i == length(res1)){
+              res1[i] &lt;- res1[i] + 1
+            }
+            if(res1[i] != 10){
+              break
+            }else{
+              res1[i - 1] &lt;- res1[i - 1] + 1
+            }
+          }
+          
+          if(res1[1] == 10){
+            res1[-1] &lt;- 0
+            res1 &lt;- c(1,0,res1[-1])
+            res1 &lt;- paste(c(res1[1:(lenBef+1)], &quot;.&quot;, res1[(lenBef+2):length(res1)]), collapse=&quot;&quot;)
+            res1 &lt;- as.numeric(res1)
+          }else{
+            res1[which(res1 == 10)] &lt;- 0
+            res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
+            res1 &lt;- as.numeric(res1)
+          }
+
+        }
+      }else{
+        res1 &lt;- as.numeric(x)
+      }
+    }
+  }else{
+    res1 &lt;- as.numeric(x)
+  }
+  return(res1)
+}
+
+myRound(-0.374832,3)
+
+</code></pre>
+
+<p><strong>该函数不适合向量计算，x必须为单一数值。对多个数值可使用：</strong></p>
+
+<pre><code class="language-R">( x1 &lt;- seq(-.2, .4, by = .05) )
+sapply(x1, myRound, keep=1)
+</code></pre>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

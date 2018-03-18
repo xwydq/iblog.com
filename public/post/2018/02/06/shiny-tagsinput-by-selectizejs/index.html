@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>shiny tagsInput by selectizejs | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">shiny tagsInput by selectizejs</span></h1>
+<h2 class="date">2018/02/06</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/shiny'>shiny</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/%E6%A0%87%E7%AD%BE%E5%8A%9F%E8%83%BD'>标签功能</a>
+  
+  <a href='/tags/selectize.js'>selectize.js</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<blockquote>
+<p><a href="http://selectize.github.io/selectize.js/">selectize.js</a>是基于jQuery开发的混合了文本输入框与下拉选择框功能的JS库，对应的<a href="https://github.com/selectize/selectize.js">GITHUB地址</a></p>
+</blockquote>
+
+<p>最新版本的shiny已经整合了selectize.js 到 selectInput</p>
+
+<pre><code class="language-R">&gt; sessionInfo()
+R version 3.4.3 (2017-11-30)
+...
+other attached packages:
+[1] shiny_1.0.5
+</code></pre>
+
+<h3 id="打标签">打标签</h3>
+
+<p>使用 selectInput/selectizeInput 实现打标签功能</p>
+
+<pre><code class="language-r">     selectizeInput(inputId='ids1', 
+                    label= tags$h5('标签效果'), 
+                    choices = NULL, 
+                    multiple = TRUE, 
+                    options = list( 
+                      placeholder = 'Please select/type something', 
+                      maxItems = 3, # 最大数量限制
+                      onInitialize = I('function() {
+                                       this.setValue(&quot;hello world&quot;); }'), # 未发现具体作用
+                      # class=&quot;demo&quot;,
+                      plugins = list('restore_on_backspace', # backspace 按钮可以起到编辑效果
+                                     'remove_button', # 显示移除按钮
+                                     'drag_drop'), # 可以拖动编辑顺序
+                      create =  TRUE, 
+                      delimiter = ',', 
+                      persist = FALSE,
+                      onDelete = I(&quot;function(values) {
+                                   return confirm(values.length &gt; 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove \&quot;' + values[0] + '\&quot;?');
+                                   }&quot;) # onDelete 触发删除确认的作用
+                        ))
+</code></pre>
+
+<p>默认样式显示的标签效果较差，可以使用自定义css样式的方式修改</p>
+
+<ul>
+<li><p>默认样式</p>
+
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fo6rhjd5amj30ki07g74n.jpg" style="zoom:50%" /></p></li>
+
+<li><p>修改后效果，使用css显示标签的渐变色</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fo6rhiwqagj30t8090t9l.jpg" style="zoom:50%" /></p></li>
+
+<li><p>修改过程</p>
+
+<p>定位原标签的的具体位置确定起作用的css样式，可以下载 <a href="https://github.com/selectize/selectize.js">GITHUB</a>的示例在Chrome中查看</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo6rhgkf6pj31kw0l0qj3.jpg" alt="1517884574736" /></p>
+
+<p>自定义的CSS样式</p>
+
+<pre><code class="language-css"> .selectize-control.multi .selectize-input [data-value] {
+    background-image: linear-gradient(to bottom, #ddd7ee, #1e9);
+ }
+</code></pre></li>
+</ul>
+
+<h3 id="下拉选择添加邮箱地址的功能">下拉选择添加邮箱地址的功能</h3>
+
+<p>实现邮箱正则匹配，设置展示规则等。直接将原示例转移到shiny，需要注意：</p>
+
+<ul>
+<li><code>I()</code>函数及R的<code>AsIs</code>类型的使用</li>
+<li>JS代码作为R字符串时需转义<code>'; &quot;; \</code> to <code>\'; \&quot;; \\</code></li>
+</ul>
+
+<pre><code class="language-r">   selectizeInput(inputId='ids2', 
+                  label= tags$h5(em('选择添加邮箱（正则限制）')), 
+                  width = &quot;80%&quot;,
+                  choices = NULL, 
+                  multiple = TRUE, 
+                  options = list( 
+                    persist = FALSE,
+                    maxItems = NULL,
+                    valueField = 'email',
+                    labelField = 'name',
+                    searchField = c('name', 'email'), # 搜索字段
+                    # 可选项
+                    options = I(&quot;[
+                                {email: 'brian@thirdroute.com', name: 'Brian Reavis'},
+                                {email: 'nikola@tesla.com', name: 'Nikola Tesla'},
+                                {email: 'someone@gmail.com'}
+                                ]&quot;),
+                    # 选择后的显示结果
+                    render = I(&quot;{
+                               item: function(item, escape) {
+                               return '&lt;div&gt;' +
+                               (item.name ? '&lt;span class=\&quot;name\&quot;&gt;' + escape(item.name) + '&lt;/span&gt;' : '') +
+                               (item.email ? '&lt;span class=\&quot;email\&quot;&gt;' + escape(item.email) + '&lt;/span&gt;' : '') +
+                               '&lt;/div&gt;';
+                               },
+                               option: function(item, escape) {
+                               var label = item.name || item.email;
+                               var caption = item.name ? item.email : null;
+                               return '&lt;div&gt;' +
+                               '&lt;span class=\&quot;label\&quot;&gt;' + escape(label) + '&lt;/span&gt;' +
+                               (caption ? '&lt;span class=\&quot;caption\&quot;&gt;' + escape(caption) + '&lt;/span&gt;' : '') +
+                               '&lt;/div&gt;';
+                               }
+                               }&quot;),
+                          # 生成邮件规则的筛选，正则出现 \ 要替换为 \\
+                    createFilter = I(&quot;function(input) {
+                                     var match, regex;
+                                     var REGEX_EMAIL = '([a-z0-9!#$%&amp;\\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&amp;\\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+                                     
+                                     
+                                     // email@address.com
+                                     regex = new RegExp('^' + REGEX_EMAIL + '$', 'i');
+                                     match = input.match(regex);
+                                     if (match) return !this.options.hasOwnProperty(match[0]);
+                                     
+                                     // name &lt;email@address.com&gt;
+                                     regex = new RegExp('^([^&lt;]*)\\&lt;' + REGEX_EMAIL + '\\&gt;$', 'i');
+                                     match = input.match(regex);
+                                     if (match) return !this.options.hasOwnProperty(match[2]);
+                                     
+                                     return false;
+                                     }&quot;),
+                          # 创建数据结果
+                    create = I(&quot;function(input) {
+                               var REGEX_EMAIL = '([a-z0-9!#$%&amp;\\'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&amp;\\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)';
+                               
+                               if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
+                               return {email: input};
+                               }
+                               var match = input.match(new RegExp('^([^&lt;]*)\\&lt;' + REGEX_EMAIL + '\\&gt;$', 'i'));
+                               if (match) {
+                               return {
+                               email : match[2],
+                               name  : $.trim(match[1])
+                               };
+                               }
+                               alert('Invalid email address.');
+                               return false;
+                               }&quot;),
+                          delimiter = ','
+                        ))
+</code></pre>
+
+<p>具体效果</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fo6rhhr8nrj315y09s40p.jpg" style="zoom:50%" /></p>
+
+<h3 id="具体实例见-shinyapps-io-https-xwydq-shinyapps-io-selectize">具体实例见<a href="https://xwydq.shinyapps.io/selectize/">shinyapps.io</a></h3>
+
+<p><a href="http://docs.rstudio.com/shinyapps.io/">shinyapps.io的部署</a></p>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

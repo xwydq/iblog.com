@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ROracle on 飞舞的尘埃</title>
+    <link>/tags/roracle/</link>
+    <description>Recent content in ROracle on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 20 Feb 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/roracle/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux下安装ROracle及rstudio-server使用ROracle中文乱码解决</title>
+      <link>/note/2015/02/20/linux-rstudioserver-roracle/</link>
+      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2015/02/20/linux-rstudioserver-roracle/</guid>
+      <description>rstudio-server安装在Linux服务器中，数据库一般也部署在服务器，所以在Linux服务器上使用R直连数据库操作更加方便，由于ROracle文档理解不到位，安装遇到一些问题在此补充，本文安装环境centos 6.5并测试通过
+ 一、oracle-instantclient的安装  Oracle Instant Client下载（与数据库版本一致）
+下载地址：官网
+可以下载rpm包或者zip包进行安装,这里已rpm包（64位）为例
+下载rpm包csdn下载地址
+oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  查看默认安装路径
+rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  安装
+使用如下命令进行安装：
+rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm  安装完成后，ORACLE Instant Client 相关的头文件在 /usr/include/oracle/11.2/client64/下；库文件在/usr/lib/oracle/11.2/client64/下(cliient目录下有 lib 和 bin两个目录.)
+ 指定TNS文件目录
+一般情况将TNS文件（tnsnames.ora）保存到以下目录：
+目录不存在，建目录先：
+mkdir -p /usr/lib/oracle/11.2/client64/network/admin # 将已有的TNS文件（tnsnames.ora）复制到该目录下  头文件的转移
+相关的头文件在/usr/include/oracle/11.2/client64/目录下
+但是需要转移到目录（如果不复制过去，安装ROracle时就提示~/rdbms/public目录不存在，真的不存在啊，为啥去这个路径找？ROracle安装文档尽然没有提到，太坑了）：/usr/lib/oracle/11.2/client64/rdbms/public
+如下命令：
+mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public cd /usr/lib/oracle/11.2/client64/rdbms/public cp /usr/include/oracle/11.</description>
+    </item>
+    
+    <item>
+      <title>win7下安装ROracle</title>
+      <link>/note/2015/02/11/win7-roracle/</link>
+      <pubDate>Wed, 11 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2015/02/11/win7-roracle/</guid>
+      <description> win7下安装R的ROracle来连接Oracle数据库速度比ODBC的方式快很多
+安装配置也比较简单，但是有个问题：
+同时使用PL/SQL(32bits)与R(64bits，当然完全可以使用32位的，但是32的有保存使用限制~~~~~)。
+本配置的目的就是同时兼顾以上两者：
+一、ROracle、Oracle instantclient下载  （1）ROracle下载  ROracle下载地址
+ （2）Oracle instantclient下载  将文件夹32/64（文件夹中分别包含将32位、64位的Oracle instant client（basic、jdbc、odbc、sdk、sqlplus）解压后的文件，都解压到instantclient_11_2文件夹下，且将TNS数据源配置直接复制到该文件下）COPY到D盘 如果使用版本instantclient_11_2可以直接32bits、64bits
+其他版本可以官网下载 解压后见下图 二、环境变量的配置 在此例中需要设置如下环境变量：
+Path D:\32\instantclient_11_2;D:\64\instantclient_11_2; ORACLE_HOME D:\32\instantclient_11_2 TNS_ADMIN D:\32\instantclient_11_2 NLS_LANG SIMPLIFIED CHINESE_CHINA.ZHS16GBK OCI_LIB64 D:\64\instantclient_11_2 OCI_LIB32 D:\32\instantclient_11_2  </description>
+    </item>
+    
+  </channel>
+</rss>

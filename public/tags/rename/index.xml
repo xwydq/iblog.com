@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rename on 飞舞的尘埃</title>
+    <link>/tags/rename/</link>
+    <description>Recent content in Rename on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 24 Feb 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/rename/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>R安装同名包的替代方法</title>
+      <link>/note/2018/02/24/r-github-package-rename/</link>
+      <pubDate>Sat, 24 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/02/24/r-github-package-rename/</guid>
+      <description>由于package命名习惯及各种历史原因，不同开发者对类似功能的package命名有可能一样，或者package的更新不是兼容之前老版本。比如本人之前使用的R package recharts ，目前这个包换到统计之都维护更新
+解决方案：是package的名称不一致，针对github操作，其他类似
+ fork原package到自己的github仓库  devtools::install_github(&#39;madlogos/recharts&#39;) # 原package # devtools::install_github(&#39;xwydq/recharts-1&#39;) 已经存在recharts仓库所以追加后缀1   clone到本地修改包名rechartsX  git clone git@github.com:xwydq/recharts-1.git # recharts 替换为 rechartsX sed -i &amp;quot;s/recharts/rechartsX/g&amp;quot; `grep recharts -rl ./test/recharts-1` # git相关配置不能修改（还原），不让push失败 sed -i &amp;quot;s/rechartsX/recharts/g&amp;quot; `grep rechartsX -rl ./test/recharts-1/.git` git commit -am &amp;quot;rename X&amp;quot; git push   安装修改后的包  devtools::install_github(&#39;xwydq/recharts-1&#39;) library(rechartsX) # 一般情况下可以正常使用，如果原包中有函数名包含recharts，那直接全局替换会有些问题  </description>
+    </item>
+    
+  </channel>
+</rss>

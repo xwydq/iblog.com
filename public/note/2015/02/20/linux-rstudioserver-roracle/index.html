@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Linux下安装ROracle及rstudio-server使用ROracle中文乱码解决 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Linux下安装ROracle及rstudio-server使用ROracle中文乱码解决</span></h1>
+<h2 class="date">2015/02/20</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/r'>R</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/oracle'>oracle</a>
+  
+  <a href='/tags/roracle'>ROracle</a>
+  
+  <a href='/tags/linux'>linux</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<blockquote>
+<p><code>rstudio-server</code>安装在Linux服务器中，数据库一般也部署在服务器，所以在Linux服务器上使用R直连数据库操作更加方便，由于ROracle文档理解不到位，安装遇到一些问题在此补充，本文安装环境centos 6.5并测试通过</p>
+</blockquote>
+
+<h3 id="一-oracle-instantclient的安装">一、oracle-instantclient的安装</h3>
+
+<ul>
+<li><p><code>Oracle Instant Client</code>下载（与数据库版本一致）<br />
+下载地址：<a href="http://www.oracle.com/technetwork/topics/linuxsoft-082809.html">官网</a><br />
+可以下载<code>rpm</code>包或者<code>zip</code>包进行安装,这里已<code>rpm包（64位）</code>为例<br />
+下载<code>rpm</code>包<a href="http://download.csdn.net/detail/xwydq/8440629">csdn下载地址</a></p>
+
+<pre><code>oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
+oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
+oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
+</code></pre></li>
+
+<li><p>查看默认安装路径</p>
+
+<pre><code class="language-Shell">rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
+rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
+rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
+</code></pre></li>
+
+<li><p>安装<br />
+使用如下命令进行安装：</p>
+
+<pre><code class="language-shell">rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
+rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm
+rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm
+</code></pre>
+
+<p>安装完成后，<code>ORACLE Instant Client</code> 相关的头文件在 <code>/usr/include/oracle/11.2/client64/</code>下；库文件在<code>/usr/lib/oracle/11.2/client64/</code>下(cliient目录下有 lib 和 bin两个目录.)</p></li>
+
+<li><p>指定TNS文件目录<br />
+一般情况将TNS文件（<code>tnsnames.ora</code>）保存到以下目录：<br />
+目录不存在，建目录先：</p>
+
+<pre><code class="language-shell">mkdir -p /usr/lib/oracle/11.2/client64/network/admin
+# 将已有的TNS文件（tnsnames.ora）复制到该目录下
+</code></pre></li>
+
+<li><p>头文件的转移<br />
+相关的头文件在<code>/usr/include/oracle/11.2/client64/</code>目录下<br />
+<img src="http://img.blog.csdn.net/20150211162254038?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img" /><br />
+但是需要转移到目录（如果不复制过去，安装<code>ROracle</code>时就提示<code>~/rdbms/public</code>目录不存在，真的不存在啊，为啥去这个路径找？<code>ROracle</code>安装文档尽然没有提到，太坑了）：<code>/usr/lib/oracle/11.2/client64/rdbms/public</code><br />
+如下命令：</p>
+
+<pre><code class="language-shell">mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public
+cd /usr/lib/oracle/11.2/client64/rdbms/public
+cp /usr/include/oracle/11.2/client64/* .
+</code></pre></li>
+
+<li><p>设置环境变量<br />
+```shell
+vi /etc/profile # 加入：</p></li>
+</ul>
+
+<p>export ORACLE_HOME=/usr/lib/oracle/11.2/client64
+export TNS_ADMIN=$ORACLE_HOME/network/admin
+export NLS_LANG=&ldquo;SimplifiedChinese_china&rdquo;.AL32UTF8
+#export NLS_LANG=&lsquo;simplifiedchinese_china&rsquo;.ZHS16GBK
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib/oracle/11.2/client64/lib
+PATH=$JAVA_HOME/bin:$PATH:$HADOOP_HOME/bin:$ORACLE_HOME/bin:$R_HOME/bin
+export PATH</p>
+
+<p>chmod +x /etc/profile
+source /etc/profile</p>
+
+<pre><code>**注**：设置环境变量`NLS_LANG`可以选择`GBK`，只要其他local、系统语言变量设置好，R在console下读取数据中文是没有乱码问题的，但是使用`rstudio-server`却始终不能正常显示中文，查来查去是`rstudio-server`的问题-对`GBK`支持有问题（不能确定），所以这里使用`UTF-8`作为变量可以解决中文显示的问题    
+
+- `sqlplus`测试    
+使用`sqlplus`测试是否可以成功连接数据库    
+![img](http://img.blog.csdn.net/20150211162359745?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)    
+
+### 二、ROracle安装    
+以上安装正常的话就可以直接安装`ROracle`，建议`root`，其他用户也可以    
+```shell
+R CMD INSTALLROracle_1.1-12.tar.gz
+</code></pre>
+
+<p><img src="http://img.blog.csdn.net/20150211162443267" alt="img" /><br />
+如此就表示安装成功</p>
+
+<h3 id="三-加载使用">三、加载使用</h3>
+
+<p><img src="http://img.blog.csdn.net/20150211162510660" alt="img" /></p>
+
+<h3 id="四-rstudio-server加载出错及中文乱码解决">四、rstudio-server加载出错及中文乱码解决</h3>
+
+<p>使用<code>rstudio-server</code>加载<code>ROracle</code>一直报错</p>
+
+<pre><code class="language-R">Error in dyn.load(file, DLLpath =DLLpath, ...) :
+ unable to load shared object '/usr/lib64/R/library/ROracle/libs/ROracle.so':
+ libclntsh.so.11.1: cannot open shared object file: No such file ordirectory
+Error: package or namespace load failedfor ‘ROracle’
+</code></pre>
+
+<p><img src="http://img.blog.csdn.net/20150211162527090" alt="img" /><br />
+按官方文档说是没有环境变量<code>LD_LIBRARY_PATH</code>，但是即使指定了之后还是报错，想到<code>rstudio-server</code>每次都要一个新的R进程（理解可能不当），而启动<code>R</code>时可以可以设置一些默认的启动命令，这样就把一些环境变量的设定语句直接加到<code>Rprofile.site</code>（文件不存在可直接新建），命令：</p>
+
+<pre><code class="language-R">cd /usr/local/lib64/R/etc/
+mkdir -p Rprofile.site
+vi Rprofile.site # 加入：
+
+Sys.setenv(LD_LIBRARY_PATH=&quot;/usr/local/lib64/R/lib:/usr/local/lib64:/usr/java/jdk1.6.0_45/jre/lib/amd64/server:/usr/local/lib:/usr/lib/oracle/11.2/client64/lib&quot;)
+Sys.setenv(ORACLE_HOME=&quot;/usr/lib/oracle/11.2/client64&quot;)
+Sys.setenv(TNS_ADMIN=&quot;/usr/lib/oracle/11.2/client64/network/admin&quot;)
+Sys.setenv(PATH=&quot;/usr/java/jdk1.6.0_45/bin:/usr/java/jdk1.6.0_45/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/hadoop/hadoop-1.2.1/bin:/usr/lib/oracle/11.2/client64/bin:/home/hadoop/bin:/home/hadoop/hadoop-1.2.1/bin:/usr/lib/oracle/11.2/client64/bin:/usr/local/lib64/R/bin&quot;)
+Sys.setenv(NLS_LANG=&quot;Simplified Chinese_china.AL32UTF8&quot;)
+</code></pre>
+
+<p>具体的环境变量值可以通过<code>R console</code>查看<br />
+重启<code>rstudio-server</code>发现还是没有成功，但是其他环境变量已经有值，再设置：</p>
+
+<pre><code class="language-R">cd /etc/rstudio
+vi rserver.conf
+
+# 加入：
+# Server Configuration File
+rsession-ld-library-path=/usr/local/lib64/R/lib:/usr/local/lib64:/usr/java/jdk1.6.0_45/jre/lib/amd64/server:/usr/local/lib:/usr/lib/oracle/11.2/client64/lib
+</code></pre>
+
+<p>结果终于OK了！（中文乱码就是用UTF-8解决）<br />
+<img src="http://img.blog.csdn.net/20150211161318818" alt="img" /></p>
+
+<hr />
+
+<h3 id="参考">参考：</h3>
+
+<p><a href="http://chingchuan-chen.github.io/posts/2016/07/25/use-ROracle-to-manipulate-oracle-database-in-R">在R用<code>ROracle</code>去操作Oracle資料庫</a></p>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

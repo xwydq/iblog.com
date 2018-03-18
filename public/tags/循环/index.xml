@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>循环 on 飞舞的尘埃</title>
+    <link>/tags/%E5%BE%AA%E7%8E%AF/</link>
+    <description>Recent content in 循环 on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 22 Sep 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E5%BE%AA%E7%8E%AF/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>R中data.frame与matrix循环效率比较</title>
+      <link>/note/2013/09/22/r-loop-dataframe-vs-matrix/</link>
+      <pubDate>Sun, 22 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2013/09/22/r-loop-dataframe-vs-matrix/</guid>
+      <description>一直以来，在R中使用data.frame处理数据跟方便，大多数统计函数直接支持data.frame类型的运算，虽说在R中要尽可能避免使用循环，but由于能力与临时需要，循环还是不经意间就出现了。今天对一个例子测试下，R循环中使用matrix的速度明显大于使用data.frame。有如下简单循环代码：
+test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 0.310 0.015 0.324 test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 1.868 0.002 1.868  结果差距明显（5倍多）！！</description>
+    </item>
+    
+  </channel>
+</rss>

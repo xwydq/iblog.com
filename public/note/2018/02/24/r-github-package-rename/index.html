@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R安装同名包的替代方法 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">R安装同名包的替代方法</span></h1>
+<h2 class="date">2018/02/24</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/r'>R</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/package'>package</a>
+  
+  <a href='/tags/recharts'>recharts</a>
+  
+  <a href='/tags/rename'>rename</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>由于package命名习惯及各种历史原因，不同开发者对类似功能的package命名有可能一样，或者package的更新不是兼容之前老版本。比如本人之前使用的R package <a href="https://github.com/madlogos/recharts">recharts</a> ，目前这个包换到<a href="https://github.com/cosname/recharts">统计之都维护更新</a></p>
+
+<p>解决方案：是package的名称不一致，针对github操作，其他类似</p>
+
+<ul>
+<li>fork原package到自己的github仓库</li>
+</ul>
+
+<pre><code class="language-r">  devtools::install_github('madlogos/recharts') # 原package
+  # devtools::install_github('xwydq/recharts-1') 已经存在recharts仓库所以追加后缀1
+</code></pre>
+
+<ul>
+<li>clone到本地修改包名rechartsX</li>
+</ul>
+
+<pre><code class="language-shell">  git clone git@github.com:xwydq/recharts-1.git
+  # recharts 替换为 rechartsX
+  sed -i &quot;s/recharts/rechartsX/g&quot; `grep recharts -rl ./test/recharts-1`
+
+  # git相关配置不能修改（还原），不让push失败
+  sed -i &quot;s/rechartsX/recharts/g&quot; `grep rechartsX -rl ./test/recharts-1/.git`
+
+  git commit -am &quot;rename X&quot;
+  git push
+</code></pre>
+
+<ul>
+<li>安装修改后的包</li>
+</ul>
+
+<pre><code class="language-r">  devtools::install_github('xwydq/recharts-1')
+  library(rechartsX)
+  # 一般情况下可以正常使用，如果原包中有函数名包含recharts，那直接全局替换会有些问题
+</code></pre>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

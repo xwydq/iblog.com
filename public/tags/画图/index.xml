@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>画图 on 飞舞的尘埃</title>
+    <link>/tags/%E7%94%BB%E5%9B%BE/</link>
+    <description>Recent content in 画图 on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 18 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E7%94%BB%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>centos7 中rstudio-server画图中文显示问题</title>
+      <link>/note/2017/08/18/centos7-rstudio-server-chinese/</link>
+      <pubDate>Fri, 18 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2017/08/18/centos7-rstudio-server-chinese/</guid>
+      <description>关于centos 7中rstudio-server画图中文不显示问题整理
+ 修改操作系统默认字符编码的支持  vi /etc/locale.conf LANG=&amp;quot;zh_CN.UTF-8&amp;quot; SUPPORTED=&amp;quot;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&amp;quot; SYSFONT=&amp;quot;Microsoft YaHei&amp;quot; # LANG变量，设置系统语言。 # SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。 # SYSFONT变量表示系统字体。 reboot #需要重启后生效   查看已经安装的中文字体  fc-list :lang=zh  如果查询为空就需安装中文字体
+安装部分中文字体后的查询结果如下
+fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持 /usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style=Regular,Normal,obyčejné,Standard,Κανονικά,No rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style=常规,Regular /usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style=Regular,Normal,obyčejné,Standard,Κανον ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style=常规,Regular   无中文字体时安装  yum install -y fontconfig mkfontscale #1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。 #2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下： mkdir /usr/share/fonts/win #3) 将上传的字体解压至/usr/share/fonts/win目录 #4) 建立字体索引信息，更新字体缓存： cd /usr/share/fonts/win mkfontscale mkfontdir fc-cache #至此，字体已经安装完毕！ #5) 重启系统，实测只需要重启对应的应用即可 reboot  同样centos7.</description>
+    </item>
+    
+    <item>
+      <title>R画图标题换行</title>
+      <link>/note/2013/10/24/r-plot-linebreak/</link>
+      <pubDate>Thu, 24 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2013/10/24/r-plot-linebreak/</guid>
+      <description>在画图是有label; main等字符串太长，或者为美观的需要进行分行。只需在分行的位置添加换行符\n
+ plot(3, 3, type = &amp;quot;n&amp;quot;, main = &amp;quot;五角星\nI LOVE R \n R is GREAT&amp;quot;) points(3, 3, pch = &amp;quot;☆&amp;quot;, cex = 2, col = &amp;quot;blue&amp;quot;)  效果</description>
+    </item>
+    
+  </channel>
+</rss>

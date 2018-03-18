@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Html on 飞舞的尘埃</title>
+    <link>/tags/html/</link>
+    <description>Recent content in Html on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 05 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>python爬虫:网页重定向问题</title>
+      <link>/note/2018/03/05/crawler-url-redirect/</link>
+      <pubDate>Mon, 05 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/03/05/crawler-url-redirect/</guid>
+      <description>使用python+requests爬虫时常常遇到请求URL地址变化（返回的URL地址不再是请求时的地址），这些很大可能是网页被重定向导致。所谓重定向(Redirect)就是通过各种方法将各种网络请求重新转到其它位置（URL）。每个网站主页是网站资源的入口，当重定向发生在网站主页时，如果不能正确处理就很有可能会错失这整个网站的内容。
+ 爬取网页时主要三种重定向的情况
+ 服务器端重定向，在服务器端完成，一般来说爬虫可以自适应，是不需要特别处理的，如响应代码301（永久重定向）、302（暂时重定向）等。具体来说，可以通过requests请求得到的response对象中的url、status_code两个属性来判断。当status_code为301、302或其他代表重定向的代码时，表示原请求被重定向；当response对象的url属性与发送请求时的链接不一致时，也说明了原请求被重定向且已经自动处理。
+ 客户端重定向：请求头meta refresh设置，即网页中的&amp;lt;meta&amp;gt;标签声明了网页重定向的链接，这种重定向由浏览器完成，需要编写代码进行处理。例如，某一重定向如下面的html代码第三行中的注释所示，浏览器能够自动跳转，但爬虫只能得到跳转前的页面，不能自动跳转。
+  如百度搜索requests后第一个结果地址https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929这个地址会跳转到http://www.python-requests.org/
+&amp;lt;meta http-equiv=&amp;quot;refresh&amp;quot; content=&amp;quot;0.1;url=http://www.redirectedtoxxx.com/&amp;quot;&amp;gt;&amp;lt;!--本网页会在0.1秒内refresh为url所指的网页--&amp;gt; &amp;lt;meta content=&amp;quot;always&amp;quot; name=&amp;quot;referrer&amp;quot;&amp;gt; &amp;lt;script&amp;gt;try{if(window.opener&amp;amp;&amp;amp;window.opener.bds&amp;amp;&amp;amp;window.opener.bds.pdc&amp;amp;&amp;amp;window.opener.bds.pdc.sendLinkLog){window.opener.bds.pdc.sendLinkLog();}}catch(e) {};var timeout = 0;if(/bdlksmp/.test(window.location.href)){var reg = /bdlksmp=([^=&amp;amp;]+)/,matches = window.location.href.match(reg);timeout = matches[1] ? matches[1] : 0};setTimeout(function(){window.location.replace(&amp;quot;http://www.python-requests.org/&amp;quot;)},timeout);window.opener=null;&amp;lt;/script&amp;gt; &amp;lt;noscript&amp;gt; &amp;lt;META http-equiv=&amp;quot;refresh&amp;quot; content=&amp;quot;0;URL=&#39;http://www.python-requests.org/&#39;&amp;quot;&amp;gt; &amp;lt;/noscript&amp;gt;  这种行为发生在客户端（浏览器），所以使用python requests 时不能实现自动跳转，返回结果仍然是原始URL地址。
+import requests url = &#39;https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929&#39; r = requests.get(url) r.status_code #200 r.url #&#39;https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929&#39;  解决方法：获取真正要请求的URL，再重新requests
+# xpath(&#39;//meta[@http-equiv=&amp;quot;refresh&amp;quot; and @content]/@content&#39;)提取出content的值 # 正则表达式提取出重定向的url import requests import re from lxml import etree def find_RealURL(url): r = requests.</description>
+    </item>
+    
+  </channel>
+</rss>
