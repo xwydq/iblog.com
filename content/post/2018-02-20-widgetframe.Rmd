@@ -1,5 +1,5 @@
 ---
-title: widgetframe
+title: widgetframe辅助R交互式展示
 author: gXcloud
 date: '2018-02-20'
 slug: display-htmlwidget-use-widgetframe
@@ -15,7 +15,67 @@ tags:
 
 其中一个解决方法就是把相关的`R`展示模块当作一个`iframe`来处理，具体操作已有包[`widgetframe`](https://github.com/bhaskarvk/widgetframe)，使用`frameWidget`将输出结果进行包装
 
-示例
+
+### `widgetframe`简介
+
+使用[`pym.js`](http://blog.apps.npr.org/pym.js/)来实现iframe的潜入，主要函数：
+
+- frameableWidget添加代码到html控件并可作为iframe的插入源
+- frameWidget在html中添加html控件
+
+
+> The goal of widgetframe is to be able to embed widgets inside iframes using NPR's Pymjs library for responsive iframes.
+This package provides two functions frameableWidget, and frameWidget. The frameableWidget is used to add extra code to a htmlwidget which allows it to be rendered inside a responsive iframe. The frameWidget returns a htmlwidget which displays content of another htmlwidget inside a responsive iframe.
+
+
+### `widgetframe`在R中使用
+
+- 保存htmlwidget为html文件
+
+```{r}
+library(DT)
+library(widgetframe)
+
+dt <-  datatable(
+  head(iris, 20), 
+  options = list(
+    columnDefs = list(list(className = 'dt-center', targets = 5)),
+    pageLength = 5, lengthMenu = c(5, 10, 15, 20)),
+  fillContainer = T)
+
+# htmlwidgets::saveWidget(frameableWidget(dt),'dt.html')
+```
+
+保存结果为独立的html文件，需要引入的js文件直接通过base64编码在html中，这种html文件相对较大
+
+
+### `widgetframe`在Rmd中使用
+
+Rmd文件使用knitr生成html的过程默认删除中间产生的文件及目录，所以添加如下参数才能正常显示，否则提示目录不存在
+
+```{r}
+# ---
+# title: test-widgetframe
+# author: gXcloud
+# 
+# output: 
+#   html_document: 
+#   keep_md: yes #不自动清空过程文件
+# ---
+# 
+# ```{r example-leaflet, warning=FALSE}
+# library(leaflet)
+# library(widgetframe)
+# l <- leaflet() %>% addTiles() %>% setView(0,0,2)
+# frameWidget(l, height = '400')
+# ```
+```
+
+![not found](http://o837erx86.bkt.clouddn.com//blogger/1521431466473.jpg)
+
+### `widgetframe`在blogdown中使用
+
+在blogdown中使用widgetframe只需在对应的Rmd文件中进行如下示例操作，无需保存中间的过程文件
 
 - `leaflet`地图效果
 

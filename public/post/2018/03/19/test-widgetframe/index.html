@@ -56,22 +56,27 @@
 
 
 <main>
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
-<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
-
-
 <p>示例</p>
+
 <ul>
 <li><code>leaflet</code>地图效果</li>
 </ul>
-<pre class="r"><code>library(leaflet)
-library(widgetframe)</code></pre>
-<pre><code>## 载入需要的程辑包：htmlwidgets</code></pre>
-<pre class="r"><code>l &lt;- leaflet() %&gt;% addProviderTiles(providers$CartoDB.DarkMatter) %&gt;% setView(0,0,2)
-frameWidget(l)</code></pre>
-<div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2018-03-19-test-widgetframe_files/figure-html//widgets/widget_example-leaflet.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+
+<pre><code class="language-r">knitr::opts_chunk$set(clean = FALSE)
+
+library(leaflet)
+library(widgetframe)
+</code></pre>
+
+<pre><code>## Loading required package: htmlwidgets
+</code></pre>
+
+<pre><code class="language-r">l &lt;- leaflet() %&gt;% addTiles() %&gt;% setView(0,0,2)
+frameWidget(l, height = '400')
+</code></pre>
+
+<p><!--html_preserve--><div id="htmlwidget-2449c08f338fead83686" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2449c08f338fead83686">{&ldquo;x&rdquo;:{&ldquo;url&rdquo;:&ldquo;2018-03-19-test-widgetframe_files/figure-html//widgets/widget_example-leaflet.html&rdquo;,&ldquo;options&rdquo;:{&ldquo;xdomain&rdquo;:&rdquo;*&ldquo;,&ldquo;allowfullscreen&rdquo;:false,&ldquo;lazyload&rdquo;:false}},&ldquo;evals&rdquo;:[],&ldquo;jsHooks&rdquo;:[]}</script><!--/html_preserve--></p>
 
 </main>
 

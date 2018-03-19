@@ -12,15 +12,15 @@
     
     
     <item>
-      <title>widgetframe</title>
+      <title>widgetframe辅助R交互式展示</title>
       <link>/post/2018/02/20/display-htmlwidget-use-widgetframe/</link>
       <pubDate>Tue, 20 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/2018/02/20/display-htmlwidget-use-widgetframe/</guid>
       <description>R的画图包千千万，其中有许多优秀的交互式画图、数据展示包，如leaflet; dygraphs; DT等。但是如果要线上使用这些结果常常存在JS加载冲突的问题，因为加载这些包同时要引入许多相关的JS库
  其中一个解决方法就是把相关的R展示模块当作一个iframe来处理，具体操作已有包widgetframe，使用frameWidget将输出结果进行包装
-示例
- leaflet地图效果  library(leaflet) library(widgetframe) ## 载入需要的程辑包：htmlwidgets l &amp;lt;- leaflet() %&amp;gt;% addProviderTiles(providers$CartoDB.DarkMatter) %&amp;gt;% setView(0,0,2) frameWidget(l)  {&#34;x&#34;:{&#34;url&#34;:&#34;/post/2018-02-20-widgetframe_files/figure-html//widgets/widget_example-leaflet.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}  dygraphs交互图表  library(dygraphs) ts &amp;lt;- dygraph(nhtemp, main = &amp;quot;New Haven Temperatures&amp;quot;, height=250, width=&amp;#39;95%&amp;#39;) frameWidget(ts)  {&#34;x&#34;:{&#34;url&#34;:&#34;/post/2018-02-20-widgetframe_files/figure-html//widgets/widget_example-dygraphs.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}  DT数据表格  library(DT) dt &amp;lt;- datatable( head(iris, 20), options = list( columnDefs = list(list(className = &amp;#39;dt-center&amp;#39;, targets = 5)), pageLength = 5, lengthMenu = c(5, 10, 15, 20)), fillContainer = T) frameWidget(dt, height = 350, width = &amp;#39;95%&amp;#39;)  {&#34;</description>
+widgetframe简介 使用pym.js来实现iframe的潜入，主要函数：
+ frameableWidget添加代码到html控件并可作为iframe的插入源 frameWidget在html中添加html控件   The goal of widgetframe is to be able to embed widgets inside iframes using NPR’s Pymjs library for responsive iframes. This package provides two functions frameableWidget, and frameWidget. The frameableWidget is used to add extra code to a htmlwidget which allows it to be rendered inside a responsive iframe. The frameWidget returns a htmlwidget which displays content of another htmlwidget inside a responsive iframe.</description>
     </item>
     
   </channel>

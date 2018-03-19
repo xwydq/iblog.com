@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>widgetframe | 飞舞的尘埃</title>
+    <title>widgetframe辅助R交互式展示 | 飞舞的尘埃</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
     </nav>
 
 <div class="article-meta">
-<h1><span class="title">widgetframe</span></h1>
+<h1><span class="title">widgetframe辅助R交互式展示</span></h1>
 <h2 class="date">2018/02/20</h2>
 <p class="terms">
   
@@ -69,14 +69,67 @@
 <p><code>R</code>的画图包千千万，其中有许多优秀的交互式画图、数据展示包，如<code>leaflet</code>; <code>dygraphs</code>; <code>DT</code>等。但是如果要线上使用这些结果常常存在<code>JS</code>加载冲突的问题，因为加载这些包同时要引入许多相关的<code>JS</code>库</p>
 </blockquote>
 <p>其中一个解决方法就是把相关的<code>R</code>展示模块当作一个<code>iframe</code>来处理，具体操作已有包<a href="https://github.com/bhaskarvk/widgetframe"><code>widgetframe</code></a>，使用<code>frameWidget</code>将输出结果进行包装</p>
-<p>示例</p>
+<div id="widgetframe" class="section level3">
+<h3><code>widgetframe</code>简介</h3>
+<p>使用<a href="http://blog.apps.npr.org/pym.js/"><code>pym.js</code></a>来实现iframe的潜入，主要函数：</p>
+<ul>
+<li>frameableWidget添加代码到html控件并可作为iframe的插入源</li>
+<li>frameWidget在html中添加html控件</li>
+</ul>
+<blockquote>
+<p>The goal of widgetframe is to be able to embed widgets inside iframes using NPR’s Pymjs library for responsive iframes. This package provides two functions frameableWidget, and frameWidget. The frameableWidget is used to add extra code to a htmlwidget which allows it to be rendered inside a responsive iframe. The frameWidget returns a htmlwidget which displays content of another htmlwidget inside a responsive iframe.</p>
+</blockquote>
+</div>
+<div id="widgetframer" class="section level3">
+<h3><code>widgetframe</code>在R中使用</h3>
+<ul>
+<li>保存htmlwidget为html文件</li>
+</ul>
+<pre class="r"><code>library(DT)
+library(widgetframe)</code></pre>
+<pre><code>## 载入需要的程辑包：htmlwidgets</code></pre>
+<pre class="r"><code>dt &lt;-  datatable(
+  head(iris, 20), 
+  options = list(
+    columnDefs = list(list(className = &#39;dt-center&#39;, targets = 5)),
+    pageLength = 5, lengthMenu = c(5, 10, 15, 20)),
+  fillContainer = T)
+
+# htmlwidgets::saveWidget(frameableWidget(dt),&#39;dt.html&#39;)</code></pre>
+<p>保存结果为独立的html文件，需要引入的js文件直接通过base64编码在html中，这种html文件相对较大</p>
+</div>
+<div id="widgetframermd" class="section level3">
+<h3><code>widgetframe</code>在Rmd中使用</h3>
+<p>Rmd文件使用knitr生成html的过程默认删除中间产生的文件及目录，所以添加如下参数才能正常显示，否则提示目录不存在</p>
+<pre class="r"><code># ---
+# title: test-widgetframe
+# author: gXcloud
+# 
+# output: 
+#   html_document: 
+#   keep_md: yes #不自动清空过程文件
+# ---
+# 
+# ```{r example-leaflet, warning=FALSE}
+# library(leaflet)
+# library(widgetframe)
+# l &lt;- leaflet() %&gt;% addTiles() %&gt;% setView(0,0,2)
+# frameWidget(l, height = &#39;400&#39;)
+# ```</code></pre>
+<div class="figure">
+<img src="http://o837erx86.bkt.clouddn.com//blogger/1521431466473.jpg" alt="not found" />
+<p class="caption">not found</p>
+</div>
+</div>
+<div id="widgetframeblogdown" class="section level3">
+<h3><code>widgetframe</code>在blogdown中使用</h3>
+<p>在blogdown中使用widgetframe只需在对应的Rmd文件中进行如下示例操作，无需保存中间的过程文件</p>
 <ul>
 <li><code>leaflet</code>地图效果</li>
 </ul>
 <pre class="r"><code>library(leaflet)
-library(widgetframe)</code></pre>
-<pre><code>## 载入需要的程辑包：htmlwidgets</code></pre>
-<pre class="r"><code>l &lt;- leaflet() %&gt;% addProviderTiles(providers$CartoDB.DarkMatter) %&gt;% setView(0,0,2)
+library(widgetframe)
+l &lt;- leaflet() %&gt;% addProviderTiles(providers$CartoDB.DarkMatter) %&gt;% setView(0,0,2)
 frameWidget(l)</code></pre>
 <div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2018-02-20-widgetframe_files/figure-html//widgets/widget_example-leaflet.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
@@ -105,6 +158,7 @@ frameWidget(dt, height = 350, width = &#39;95%&#39;)</code></pre>
 <script type="application/json" data-for="htmlwidget-3">{"x":{"url":"/post/2018-02-20-widgetframe_files/figure-html//widgets/widget_example-DT.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <hr />
 <p>注：目前还不支持shiny</p>
+</div>
 
 </main>
 
