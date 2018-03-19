@@ -1,0 +1,185 @@
+---
+title: R可视化-时间轴
+author: gXcloud
+date: '2018-03-19'
+slug: r-visualize-timeline
+categories:
+  - R
+tags:
+  - plot
+  - 画图
+  - 可视化
+  - 时间轴
+---
+
+
+> 在R中交互式时间轴可以展示类似里程碑概念的数据，并进行分组比较。[timevis](https://github.com/daattali/timevis) lets you create rich and fully interactive timeline visualizations in R. Timelines can be included in Shiny apps and R markdown documents, or viewed from the R console and RStudio Viewer. timevis includes an extensive API to manipulate a timeline after creation, and supports getting data out of the visualization into R. This package is based on the vis.js Timeline module and the htmlwidgets R package. [timevis demo](https://daattali.com/shiny/timevis-demo/)
+
+
+## `timevis`的使用
+
+### 基本使用
+
+输入指定结构的data.frame，行为时间轴的item
+
+- start/end：表示开始/结束时间
+- content：时间轴信息/内容
+- start/content取值必需
+- id：获取/调整对应的item
+
+```{r}
+library(timevis)
+
+dataBasic <- data.frame(
+  id = 1:4,
+  content = c("Item one", "Item two" ,"Ranged item", "Item four"),
+  start   = c("2016-01-10", "2016-01-11", "2016-01-20", "2016-02-14"),
+  end    = c(NA, NA, "2016-02-04", NA)
+)
+
+timevis(dataBasic)
+```
+
+### 自定义配置属性
+
+属性的设置见[visjs Configuration_Options](http://visjs.org/docs/timeline/#Configuration_Options)，将需要设置的参数添加到R的list对象
+
+```{r}
+config <- list(
+      editable = TRUE, # 可编辑
+      align = "center", # 中心对齐
+      orientation = "top", # 时间轴位置
+      snap = NULL,
+      margin = list(item = 30, axis = 50)
+    )
+timevis(dataBasic, zoomFactor = 1, options = config, height = '400px')
+```
+
+### 配置item内容的HTML展示
+
+PS：可以使用github做免费的图床(URL地址中的blob替换为raw)，如原图片地址:[https://github.com/hjnilsson/country-flags/blob/master/png250px/ae.png](https://github.com/hjnilsson/country-flags/blob/master/png250px/ae.png)，修改为[https://github.com/hjnilsson/country-flags/raw/master/png250px/ae.png](https://github.com/hjnilsson/country-flags/raw/master/png250px/ae.png)
+
+```{r}
+# Template for world cup HTML of each item
+templateWC <- function(stage, team1, team2, score1, score2) {
+  sprintf(
+    '<table><tbody>
+      <tr><td colspan="3"><em>%s</em></td></tr>
+      <tr>
+        <td>%s</td>
+        <th>&nbsp;%s - %s&nbsp;</th>
+        <td>%s</td>
+      </tr>
+      <tr>
+        <td><img src="https://github.com/hjnilsson/country-flags/raw/master/png100px/%s.png" width="31" height="20" alt="%s"></td>
+        <th></th>
+        <td><img src="https://github.com/hjnilsson/country-flags/raw/master/png100px/%s.png" width="31" height="20" alt="%s"></td>
+      </tr>
+    </tbody></table>',
+    stage, team1, score1, score2, team2, gsub("\\s", "", tolower(team1)),
+    team1, gsub("\\s", "", tolower(team2)), team2
+  )
+}
+
+# Data for world cup 2014
+dataWC <- data.frame(
+  id = 1:7,
+  start = c(
+    "2014-07-04 13:00",
+    "2014-07-04 17:00",
+    "2014-07-05 13:00",
+    "2014-07-05 17:00",
+    "2014-07-08 17:00",
+    "2014-07-09 17:00",
+    "2014-07-13 16:00"
+  ),
+  content = c(
+    templateWC("quarter-finals", "fr", "ge", 0, 1),
+    templateWC("quarter-finals", "br", "co", 2, 1),
+    templateWC("quarter-finals", "ar", "be", 1, 0),
+    templateWC("quarter-finals", "ne", "cr", "0 (4)", "0 (3)"),
+    templateWC("semi-finals", "br", "ge", 1, 7),
+    templateWC("semi-finals", "ne", "ar", "0 (2)", "0 (4)"),
+    templateWC("final", "ge", "ar", 1, 0)
+  )
+)
+timevis(dataWC)
+```
+
+
+### 分组group
+```{r}
+# Data for groups example
+dataGroups <- data.frame(
+  id = 1:11,
+  content = c("Open", "Open",
+              "Open", "Open", "Half price entry",
+              "Staff meeting", "Open", "Adults only", "Open", "Hot tub closes",
+              "Siesta"),
+  start = c("2016-05-01 07:30:00", "2016-05-01 14:00:00",
+            "2016-05-01 06:00:00", "2016-05-01 14:00:00", "2016-05-01 08:00:00",
+            "2016-05-01 08:00:00", "2016-05-01 08:30:00", "2016-05-01 14:00:00",
+            "2016-05-01 16:00:00", "2016-05-01 19:30:00",
+            "2016-05-01 12:00:00"),
+  end   = c("2016-05-01 12:00:00", "2016-05-01 20:00:00",
+            "2016-05-01 12:00:00", "2016-05-01 22:00:00", "2016-05-01 10:00:00",
+            "2016-05-01 08:30:00", "2016-05-01 12:00:00", "2016-05-01 16:00:00",
+            "2016-05-01 20:00:00", NA,
+            "2016-05-01 14:00:00"),
+  group = c(rep("lib", 2), rep("gym", 3), rep("pool", 5), NA),
+  type = c(rep("range", 9), "point", "background")
+)
+
+groups <- data.frame(
+  id = c("lib", "gym", "pool"),
+  content = c("Library", "Gym", "Pool")
+)
+timevis(data = dataGroups, groups = groups, options = list(editable = TRUE))
+```
+
+
+### 定义日期格式/垂直方向滚动不支持
+
+```{r}
+dataBasic <- data.frame(
+  id = 1:4,
+  content = c("Item one", "Item two" ,"Ranged item", "Item four"),
+  start   = c("2016-01-10", "2016-01-11", "2016-01-20", "2016-02-14"),
+  end    = c(NA, NA, "2016-02-04", NA)
+)
+
+# list style
+config <- list(format = list(minorLabels = list(month = 'M')),
+               verticalScroll = 'true')
+
+# # json string
+# config <- list(
+#       format = "
+#       {
+#   minorLabels: {
+#     millisecond:'SSS',
+#     second:     's',
+#     minute:     'HH:mm',
+#     hour:       'HH:mm',
+#     weekday:    'ddd D',
+#     day:        'D',
+#     week:       'w',
+#     month:      'M',
+#     year:       'YYYY'
+#   },
+#   majorLabels: {
+#     millisecond:'HH:mm:ss',
+#     second:     'D MMMM HH:mm',
+#     minute:     'ddd D MMMM',
+#     hour:       'ddd D MMMM',
+#     weekday:    'MMMM YYYY',
+#     day:        'MM YYYY',
+#     week:       'M YYYY',
+#     month:      'YYYY',
+#     year:       ''
+#   }
+# }"
+# )
+
+timevis(dataBasic, zoomFactor = 1, options = config)
+```

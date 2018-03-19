@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>时间轴 on 飞舞的尘埃</title>
+    <link>/tags/%E6%97%B6%E9%97%B4%E8%BD%B4/</link>
+    <description>Recent content in 时间轴 on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 19 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E6%97%B6%E9%97%B4%E8%BD%B4/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>R可视化-时间轴</title>
+      <link>/note/2018/03/19/r-visualize-timeline/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/03/19/r-visualize-timeline/</guid>
+      <description>在R中交互式时间轴可以展示类似里程碑概念的数据，并进行分组比较。timevis lets you create rich and fully interactive timeline visualizations in R. Timelines can be included in Shiny apps and R markdown documents, or viewed from the R console and RStudio Viewer. timevis includes an extensive API to manipulate a timeline after creation, and supports getting data out of the visualization into R. This package is based on the vis.js Timeline module and the htmlwidgets R package.</description>
+    </item>
+    
+  </channel>
+</rss>

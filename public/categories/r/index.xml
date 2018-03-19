@@ -6,10 +6,19 @@
     <description>Recent content in R on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 04 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 19 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R可视化-时间轴</title>
+      <link>/note/2018/03/19/r-visualize-timeline/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/03/19/r-visualize-timeline/</guid>
+      <description>在R中交互式时间轴可以展示类似里程碑概念的数据，并进行分组比较。timevis lets you create rich and fully interactive timeline visualizations in R. Timelines can be included in Shiny apps and R markdown documents, or viewed from the R console and RStudio Viewer. timevis includes an extensive API to manipulate a timeline after creation, and supports getting data out of the visualization into R. This package is based on the vis.js Timeline module and the htmlwidgets R package.</description>
+    </item>
     
     <item>
       <title>shinyapp登陆认证功能的实现方式及示例</title>
