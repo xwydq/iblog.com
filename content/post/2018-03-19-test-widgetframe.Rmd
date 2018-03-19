@@ -1,0 +1,22 @@
+---
+title: test-widgetframe
+author: gXcloud
+date: '2018-03-19'
+slug: test-widgetframe
+categories:
+  - shiny
+tags:
+  - blogdown
+---
+
+
+示例
+
+- `leaflet`地图效果
+
+```{r example-leaflet, warning=FALSE}
+library(leaflet)
+library(widgetframe)
+l <- leaflet() %>% addProviderTiles(providers$CartoDB.DarkMatter) %>% setView(0,0,2)
+frameWidget(l)
+```

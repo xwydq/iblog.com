@@ -6,10 +6,20 @@
     <description>Recent content in Shiny on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 16 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 19 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/shiny/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>test-widgetframe</title>
+      <link>/post/2018/03/19/test-widgetframe/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/03/19/test-widgetframe/</guid>
+      <description>   示例
+ leaflet地图效果  library(leaflet) library(widgetframe) ## 载入需要的程辑包：htmlwidgets l &amp;lt;- leaflet() %&amp;gt;% addProviderTiles(providers$CartoDB.DarkMatter) %&amp;gt;% setView(0,0,2) frameWidget(l)  {&#34;x&#34;:{&#34;url&#34;:&#34;/post/2018-03-19-test-widgetframe_files/figure-html//widgets/widget_example-leaflet.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]} </description>
+    </item>
     
     <item>
       <title>recharts在shiny中的显示问题</title>
