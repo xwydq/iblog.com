@@ -14,6 +14,8 @@ tags:
   - 可视化
 ---
 
+> 在`shiny`中使用[`recharts`](https://recharts.cosx.org)时，出现不能正常显示的问题：`ePlot`生成的R对象在shiny中可以显示；但是其他画图函数如:`eBar`、`eBmap`、`eCandle`等生成的对象不能正常显示。比较两类对象的差异发现在参数`dependencies`的设置上存在差异，通过修改变量可以正常显示，应该是依赖的一个bug。后续再查源码.....
+
 ### `ePlot`函数画图
 
 `Create rEcharts from an R object`，直接使用`ePlot`函数画图可以正常显示
@@ -59,6 +61,12 @@ e2
 
 
 ### 比较e1、e2的区别
+
+```{r}
+names(e1)
+names(e2)
+```
+
 ```{r}
 str(e1)
 str(e2)

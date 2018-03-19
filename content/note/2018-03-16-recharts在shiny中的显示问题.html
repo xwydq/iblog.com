@@ -25,6 +25,9 @@ tags:
 <script src="2018-03-16-recharts在shiny中的显示问题_files/default/default.js"></script>
 
 
+<blockquote>
+<p>在<code>shiny</code>中使用<a href="https://recharts.cosx.org"><code>recharts</code></a>时，出现不能正常显示的问题：<code>ePlot</code>生成的R对象在shiny中可以显示；但是其他画图函数如:<code>eBar</code>、<code>eBmap</code>、<code>eCandle</code>等生成的对象不能正常显示。比较两类对象的差异发现在参数<code>dependencies</code>的设置上存在差异，通过修改变量可以正常显示，应该是依赖的一个bug。后续再查源码…..</p>
+</blockquote>
 <div id="eplot" class="section level3">
 <h3><code>ePlot</code>函数画图</h3>
 <p><code>Create rEcharts from an R object</code>，直接使用<code>ePlot</code>函数画图可以正常显示</p>
@@ -69,6 +72,12 @@ e2</code></pre>
 </div>
 <div id="e1e2" class="section level3">
 <h3>比较e1、e2的区别</h3>
+<pre class="r"><code>names(e1)</code></pre>
+<pre><code>## [1] &quot;x&quot;             &quot;width&quot;         &quot;height&quot;        &quot;sizingPolicy&quot; 
+## [5] &quot;dependencies&quot;  &quot;elementId&quot;     &quot;preRenderHook&quot; &quot;jsHooks&quot;</code></pre>
+<pre class="r"><code>names(e2)</code></pre>
+<pre><code>## [1] &quot;x&quot;             &quot;width&quot;         &quot;height&quot;        &quot;sizingPolicy&quot; 
+## [5] &quot;dependencies&quot;  &quot;elementId&quot;     &quot;preRenderHook&quot; &quot;jsHooks&quot;</code></pre>
 <pre class="r"><code>str(e1)</code></pre>
 <pre><code>## List of 8
 ##  $ x            :List of 8
