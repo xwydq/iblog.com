@@ -125,10 +125,10 @@ systemctl enable squid systemctl status/restart/stop squid systemctl status squi
     
     <item>
       <title>widgetframe</title>
-      <link>/post/2018/02/20/widgetframe/</link>
+      <link>/post/2018/02/20/display-htmlwidget-use-widgetframe/</link>
       <pubDate>Tue, 20 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/2018/02/20/widgetframe/</guid>
+      <guid>/post/2018/02/20/display-htmlwidget-use-widgetframe/</guid>
       <description>R的画图包千千万，其中有许多优秀的交互式画图、数据展示包，如leaflet; dygraphs; DT等。但是如果要线上使用这些结果常常存在JS加载冲突的问题，因为加载这些包同时要引入许多相关的JS库
  其中一个解决方法就是把相关的R展示模块当作一个iframe来处理，具体操作已有包widgetframe，使用frameWidget将输出结果进行包装
 示例
