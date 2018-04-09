@@ -6,10 +6,20 @@
     <description>Recent content in 爬虫 on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 11 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/%E7%88%AC%E8%99%AB/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>python爬虫-代理使用</title>
+      <link>/note/2018/04/09/crawl-python-proxy/</link>
+      <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/04/09/crawl-python-proxy/</guid>
+      <description>http代理是爬虫工作中解决反爬的一项关键措施，下面说明不同场景下代理的使用及其验证
+ requests中使用代理  无加密代理  import requests proxy1 = {&#39;http&#39;: &#39;117.90.51.49:42668&#39;, &#39;https&#39;: &#39;117.90.51.49:42668&#39;} resp = requests.get(&#39;http://httpbin.org/ip&#39;, proxies=proxy1) print(resp.json())   需认证的代理  import requests proxy1 = {&#39;http&#39;: &#39;http://user:passwd@106.15.95.226:9187&#39;, &#39;https&#39;: &#39;https://user:passwd@106.15.95.236:9187&#39;} resp = requests.get(&#39;http://httpbin.org/ip&#39;, proxies=proxy1) print(resp.json()) # {&#39;origin&#39;: &#39;101.47.19.29, 106.15.95.236&#39;}  selenium+浏览器中使用代理 phantomJS ## selenium+phantomJS代理 from selenium import webdriver driver = webdriver.PhantomJS( # executable_path = &#39;/usr/local/bin/phantomjs&#39;, service_args = [ &#39;--ignore-ssl-errors=true&#39;, &#39;--proxy=106.15.95.236:9187&#39;, # IP:port &#39;--proxy-type=http&#39;, &#39;--proxy-auth=user:passwd&#39;, # 如需认证添加 ]) url = &#39;http://httpbin.</description>
+    </item>
     
     <item>
       <title>爬虫：AMAC私募基金管理人</title>

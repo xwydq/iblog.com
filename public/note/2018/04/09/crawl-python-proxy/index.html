@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>python爬虫-代理使用 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">python爬虫-代理使用</span></h1>
+<h2 class="date">2018/04/09</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/%E4%BB%A3%E7%90%86'>代理</a>
+  
+  <a href='/tags/selenium'>selenium</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<blockquote>
+<p>http代理是爬虫工作中解决反爬的一项关键措施，下面说明不同场景下代理的使用及其验证</p>
+</blockquote>
+
+<h3 id="requests中使用代理">requests中使用代理</h3>
+
+<ul>
+<li>无加密代理</li>
+</ul>
+
+<pre><code class="language-python">import requests
+
+proxy1 = {'http': '117.90.51.49:42668', 'https': '117.90.51.49:42668'}
+resp = requests.get('http://httpbin.org/ip', proxies=proxy1)
+print(resp.json())
+</code></pre>
+
+<ul>
+<li>需认证的代理</li>
+</ul>
+
+<pre><code class="language-python">import requests
+
+proxy1 = {'http': 'http://user:passwd@106.15.95.226:9187', 'https': 'https://user:passwd@106.15.95.236:9187'}
+resp = requests.get('http://httpbin.org/ip', proxies=proxy1)
+print(resp.json())
+# {'origin': '101.47.19.29, 106.15.95.236'}
+</code></pre>
+
+<h3 id="selenium-浏览器中使用代理">selenium+浏览器中使用代理</h3>
+
+<h4 id="phantomjs">phantomJS</h4>
+
+<pre><code class="language-Python">## selenium+phantomJS代理
+from selenium import webdriver
+driver = webdriver.PhantomJS(
+    # executable_path = '/usr/local/bin/phantomjs',
+    service_args = [
+    '--ignore-ssl-errors=true',
+   '--proxy=106.15.95.236:9187',  # IP:port
+   '--proxy-type=http',
+   '--proxy-auth=user:passwd', # 如需认证添加
+   ])
+url = 'http://httpbin.org/ip'
+driver.get(url)
+html = driver.page_source
+html
+</code></pre>
+
+<h4 id="chrome">Chrome</h4>
+
+<ul>
+<li>无加密代理</li>
+</ul>
+
+<pre><code class="language-python">## selenium+Chrome代理
+# https://blog.csdn.net/zwq912318834/article/details/78933910
+from selenium import webdriver
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
+options.add_argument('lang=zh_CN.UTF-8')
+options.add_argument('--proxy-server=http://218.66.151.87:31868')
+driver = webdriver.Chrome(
+    executable_path='~/tools/chromedriver',
+    chrome_options=options,
+    service_args=['--ignore-ssl-errors=true'])
+url = 'http://httpbin.org/ip'
+driver.get(url)
+html = driver.page_source
+html
+</code></pre>
+
+<ul>
+<li>需认证的代理</li>
+</ul>
+
+<p>加密代理在Chrome中需要通过插件的方式实现</p>
+
+<pre><code class="language-python"># 验证,失败
+import os
+import re
+import time
+import zipfile
+from selenium import webdriver
+# Chrome代理模板插件地址: https://github.com/revotu/selenium-chrome-auth-proxy
+CHROME_PROXY_HELPER_DIR = 'chrome-proxy-helper'
+# 存储自定义Chrome代理扩展文件的目录
+CUSTOM_CHROME_PROXY_EXTENSIONS_DIR = 'chrome-proxy-extensions'
+def get_chrome_proxy_extension(proxy):
+    &quot;&quot;&quot;获取一个Chrome代理扩展,里面配置有指定的代理(带用户名密码认证)
+    proxy - 指定的代理,格式: username:password@ip:port
+    &quot;&quot;&quot;
+    m = re.compile('([^:]+):([^\@]+)\@([\d\.]+):(\d+)').search(proxy)
+    if m:
+        # 提取代理的各项参数
+        username = m.groups()[0]
+        password = m.groups()[1]
+        ip = m.groups()[2]
+        port = m.groups()[3]
+        # 创建一个定制Chrome代理扩展(zip文件)
+        if not os.path.exists(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR):
+            os.mkdir(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR)
+        extension_file_path = os.path.join(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR, '{}.zip'.format(proxy.replace(':', '_')))
+        if not os.path.exists(extension_file_path):
+            # 扩展文件不存在，创建
+            zf = zipfile.ZipFile(extension_file_path, mode='w')
+            zf.write(os.path.join(CHROME_PROXY_HELPER_DIR, 'manifest.json'), 'manifest.json')
+            # 替换模板中的代理参数
+            background_content = open(os.path.join(CHROME_PROXY_HELPER_DIR, 'background.js')).read()
+            background_content = background_content.replace('%proxy_host', ip)
+            background_content = background_content.replace('%proxy_port', port)
+            background_content = background_content.replace('%username', username)
+            background_content = background_content.replace('%password', password)
+            zf.writestr('background.js', background_content)
+            zf.close()
+        return extension_file_path
+    else:
+        raise Exception('Invalid proxy format. Should be username:password@ip:port')
+if __name__ == '__main__':
+    options = webdriver.ChromeOptions()
+    # 添加一个自定义的代理插件（配置特定的代理，含用户名密码认证）
+    options.add_extension(get_chrome_proxy_extension(proxy='username:password@ip:port'))
+    driver = webdriver.Chrome(chrome_options=options)
+    # 访问一个IP回显网站，查看代理配置是否生效了
+    driver.get('http://httpbin.org/ip')
+    print(driver.page_source)
+    time.sleep(15)
+    driver.quit()
+</code></pre>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+
