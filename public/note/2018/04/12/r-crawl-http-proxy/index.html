@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>R爬虫-代理使用 | 飞舞的尘埃</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">Home</a></li>
+      
+      <li><a href="/about/">About</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">R爬虫-代理使用</span></h1>
+<h2 class="date">2018/04/12</h2>
+<p class="terms">
+  
+  
+  
+  Categories:   
+  
+  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  
+  
+  
+  
+  
+  
+  Tags:   
+  
+  <a href='/tags/%E4%BB%A3%E7%90%86'>代理</a>
+  
+  <a href='/tags/httr'>httr</a>
+  
+  <a href='/tags/rvest'>rvest</a>
+  
+  
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>R爬虫的利器<code>rvest</code>，可以方便实现数据的定位与提取</p>
+
+<p>添加代理需在httr下实现</p>
+
+<pre><code class="language-R">library(httr)
+
+## header 使用vector类型
+h &lt;- c(&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&quot;,
+       &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&quot;,
+       &quot;gzip, deflate&quot;,
+       &quot;keep-alive&quot;)
+names(h) &lt;- c(&quot;User-Agent&quot;, &quot;Accept&quot;, &quot;Accept-Encoding&quot;, &quot;Connection&quot;)
+
+## 持续获取代理
+get_ips = function(){
+  while(TRUE){
+    IP_proxy = 'http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=41620212070f4853bf27fd12&amp;count=20&amp;expiryDate=0&amp;format=1'
+    ips = read_json(IP_proxy)
+    
+    if(ips$code == '0'){
+      break
+    }else{
+      Sys.sleep(5)
+    }
+  }
+  
+  ips = ips[['msg']]
+  
+  ips = as.data.frame(do.call(rbind, ips))
+  ips$ip = as.character(ips$ip)
+  ips$port = as.numeric(ips$port)
+  return(ips)
+}
+ips = get_ips()
+
+# port              ip
+# 1  39358 125.109.194.199
+# 2  22420  180.122.148.51
+# 3  35374  121.234.90.107
+# 4  24793     1.196.3.186
+# 5  36472  115.213.206.29
+
+
+get_html_withproxy = function(url, ips, trys = 10){
+  try_num = 1
+  while (try_num &lt;= trys) {
+    # print(try_num &lt;= trys)
+    tryCatch({
+      randi = sample(c(1:nrow(ips)), size = 1)
+      ip = ips$ip[randi]
+      port = ips$port[randi]
+      u1 = GET(url, use_proxy(ip, port), timeout(1), add_headers(.headers = h))
+      # print(u1)
+      break
+    }, error = function(e) {
+      # print(e)
+      ips &lt;&lt;- ips[-randi, ]
+      try_num &lt;&lt;- try_num + 1
+      # print(try_num)
+      
+      if(nrow(ips) &lt; 5){
+        ips &lt;&lt;- rbind(ips, get_ips())
+      }
+    })
+  }
+  if(try_num &lt;= trys){
+    return(read_html(u1))
+  }else{
+    return(NA)
+  }
+}
+
+url = 'http://www.huaxintrust.com/productlist.asp?page=1&amp;pid=1'
+ips = get_ips()
+ttt = get_html_withproxy(url, ips, trys = 10)
+ttt
+# {xml_document}
+# &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+#   [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;\n&lt;title&gt;华信信托 ...
+# [2] &lt;body&gt;\r\n    &lt;div id=&quot;box&quot;&gt;\r\n        &lt;div id=&quot;top&quot;&gt;\r\n    &lt;div class=&quot;top1&quot;&gt;\r\n     ...
+# &gt; 
+
+</code></pre>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/python.min.js"></script>
+
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-113712825-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+
+  <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "flydust" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+  
+  <hr/>
+  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

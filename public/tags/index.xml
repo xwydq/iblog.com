@@ -129,6 +129,15 @@
     </item>
     
     <item>
+      <title>Httr</title>
+      <link>/tags/httr/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/httr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>JS</title>
       <link>/tags/js/</link>
       <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
@@ -273,6 +282,15 @@
     </item>
     
     <item>
+      <title>Rvest</title>
+      <link>/tags/rvest/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rvest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Selectize.js</title>
       <link>/tags/selectize.js/</link>
       <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
@@ -320,7 +338,7 @@
     <item>
       <title>代理</title>
       <link>/tags/%E4%BB%A3%E7%90%86/</link>
-      <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E4%BB%A3%E7%90%86/</guid>
       <description></description>
