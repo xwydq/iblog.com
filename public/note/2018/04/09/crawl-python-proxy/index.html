@@ -190,6 +190,122 @@ if __name__ == '__main__':
     driver.quit()
 </code></pre>
 
+<h3 id="代理的使用">代理的使用</h3>
+
+<p>鉴于代理的有效性不能达到100%，在实际使用过程中需要考虑根据代理的有效性来维护一个代理池，以蘑菇代理的返回结果为例</p>
+
+<pre><code class="language-python">import requests
+IP_proxy = 'http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=4162021207ase8293a0a2d853bf27fd12&amp;count=5&amp;expiryDate=0&amp;format=1'
+ip_pool = requests.get(url=IP_proxy)
+ip_pool = ip_pool.json()
+ips = ip_pool['msg']
+ips
+# [{'ip': '60.184.203.95', 'port': '40887'},
+#  {'ip': '115.217.165.163', 'port': '43841'},
+#  {'ip': '113.93.103.139', 'port': '36542'},
+#  {'ip': '180.116.154.245', 'port': '34463'},
+#  {'ip': '117.69.200.122', 'port': '43095'}]
+</code></pre>
+
+<h4 id="持续从接口获取代理">持续从接口获取代理</h4>
+
+<p>给定蘑菇代理接口不稳定或者访问限制，使用以下方法多次尝试</p>
+
+<pre><code class="language-python">def ips_proxy(trys = 20, sleeps = 2):
+    try_num = 1
+    ipros = None
+    while try_num &lt;= trys:
+        print('=====')
+        try:
+            try_num = try_num + 1
+            ip_pool = requests.get(url=IP_proxy)
+            ip_pool = ip_pool.json()
+            print(ip_pool)
+            print(ip_pool['code'] == 0)
+            if ip_pool['code'] == '0':
+                ipros = ip_pool['msg']
+                # print(ips)
+                break
+            else:
+                time.sleep(sleeps)
+                continue
+        except:
+            pass
+    return ipros
+ips_proxy(2)
+</code></pre>
+
+<h4 id="代理有效性验证">代理有效性验证</h4>
+
+<pre><code class="language-python">## 根据IP+port判断http代理是否有效
+def test_IP(ip, port):
+    try:
+        telnetlib.Telnet(ip, port=port, timeout=1)
+    except:
+        return False
+    else:
+        return True
+
+# 过滤无效代理
+def filter_validIP(ips):
+    res = []
+    for i in ips:
+        ip = i['ip']
+        port = i['port']
+        if test_IP(ip, port):
+            res.append(i)
+    return res
+</code></pre>
+
+<h4 id="更新代理池">更新代理池</h4>
+
+<p>假定<code>ips</code>为内存中的代理池变量，可以在<code>request</code>的过程中根据请求时长、返回结果来更新<code>ips</code></p>
+
+<pre><code class="language-python">def get_html_withproxy(url, trys=10):
+    try_num = 1
+    global ips
+    # print(ips)
+    while try_num &lt;= trys:
+        # print(try_num &lt;= trys)
+        try:
+            randi = random.sample(range(0, len(ips)), 1)
+            ip_t = ips[randi[0]]
+            ip = ip_t['ip']
+            port = ip_t['port']
+            proxies = ip + ':' + port
+            proxies_http = 'http://' + proxies
+            proxies_https = 'https://' + proxies
+            proxys = {'http': proxies_http, 'https': proxies_https}
+            # print(proxys)
+            u1 = requests.get(url, headers=header_code, proxies=proxys, timeout=2)
+            # print(u1)
+        except:
+            ips.pop(randi[0])
+            try_num = try_num + 1
+            # print(try_num)
+            if len(ips) &lt; 3: #当代理数量过少重新获取
+                # ip_pool = requests.get(url=IP_proxy)
+                # ip_pool = ip_pool.json()
+                # ips = ip_pool['msg']
+                ips = ips.extend(ips_proxy())
+        else:
+            break
+    if try_num &lt;= trys:
+        return u1
+    else:
+        return None
+
+ip_pool = requests.get(url=IP_proxy)
+ip_pool = ip_pool.json()
+ips = ip_pool['msg']
+# ips = filter_validIP(ips)
+
+## 热销产品
+url = 'http://www.huaxintrust.com/productlist.asp?page=1&amp;pid=1'
+rvt = get_html_withproxy(url)
+rvt
+</code></pre>
+
 </main>
 
   <footer>
