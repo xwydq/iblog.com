@@ -23,6 +23,15 @@ library(httr) ## header 使用vector类型 h &amp;lt;- c(&amp;quot;Mozilla/5.0 (
     </item>
     
     <item>
+      <title>机器学习-XGBoost</title>
+      <link>/note/2018/04/12/ml-xgboost/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/04/12/ml-xgboost/</guid>
+      <description>开始实验了</description>
+    </item>
+    
+    <item>
       <title>python爬虫-代理使用</title>
       <link>/note/2018/04/09/crawl-python-proxy/</link>
       <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
