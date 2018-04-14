@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>正则 on 飞舞的尘埃</title>
+    <link>/tags/%E6%AD%A3%E5%88%99/</link>
+    <description>Recent content in 正则 on 飞舞的尘埃</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 14 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E6%AD%A3%E5%88%99/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>R字符串模糊匹配</title>
+      <link>/note/2018/04/14/r-fuzzysearch-agrep/</link>
+      <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/04/14/r-fuzzysearch-agrep/</guid>
+      <description>常用计算两个字符串相似度的算法有：余弦相似度、Jaccard相似度（使用两个字符串分词结果来计算交集与并集的比值），但是实际场景中可能需要自定义相似度算法，如两个字符串中出现相同数字比出现相同单词认为具有更高的相似度，这样就意味调整权重。重新实现这样算法在R中一般效率比较差，如果需要两两比较的字符串量级达到万以上再使用循环遍历自定义的相似度算法，会非常耗时间。
+如果目的是筛选出相似度高的字符串，可以先使用模糊匹配来定位有可能存在相似可能的组合
+ agrep: Approximate String Matching (Fuzzy Matching). Searches for approximate matches to pattern (the first argument) within each element of the string x (the second argument) using the generalized Levenshtein edit distance (the minimal possibly weighted number of insertions, deletions and substitutions needed to transform one string into another). 编辑距离：至少通过几次插入、删除、替换来实现两个字符串等价
+ agrep示例 agrep(&amp;quot;lasy&amp;quot;, &amp;quot;1 lazy 2&amp;quot;) ## [1] 1 agrep(&amp;quot;lasy&amp;quot;, &amp;quot;1 lazy 2&amp;quot;, max = list(sub = 1)) ## [1] 1 agrep(&amp;quot;laysy&amp;quot;, c(&amp;quot;1 lazy&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;1 LAZY&amp;quot;), max = 1) ## integer(0) agrep(&amp;quot;laysy&amp;quot;, c(&amp;quot;1 lazy&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;1 LAZY&amp;quot;), max = 2, value = TRUE) ## [1] &amp;quot;1 lazy&amp;quot; agrep(&amp;quot;laysy&amp;quot;, c(&amp;quot;1 lazy&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;1 LAZY&amp;quot;), max = 2, ignore.</description>
+    </item>
+    
+  </channel>
+</rss>

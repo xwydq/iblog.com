@@ -1,0 +1,58 @@
+---
+title: R字符串模糊匹配
+author: gXcloud
+date: '2018-04-14'
+slug: R-fuzzysearch-agrep
+categories:
+  - R
+tags:
+  - 乱码
+  - 正则
+---
+
+常用计算两个字符串相似度的算法有：余弦相似度、Jaccard相似度（使用两个字符串分词结果来计算交集与并集的比值），但是实际场景中可能需要自定义相似度算法，如两个字符串中出现相同数字比出现相同单词认为具有更高的相似度，这样就意味调整权重。重新实现这样算法在R中一般效率比较差，如果需要两两比较的字符串量级达到万以上再使用循环遍历自定义的相似度算法，会非常耗时间。
+
+
+如果目的是筛选出相似度高的字符串，可以先使用模糊匹配来定位有可能存在相似可能的组合
+
+> `agrep`: Approximate String Matching (Fuzzy Matching). Searches for approximate matches to pattern (the first argument) within each element of the string x (the second argument) using the generalized Levenshtein edit distance (the minimal possibly weighted number of insertions, deletions and substitutions needed to transform one string into another). 编辑距离：至少通过几次插入、删除、替换来实现两个字符串等价
+
+### `agrep`示例
+```{r}
+agrep("lasy", "1 lazy 2")
+agrep("lasy", "1 lazy 2", max = list(sub = 1))
+agrep("laysy", c("1 lazy", "1", "1 LAZY"), max = 1)
+agrep("laysy", c("1 lazy", "1", "1 LAZY"), max = 2, value = TRUE)
+agrep("laysy", c("1 lazy", "1", "1 LAZY"), max = 2, ignore.case = TRUE)
+```
+
+
+### `agrep`中文使用
+```{r}
+s1 = '恒C信华夏12幸银业福AA'
+s2 = '恒信银业'
+
+agrep(s2, s1, max = list(cost = 100), value = TRUE)
+agrep(s2, s1, max = list(all = 2), value = TRUE)
+agrep(s2, s1, max = 0.1, value = TRUE)
+```
+
+### `agrep`中文使用
+```{r}
+s1 = '恒信（华夏幸银业福）'
+s2 = '恒信银业'
+
+agrep(s1, s2, max = 4, value = TRUE)
+agrep(s1, s2, max = 6, value = TRUE)
+agrep(s1, s2, max = 0.1, value = TRUE)
+```
+
+### 特殊字符处理
+
+删除掉除中英文、数字之外掉所有符号，可以使用以下方法
+```{r}
+library(stringr)
+str_test = 'I ***爱 ¥¥¥coding1-7'
+str_remove_all(str_test, '[^\\w+]')
+```
+
