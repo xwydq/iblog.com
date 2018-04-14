@@ -29,16 +29,6 @@ agrep("laysy", c("1 lazy", "1", "1 LAZY"), max = 2, ignore.case = TRUE)
 
 ### `agrep`中文使用
 ```{r}
-s1 = '恒C信华夏12幸银业福AA'
-s2 = '恒信银业'
-
-agrep(s2, s1, max = list(cost = 100), value = TRUE)
-agrep(s2, s1, max = list(all = 2), value = TRUE)
-agrep(s2, s1, max = 0.1, value = TRUE)
-```
-
-### `agrep`中文使用
-```{r}
 s1 = '恒信（华夏幸银业福）'
 s2 = '恒信银业'
 
