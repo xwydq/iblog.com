@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/note/2018/04/19/get-office-doc-content/</loc>
+    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/note/2018/04/14/r-fuzzysearch-agrep/</loc>
     <lastmod>2018-04-14T00:00:00+00:00</lastmod>
   </url>
@@ -224,7 +229,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -277,7 +282,7 @@
   
   <url>
     <loc>/note/</loc>
-    <lastmod>2018-04-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -438,6 +443,12 @@
   </url>
   
   <url>
+    <loc>/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/%E5%BE%AA%E7%8E%AF/</loc>
     <lastmod>2013-09-22T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -446,6 +457,12 @@
   <url>
     <loc>/tags/%E6%80%A7%E8%83%BD/</loc>
     <lastmod>2015-02-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/%E6%96%87%E6%9C%AC/</loc>
+    <lastmod>2018-04-19T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
