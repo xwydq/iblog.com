@@ -39,7 +39,7 @@ docx2txt ./test/test-getdocxcontent.docx
 
 原始文档
 
-![](https://images-cdn.shimo.im/hdxZ3UlV3dAvg1CG/image.png)
+![image-20180430082559301](https://ws4.sinaimg.cn/large/006tKfTcgy1fqudkuv0xij30tk0dvdj2.jpg)
 
 解析结果
 
