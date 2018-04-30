@@ -6,10 +6,21 @@
     <description>Recent content in Github on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 26 Mar 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shiny display pdf file</title>
+      <link>/note/2018/04/30/shiny-display-pdf-file/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/04/30/shiny-display-pdf-file/</guid>
+      <description>使用pdf.js来使用在web页面中阅读PDF文件，同时禁止下载、打水印的功能
+ PDF.JS 参考 PDF.js 在线pdf阅读插件（禁止打印，下载，每页水印）修改对应代码（JS/HTML）
+shiny web  将修改测试无误的pdf.js保存在shiny项目的www路径下  └── www └── pdfView └── generic ├── build └── web ├── cmaps ├── images └── locale   Shiny app代码  library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;quot;pdf view&amp;quot;), # Sidebar with a slider input for number of bins uiOutput(&amp;quot;iframe_source&amp;quot;) ) server &amp;lt;- function(input, output) { output$iframe_source &amp;lt;- renderUI({ iframe_source = tags$iframe( src=sprintf(&amp;quot;pdfView/generic/web/viewer.</description>
+    </item>
     
     <item>
       <title>在rstudio中使用git版本控制</title>
