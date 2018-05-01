@@ -6,10 +6,21 @@
     <description>Recent content in Error on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 20 Feb 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/error/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>shiny-textOuput</title>
+      <link>/note/2018/04/30/shiny-textouput/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/04/30/shiny-textouput/</guid>
+      <description>在shiny中动态显示一个字符串变量最好使用renderText/textOutput的方法，使用renderText/reactiveValues会出现异常或不成功的情况。
+ 比较示例代码：
+library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;quot;Old Faithful Geyser Data&amp;quot;), # Sidebar with a slider input for number of bins sidebarLayout( sidebarPanel( sliderInput(&amp;quot;bins&amp;quot;, &amp;quot;Number of bins:&amp;quot;, min = 1, max = 50, value = 30) ), # test textOutput mainPanel( div(h3(&amp;quot;固定值&amp;quot;)), div(h4(&amp;quot;text1: hello world!!&amp;quot;)), hr(), div(h3(&amp;quot;reactiveValues引入的变量值(不能显示)&amp;quot;)), div(h4(renderText(vt$numName))), hr(), div(h3(&amp;quot;textOutput动态输出&amp;quot;)), div(h4(textOutput(&amp;quot;text1&amp;quot;))), hr(), div(h3(&amp;quot;input$bins 报错&amp;quot;)), div(h4(renderText(input$bins))) ) ) ) # Define server logic required to draw a histogram server &amp;lt;- function(session, input, output) { vt = reactiveValues(numName = &#39;heloo&#39;) observe({ vt$numName = as.</description>
+    </item>
     
     <item>
       <title>中文</title>
