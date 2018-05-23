@@ -6,10 +6,21 @@
     <description>Recent content in Notes on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 30 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/note/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R正则替换无效字符</title>
+      <link>/note/2018/05/23/r-reg-sub-invalid-string/</link>
+      <pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/05/23/r-reg-sub-invalid-string/</guid>
+      <description> 文本解析过程中常出现异常字符，如：\xe42b61d592.PDF,\n\xbc\xb0情定折现率R：RRd1
+ 保留常用标点符号、中文、英文、数字的方式 str1 = &amp;#39;体评\xe42b61d592.PDF,\n\xbc\xb0情定折-现率R：RRd1TWdReWe式中 ：‘&amp;#39; gsub(&amp;#39;[^\u4E00-\u9FA5A-Za-z0-9_,.;:‘’“”，。；：《》—\\-]&amp;#39;, &amp;#39;&amp;#39;, str1) ## [1] &amp;quot;体评2b61d592.PDF,情定折-现率R：RRd1TWdReWe式中：‘&amp;quot; # [1] &amp;quot;体评2b61d592.PDF,情定折-现率R：RRd1TWdReWe式中：‘&amp;quot; 常用正则表达式
+ </description>
+    </item>
     
     <item>
       <title>Shiny display pdf file</title>
