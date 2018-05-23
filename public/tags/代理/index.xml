@@ -6,10 +6,20 @@
     <description>Recent content in 代理 on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 12 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/%E4%BB%A3%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R使用代理并行下载</title>
+      <link>/post/2018/05/10/r-proxy-parallel-download/</link>
+      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/05/10/r-proxy-parallel-download/</guid>
+      <description>在R中结合parallel包来实现并行下载或者请求多个URL地址以提高速度
+ urls = c( &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220648.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220649.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220650.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220651.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220653.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220654.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220726.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220878.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220882.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220939.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220942.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220945.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220947.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204221018.PDF&amp;quot; ) library(parallel) library(httr) library(readr) # wget proxy str1 = &#39;wget -e &amp;quot;http_proxy=%s&amp;quot; %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2&#39; str1 = &#39;wget %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2 --quiet&#39; lturls = as.list(urls) t1 = Sys.time() mclapply(lturls, FUN = function(x){ print(x) ## update ips # if(runif(1) &amp;gt; 0.6){ # ips &amp;lt;&amp;lt;- updateIps(ips) # } fnm = digest(x) ## wget proxy # cmd_str = sprintf(str1, sample(ips, 1), x, fnm) cmd_str = sprintf(str1, x, fnm) system(cmd_str) ## rm file # system(sprintf(&#39;rm ~/test/annouce/%s.</description>
+    </item>
     
     <item>
       <title>R爬虫-代理使用</title>
@@ -19,7 +29,7 @@
       <guid>/note/2018/04/12/r-crawl-http-proxy/</guid>
       <description>R爬虫的利器rvest，可以方便实现数据的定位与提取
 添加代理需在httr下实现
-library(httr) ## header 使用vector类型 h &amp;lt;- c(&amp;quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&amp;quot;, &amp;quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&amp;quot;, &amp;quot;gzip, deflate&amp;quot;, &amp;quot;keep-alive&amp;quot;) names(h) &amp;lt;- c(&amp;quot;User-Agent&amp;quot;, &amp;quot;Accept&amp;quot;, &amp;quot;Accept-Encoding&amp;quot;, &amp;quot;Connection&amp;quot;) ## 持续获取代理 get_ips = function(){ while(TRUE){ IP_proxy = &#39;http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=41620212070f4853bf27fd12&amp;amp;count=20&amp;amp;expiryDate=0&amp;amp;format=1&#39; ips = read_json(IP_proxy) if(ips$code == &#39;0&#39;){ break }else{ Sys.sleep(5) } } ips = ips[[&#39;msg&#39;]] ips = as.data.frame(do.call(rbind, ips)) ips$ip = as.character(ips$ip) ips$port = as.numeric(ips$port) return(ips) } ips = get_ips() # port ip # 1 39358 125.</description>
+直接在请求中使用代理 library(httr) ## header 使用vector类型 h &amp;lt;- c(&amp;quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&amp;quot;, &amp;quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&amp;quot;, &amp;quot;gzip, deflate&amp;quot;, &amp;quot;keep-alive&amp;quot;) names(h) &amp;lt;- c(&amp;quot;User-Agent&amp;quot;, &amp;quot;Accept&amp;quot;, &amp;quot;Accept-Encoding&amp;quot;, &amp;quot;Connection&amp;quot;) ## 持续获取代理 get_ips = function(){ while(TRUE){ IP_proxy = &#39;http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=41620212070f4853bf27fd12&amp;amp;count=20&amp;amp;expiryDate=0&amp;amp;format=1&#39; ips = read_json(IP_proxy) if(ips$code == &#39;0&#39;){ break }else{ Sys.sleep(5) } } ips = ips[[&#39;msg&#39;]] ips = as.data.frame(do.call(rbind, ips)) ips$ip = as.character(ips$ip) ips$port = as.numeric(ips$port) return(ips) } ips = get_ips() # port ip # 1 39358 125.</description>
     </item>
     
     <item>

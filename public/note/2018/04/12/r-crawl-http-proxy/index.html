@@ -60,9 +60,13 @@
 
 
 <main>
+
+
 <p>R爬虫的利器<code>rvest</code>，可以方便实现数据的定位与提取</p>
 
 <p>添加代理需在<code>httr</code>下实现</p>
+
+<h2 id="直接在请求中使用代理">直接在请求中使用代理</h2>
 
 <pre><code class="language-R">library(httr)
 
@@ -142,6 +146,70 @@ ttt
 # [2] &lt;body&gt;\r\n    &lt;div id=&quot;box&quot;&gt;\r\n        &lt;div id=&quot;top&quot;&gt;\r\n    &lt;div class=&quot;top1&quot;&gt;\r\n     ...
 # &gt; 
 
+</code></pre>
+
+<h2 id="维护简单的代理池-或者全局变量">维护简单的代理池(或者全局变量)</h2>
+
+<h3 id="代理有效性的验证">代理有效性的验证</h3>
+
+<pre><code class="language-R">validIP = function(ip, port){
+  url = 'http://httpbin.org/ip' #一个可以正常请求访问的网站，改地址也可直接返回代理是否已经使用
+  res = FALSE
+  try({
+    u1 = GET(url, use_proxy(ip, port), timeout(1)) #timeout表示等待响应时长
+    res = TRUE
+  })
+  return(res)
+}
+</code></pre>
+
+<h3 id="代理池更新">代理池更新</h3>
+
+<pre><code class="language-R">library(parallel)
+library(dplyr)
+library(httr)
+library(readr)
+
+updateIps = function(oldips = NULL){
+  proxy_url = 'http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=3276318912478216381273a5cec0&amp;count=10&amp;expiryDate=0&amp;format=2'
+  if(is.null(oldips)){
+    while(TRUE){
+      ips = read_table(proxy_url,
+                       col_names = FALSE)
+      oldips = ips$X1
+      if(length(oldips) == 10){
+        break
+      }
+    }
+  }
+  
+  ips = read_table(proxy_url,
+                   col_names = FALSE)
+  ips = ips$X1
+  
+  if(length(ips) &lt; 10){
+    ltips = oldips
+  }else{
+    ltips = c(ips, oldips)
+  }
+  
+  
+  ltips = as.list(ltips)
+  # 使用并行的方法验证有效性
+  rr = mclapply(ltips, FUN = function(x){
+    ipt = strsplit(x, &quot;:&quot;)[[1]]
+    tt =validIP(ipt[1], as.integer(ipt[2]))
+    tt
+  }, mc.cores = 5
+  )
+  
+  newips = unlist(ltips)[unlist(rr)]
+  
+  return(newips)
+}
+
+ips = updateIps()
+ips = updateIps(ips)
 </code></pre>
 
 </main>
