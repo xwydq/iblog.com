@@ -1,0 +1,23 @@
+---
+title: R正则替换无效字符
+author: gXcloud
+date: '2018-05-23'
+slug: r-reg-sub-invalid-string
+categories:
+  - R
+tags:
+  - 文本
+  - 正则
+---
+
+> 文本解析过程中常出现异常字符，如：`\xe42b61d592.PDF,\n\xbc\xb0情定折现率R：RRd1`
+
+### 保留常用标点符号、中文、英文、数字的方式
+```{r}
+str1 = '体评\xe42b61d592.PDF,\n\xbc\xb0情定折-现率R：RRd1TWdReWe式中 ：‘'
+gsub('[^\u4E00-\u9FA5A-Za-z0-9_,.;:‘’“”，。；：《》—\\-]', '', str1)
+# [1] "体评2b61d592.PDF,情定折-现率R：RRd1TWdReWe式中：‘"
+```
+
+-----
+[常用正则表达式](http://www.cnblogs.com/zxin/archive/2013/01/26/2877765.html)
