@@ -6,10 +6,20 @@
     <description>Recent content in Home on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 23 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>腾讯云OCR文本解析获取</title>
+      <link>/note/2018/06/01/mqcloudocr/</link>
+      <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/06/01/mqcloudocr/</guid>
+      <description>账号配置  API密钥管理申请对应的ID/Key   鉴权签名  &amp;lt;?php $appid = &amp;quot;1256847800&amp;quot;; $bucket = &amp;quot;tencentyun&amp;quot;; $secret_id = &amp;quot;AKIDlQxV4XsCNRN9xgmfuxqqhNrNjutgZjy2&amp;quot;; $secret_key = &amp;quot;61oSxv0ueCdsmlgPyMYaWQDtQo162oOq&amp;quot;; $expired = time() + 5592000; $onceExpired = 0; $current = time(); $rdm = rand(); $userid = &amp;quot;0&amp;quot;; $fileid = &amp;quot;tencentyunSignTest&amp;quot;; $srcStr = &#39;a=&#39;.$appid.&#39;&amp;amp;k=&#39;.$secret_id.&#39;&amp;amp;e=&#39;.$expired.&#39;&amp;amp;t=&#39;.$current.&#39;&amp;amp;r=&#39;.$rdm.&#39;&amp;amp;u=&#39; .$userid.&#39;&amp;amp;f=&#39;; $signStr = base64_encode(hash_hmac(&#39;SHA1&#39;, $srcStr, $secret_key, true).$srcStr); echo $signStr.&amp;quot;\n&amp;quot;; ?&amp;gt;  以上文件保存为php，并在命令行执行，打印的结果就为生成的签名
+php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=  请求测试、数据合并  postman测试   R脚本获取文本数据  library(rvest) library(jsonlite) library(dplyr) library(readr) library(httr) h = c( &#39;2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NDc4MDAmaz1BS0lEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=&#39;, &#39;recognition.</description>
+    </item>
     
     <item>
       <title>R正则替换无效字符</title>
