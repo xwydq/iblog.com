@@ -6,10 +6,20 @@
     <description>Recent content in 配置 on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/%E9%85%8D%E7%BD%AE/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>自定义 Rmd 表格输出格式</title>
+      <link>/note/2018/08/27/selfdefine-rmd-output-table-format/</link>
+      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/08/27/selfdefine-rmd-output-table-format/</guid>
+      <description>Rmd yaml 配置 自定义CSS格式输出html，css文件与Rmd同一目录下，添加格式
+# output: # html_document: # css: test.css  Rmd chunk 中循环输出需要使用cat函数 knitr::opts_chunk$set(echo = TRUE) library(dplyr) library(lubridate) library(knitr) library(kableExtra) library(htmltools) for (i in 1:3) { cat(&amp;quot;\n&amp;quot;) cat(&amp;quot;### &amp;quot;, sprintf(&amp;#39;第%d次&amp;#39;, i), &amp;quot;\n&amp;quot;) tab11 = iris %&amp;gt;% head(10) %&amp;gt;% kable(row.names = F) %&amp;gt;% kable_styling() %&amp;gt;% row_spec(0, background = &amp;#39;grey&amp;#39;) %&amp;gt;% row_spec(10, background = &amp;#39;#E6C1C1&amp;#39;) cat(tab11) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) } 第1次   Sepal.Length  Sepal.Width  Petal.Length  Petal.Width  Species      5.</description>
+    </item>
     
     <item>
       <title>centos7 中rstudio-server画图中文显示问题</title>

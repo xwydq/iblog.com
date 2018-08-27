@@ -1,0 +1,652 @@
+---
+title: 自定义 Rmd 表格输出格式
+author: gXcloud
+date: '2018-08-27'
+slug: selfdefine-rmd-output-table-format
+categories:
+  - R
+tags:
+  - 画图
+  - 配置
+  - R Markdown
+---
+
+
+
+<div id="rmd-yaml-" class="section level2">
+<h2><a href="https://rmarkdown.rstudio.com/html_document_format">Rmd yaml 配置</a></h2>
+<p>自定义CSS格式输出html，css文件与Rmd同一目录下，添加格式</p>
+<pre class="r"><code># output:
+#   html_document: 
+#     css: test.css</code></pre>
+</div>
+<div id="rmd-chunk-cat" class="section level2">
+<h2>Rmd chunk 中循环输出需要使用cat函数</h2>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(htmltools)
+for (i in 1:3) {
+  cat(&quot;\n&quot;)
+  cat(&quot;### &quot;, sprintf(&#39;第%d次&#39;, i), &quot;\n&quot;)
+  
+  tab11 = iris %&gt;%
+    head(10) %&gt;%
+    kable(row.names = F) %&gt;%
+    kable_styling() %&gt;%
+    row_spec(0, background = &#39;grey&#39;) %&gt;%
+    row_spec(10, background = &#39;#E6C1C1&#39;)
+  
+  cat(tab11)
+  cat(&#39;\n&#39;)
+  cat(&#39;\n&#39;)
+  cat(&#39;\n&#39;)
+}</code></pre>
+<div id="1" class="section level3">
+<h3>第1次</h3>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;background-color: grey;">
+Sepal.Length
+</th>
+<th style="text-align:right;background-color: grey;">
+Sepal.Width
+</th>
+<th style="text-align:right;background-color: grey;">
+Petal.Length
+</th>
+<th style="text-align:right;background-color: grey;">
+Petal.Width
+</th>
+<th style="text-align:left;background-color: grey;">
+Species
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+5.1
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.9
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.7
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+1.3
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.4
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+1.7
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.4
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.4
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.4
+</td>
+<td style="text-align:right;">
+2.9
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #E6C1C1;">
+4.9
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+3.1
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+1.5
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+0.1
+</td>
+<td style="text-align:left;background-color: #E6C1C1;">
+setosa
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="2" class="section level3">
+<h3>第2次</h3>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;background-color: grey;">
+Sepal.Length
+</th>
+<th style="text-align:right;background-color: grey;">
+Sepal.Width
+</th>
+<th style="text-align:right;background-color: grey;">
+Petal.Length
+</th>
+<th style="text-align:right;background-color: grey;">
+Petal.Width
+</th>
+<th style="text-align:left;background-color: grey;">
+Species
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+5.1
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.9
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.7
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+1.3
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.4
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+1.7
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.4
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.4
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.4
+</td>
+<td style="text-align:right;">
+2.9
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #E6C1C1;">
+4.9
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+3.1
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+1.5
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+0.1
+</td>
+<td style="text-align:left;background-color: #E6C1C1;">
+setosa
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="3" class="section level3">
+<h3>第3次</h3>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;background-color: grey;">
+Sepal.Length
+</th>
+<th style="text-align:right;background-color: grey;">
+Sepal.Width
+</th>
+<th style="text-align:right;background-color: grey;">
+Petal.Length
+</th>
+<th style="text-align:right;background-color: grey;">
+Petal.Width
+</th>
+<th style="text-align:left;background-color: grey;">
+Species
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+5.1
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.9
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.7
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+1.3
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.4
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+1.7
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.4
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.4
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4.4
+</td>
+<td style="text-align:right;">
+2.9
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
+</tr>
+<tr>
+<td style="text-align:right;background-color: #E6C1C1;">
+4.9
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+3.1
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+1.5
+</td>
+<td style="text-align:right;background-color: #E6C1C1;">
+0.1
+</td>
+<td style="text-align:left;background-color: #E6C1C1;">
+setosa
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="kableextra-" class="section level2">
+<h2><a href="https://haozhu233.github.io/kableExtra/awesome_table_in_html.html">kableExtra</a> 包的对表格输出格式调整</h2>
+<ul>
+<li>宽度、位置、字体</li>
+<li>列/行格式设置</li>
+<li>单元格格式设置</li>
+<li>表头分组、按行分组</li>
+<li>表格下标脚注</li>
+</ul>
+</div>
+<div class="section level2">
+<h2>表格的字符宽度不够可以使用空格填充</h2>
+<p>使用固定宽度生成表格在copy到word格式不易产生表格变形</p>
+<pre class="r"><code>library(stringr)
+str_pad(&#39;你好&#39;, 12)</code></pre>
+<pre><code>## [1] &quot;        你好&quot;</code></pre>
+</div>

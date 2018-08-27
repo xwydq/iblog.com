@@ -1,0 +1,71 @@
+---
+title: 自定义 Rmd 表格输出格式
+author: gXcloud
+date: '2018-08-27'
+slug: selfdefine-rmd-output-table-format
+categories:
+  - R
+tags:
+  - 画图
+  - 配置
+  - R Markdown
+---
+
+## [Rmd yaml 配置](https://rmarkdown.rstudio.com/html_document_format) 
+
+自定义CSS格式输出html，css文件与Rmd同一目录下，添加格式
+```{r}
+# output:
+#   html_document: 
+#     css: test.css
+```
+
+
+## Rmd chunk 中循环输出需要使用cat函数
+
+```{r cars, results='asis', message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(htmltools)
+for (i in 1:3) {
+  cat("\n")
+  cat("### ", sprintf('第%d次', i), "\n")
+  
+  tab11 = iris %>%
+    head(10) %>%
+    kable(row.names = F) %>%
+    kable_styling() %>%
+    row_spec(0, background = 'grey') %>%
+    row_spec(10, background = '#E6C1C1')
+  
+  cat(tab11)
+  cat('\n')
+  cat('\n')
+  cat('\n')
+}
+```
+
+
+## [kableExtra](https://haozhu233.github.io/kableExtra/awesome_table_in_html.html) 包的对表格输出格式调整
+
+- 宽度、位置、字体
+- 列/行格式设置
+- 单元格格式设置
+- 表头分组、按行分组
+- 表格下标脚注
+
+
+## 表格的字符宽度不够可以使用空格填充
+
+使用固定宽度生成表格在copy到word格式不易产生表格变形
+
+```{r}
+library(stringr)
+str_pad('你好', 12)
+```
+
+
+
