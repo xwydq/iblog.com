@@ -1,0 +1,99 @@
+---
+title: list-apply及符号函数的使用
+author: gXcloud
+date: '2018-12-02'
+slug: list-apply
+categories:
+  - R
+tags:
+  - data.frame
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### 删除list中的部分元素
+
+#### 直接指定要删除的元素为NULL
+
+```{r}
+lts = list(1, 2, 'a', matrix(1:3))
+print(length(lts))
+lts[[3]]
+lts[[3]] = NULL
+lts[[3]]
+print(length(lts))
+```
+
+#### 按照序号/list的name删除，即按照序号或name选择要提取的元素
+```{r}
+lts = list(1, 2, 'a', matrix(1:3))
+print(length(lts))
+lts[c(2,4)] = NULL
+print(lts)
+```
+
+### R中操作符皆为函数
+> [参考 Every operation is a function call](http://adv-r.had.co.nz/Functions.html#all-calls)![image](http://note.youdao.com/yws/res/18784/WEBRESOURCEe6d3723df550ea633956f8e28db8cb0c)
+
+具体示例：
+```{r}
+`+`(3,2)
+x = 1:10
+`[`(x, 2)
+`[`(x, -2)
+
+`[<-`(iris[1:2, ], 'new_col_name', value = "future")
+```
+
+### apply类函数中使用符号函数
+
+#### lapply提取元素指定的列
+
+当list中的元素为data.frame/matrix，需要提取其中的指定列
+
+```{r}
+lts = split(subset(iris, select = -Species), iris$Species)
+str(lts)
+# 提取每个list中的1/2列
+lts_sel <- lapply(lts, "[", 1:2)
+str(lts_sel)
+
+# 提取每个list中的1/2行
+lts_sel <- lapply(lts, "[", 1:2, )
+lts_sel
+
+# 提取每个list中的1:2行/1:2列
+lts_sel <- lapply(lts, "[", 1:2, 1:2)
+lts_sel
+
+# 提取每个list中的1:2行/1列
+lts_sel <- lapply(lts, "[", 1:2, 1, drop = F)
+lts_sel
+```
+
+#### mapply给list添加多余列
+
+```{r}
+lts = split(subset(iris, select = -Species), iris$Species)
+lts <- lapply(lts, "[", 1:2, 1:2)
+lts
+lts_cols = mapply(`[<-`, lts, 'Species', value = names(lts), SIMPLIFY = FALSE)
+lts_cols
+lts_cols = mapply(`[<-`, lts, paste0('Species', 1:3), value = names(lts), SIMPLIFY = FALSE)
+lts_cols
+```
+
+### list合并为dataframe
+
+```{r}
+
+lts_cols = mapply(`[<-`, lts, 'Species', value = names(lts), SIMPLIFY = FALSE)
+do.call("rbind", lts_cols)
+
+lts_cols = mapply(`[<-`, lts, paste0('Species', 1:3), value = names(lts), SIMPLIFY = FALSE)
+dplyr::bind_rows(lts_cols)
+```
+

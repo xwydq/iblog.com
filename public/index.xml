@@ -6,10 +6,19 @@
     <description>Recent content in Home on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 27 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>list-apply及符号函数的使用</title>
+      <link>/note/2018/12/02/list-apply/</link>
+      <pubDate>Sun, 02 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2018/12/02/list-apply/</guid>
+      <description>删除list中的部分元素 直接指定要删除的元素为NULL lts = list(1, 2, &amp;#39;a&amp;#39;, matrix(1:3)) print(length(lts)) ## [1] 4 lts[[3]] ## [1] &amp;quot;a&amp;quot; lts[[3]] = NULL lts[[3]] ## [,1] ## [1,] 1 ## [2,] 2 ## [3,] 3 print(length(lts)) ## [1] 3  按照序号/list的name删除，即按照序号或name选择要提取的元素 lts = list(1, 2, &amp;#39;a&amp;#39;, matrix(1:3)) print(length(lts)) ## [1] 4 lts[c(2,4)] = NULL print(lts) ## [[1]] ## [1] 1 ## ## [[2]] ## [1] &amp;quot;a&amp;quot;   R中操作符皆为函数  参考 Every operation is a function call 具体示例：</description>
+    </item>
     
     <item>
       <title>自定义 Rmd 表格输出格式</title>
