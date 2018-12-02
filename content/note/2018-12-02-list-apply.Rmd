@@ -36,7 +36,7 @@ print(lts)
 ```
 
 ### R中操作符皆为函数
-> [参考 Every operation is a function call](http://adv-r.had.co.nz/Functions.html#all-calls)![image](http://note.youdao.com/yws/res/18784/WEBRESOURCEe6d3723df550ea633956f8e28db8cb0c)
+> [参考 Every operation is a function call](http://adv-r.had.co.nz/Functions.html#all-calls)![](/note/2018-12-02-list-apply_files/屏幕快照 2018-12-02 下午9.36.42.png)
 
 具体示例：
 ```{r}
