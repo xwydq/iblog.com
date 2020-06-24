@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>基金 on 飞舞的尘埃</title>
@@ -17,9 +17,9 @@
       <pubDate>Sun, 11 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/03/11/crawl-amac-fund-manager/</guid>
-      <description>基金业协会备案信息之：基金管理人 模块引入 import requests import pandas as pd import random import math import time import datetime from sqlalchemy import create_engine from lxml import etree import re requests.__version__ # &#39;2.18.4&#39;  基金管理人列表 chrome打开network查看请求，具体请求API为 POST，接口：http://gs.amac.org.cn/amac-infodisc/api/pof/manager，参数：?rand=0.24323480064904235&amp;amp;page=1&amp;amp;size=20
+      <description>基金业协会备案信息之：基金管理人 模块引入 import requests import pandas as pd import random import math import time import datetime from sqlalchemy import create_engine from lxml import etree import re requests.__version__ # &amp;#39;2.18.4&amp;#39; 基金管理人列表 chrome打开network查看请求，具体请求API为 POST，接口：http://gs.amac.org.cn/amac-infodisc/api/pof/manager，参数：?rand=0.24323480064904235&amp;amp;page=1&amp;amp;size=20
  rand：0-1随机数 page：页码(第1页：page=0) size：每页显示的记录数  参数说明：
- Query String Parameters: params，查询参数 Request Payload: json，为空{}时，也需要添加该参数，否则有可能报错  # url = &#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;amp;page=0&amp;amp;size=20&#39; url = &#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager&#39; paras = {&amp;quot;rand&amp;quot;: 0.24121315630506435, &amp;quot;page&amp;quot;: 4, &amp;quot;size&amp;quot;: 2} headers = { &#39;Content-Type&#39;: &#39;application/json&#39; } rs = requests.</description>
+ Query String Parameters: params，查询参数 Request Payload: json，为空{}时，也需要添加该参数，否则有可能报错  # url = &amp;#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;amp;page=0&amp;amp;size=20&amp;#39; url = &amp;#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager&amp;#39; paras = {&amp;#34;rand&amp;#34;: 0.24121315630506435, &amp;#34;page&amp;#34;: 4, &amp;#34;size&amp;#34;: 2} headers = { &amp;#39;Content-Type&amp;#39;: &amp;#39;application/json&amp;#39; } rs = requests.</description>
     </item>
     
   </channel>

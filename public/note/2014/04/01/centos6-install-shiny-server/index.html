@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>shiny-server 安装与配置、问题汇总 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/shiny'>shiny</a>
+  <a href='../../../../../categories/shiny'>shiny</a>
   
   
   
@@ -45,7 +45,7 @@
   
   Tags:   
   
-  <a href='/tags/%E9%85%8D%E7%BD%AE'>配置</a>
+  <a href='../../../../../tags/%E9%85%8D%E7%BD%AE'>配置</a>
   
   
   
@@ -56,118 +56,68 @@
 
 
 <main>
-
-
 <h2 id="1-安装">1 安装</h2>
-
 <p>环境：centos6.5</p>
-
 <ul>
 <li>1.1 安装R</li>
 </ul>
-
 <pre><code>$ sudo yum install R
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>1.2 进入R，安装包shiny,rmarkdown</li>
 </ul>
-
 <pre><code>install.packages('shiny')
 install.packages('rmarkdown')
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>1.3 安装shiny-server</li>
 </ul>
-
 <pre><code>$ wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.2.786-rh5-x86_64.rpm
 $ sudo yum install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm
-</code></pre>
-
-<p>查看是否安装成功：进入ip:3838</p>
-
+</code></pre><p>查看是否安装成功：进入ip:3838</p>
 <p>##2 启动</p>
-
 <pre><code>start shiny-server
 stop shiny-server
 status shiny-server
 reload shiny-server
-</code></pre>
-
-<p>##3 配置</p>
-
+</code></pre><p>##3 配置</p>
 <ul>
 <li>3.1 默认配置</li>
 </ul>
-
 <pre><code>cat /etc/shiny-server/shiny-server.conf
-</code></pre>
-
-<p>首页：<strong>/srv/shiny-server/index.html</strong>
+</code></pre><p>首页：<strong>/srv/shiny-server/index.html</strong>
 shiny app 的目录：<strong>/srv/shiny-server/sample-apps</strong>
 详细配置参数见：<a href="http://docs.rstudio.com/shiny-server/#configuration-settings">shiny-server conf settings</a></p>
-
 <p>##4 注意问题</p>
-
 <ul>
 <li>4.1 The application took too long to respond.</li>
 </ul>
-
-<p>修改<strong>/etc/shiny-server/shiny-server.conf</strong>中的参数增加延时</p>
-
+<p>修改**/etc/shiny-server/shiny-server.conf**中的参数增加延时</p>
 <pre><code>$ vi /etc/shiny-server/shiny-server.conf
 app init timeout 300;
 app idle timeout 300;
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>4.2 linux文件建立连接（软连接、硬链接）</li>
 </ul>
-
 <p>建立文件夹软连接</p>
-
 <pre><code>ln -s /home/xuwy/flow_model /srv/shiny-server/app_flow
-</code></pre>
-
-<p>删除</p>
-
+</code></pre><p>删除</p>
 <pre><code>rm -rf /home/xuwy/flow_model
-</code></pre>
-
-<p>注意不可按照以下方式删除(会直接删除对应原文件的子目录下所有文件)</p>
-
+</code></pre><p>注意不可按照以下方式删除(会直接删除对应原文件的子目录下所有文件)</p>
 <pre><code>rm -rf /home/xuwy/flow_model/
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>4.3 HTML的图片插入相对路径</li>
 </ul>
-
 <p>与index.html相同路径的直接使用</p>
-
 <pre><code>&lt;img src=&quot;mac_heatmap_gg.gif&quot; alt=&quot;mac View&quot; style=&quot;width:1104px;height:528px;&quot;&gt;
-</code></pre>
-
-<p>子目录下的使用方法</p>
-
+</code></pre><p>子目录下的使用方法</p>
 <pre><code>&lt;img src=&quot;/images/mac_heatmap_gg.gif&quot; alt=&quot;mac View&quot; style=&quot;width:1104px;height:528px;&quot;&gt;
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>4.4 shiny project中有load(./xx.RData)</li>
 </ul>
-
 <p>xx.RData会间隔时间变化，但是<strong>shiny-server不会实时更新</strong>，只能采取间隔时间重启shiny-server服务</p>
-
 <pre><code>restart shiny-server
-</code></pre>
-
-<hr />
-
+</code></pre><hr>
 <p>备注
 将shiny project 或者 rmarkdown嵌入到html</p>
-
 <pre><code>  &lt;div id=&quot;shiny&quot;&gt;
 	&lt;iframe src=&quot;./sample-apps/hello/&quot; style=&quot;border: 1px solid #AAA; width: 290px; height: 460px&quot;&gt;&lt;/iframe&gt;
 	&lt;div class=&quot;caption&quot;&gt;
@@ -180,7 +130,6 @@ app idle timeout 300;
 	&lt;/div&gt;
   &lt;/div&gt;
 </code></pre>
-
 </main>
 
   <footer>
@@ -201,21 +150,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -239,7 +191,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Python on 飞舞的尘埃</title>
+    <title>python on 飞舞的尘埃</title>
     <link>/tags/python/</link>
-    <description>Recent content in Python on 飞舞的尘埃</description>
+    <description>Recent content in python on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 01 Jun 2018 00:00:00 +0000</lastBuildDate>
@@ -17,8 +17,12 @@
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/06/01/mqcloudocr/</guid>
-      <description>账号配置  API密钥管理申请对应的ID/Key   鉴权签名  &amp;lt;?php $appid = &amp;quot;1256847800&amp;quot;; $bucket = &amp;quot;tencentyun&amp;quot;; $secret_id = &amp;quot;AKIDlQxV4XsCNRN9xgmfuxqqhNrNjutgZjy2&amp;quot;; $secret_key = &amp;quot;61oSxv0ueCdsmlgPyMYaWQDtQo162oOq&amp;quot;; $expired = time() + 5592000; $onceExpired = 0; $current = time(); $rdm = rand(); $userid = &amp;quot;0&amp;quot;; $fileid = &amp;quot;tencentyunSignTest&amp;quot;; $srcStr = &#39;a=&#39;.$appid.&#39;&amp;amp;k=&#39;.$secret_id.&#39;&amp;amp;e=&#39;.$expired.&#39;&amp;amp;t=&#39;.$current.&#39;&amp;amp;r=&#39;.$rdm.&#39;&amp;amp;u=&#39; .$userid.&#39;&amp;amp;f=&#39;; $signStr = base64_encode(hash_hmac(&#39;SHA1&#39;, $srcStr, $secret_key, true).$srcStr); echo $signStr.&amp;quot;\n&amp;quot;; ?&amp;gt;  以上文件保存为php，并在命令行执行，打印的结果就为生成的签名
-php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=  请求测试、数据合并  postman测试   R脚本获取文本数据  library(rvest) library(jsonlite) library(dplyr) library(readr) library(httr) h = c( &#39;2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NDc4MDAmaz1BS0lEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=&#39;, &#39;recognition.</description>
+      <description>账号配置   API密钥管理申请对应的ID/Key
+  鉴权签名
+&amp;lt;?php $appid = &amp;#34;1256847800&amp;#34;; $bucket = &amp;#34;tencentyun&amp;#34;; $secret_id = &amp;#34;AKIDlQxV4XsCNRN9xgmfuxqqhNrNjutgZjy2&amp;#34;; $secret_key = &amp;#34;61oSxv0ueCdsmlgPyMYaWQDtQo162oOq&amp;#34;; $expired = time() + 5592000; $onceExpired = 0; $current = time(); $rdm = rand(); $userid = &amp;#34;0&amp;#34;; $fileid = &amp;#34;tencentyunSignTest&amp;#34;; $srcStr = &amp;#39;a=&amp;#39;.$appid.&amp;#39;&amp;amp;k=&amp;#39;.$secret_id.&amp;#39;&amp;amp;e=&amp;#39;.$expired.&amp;#39;&amp;amp;t=&amp;#39;.$current.&amp;#39;&amp;amp;r=&amp;#39;.$rdm.&amp;#39;&amp;amp;u=&amp;#39; .$userid.&amp;#39;&amp;amp;f=&amp;#39;; $signStr = base64_encode(hash_hmac(&amp;#39;SHA1&amp;#39;, $srcStr, $secret_key, true).$srcStr); echo $signStr.&amp;#34;\n&amp;#34;; ?&amp;gt; 以上文件保存为php，并在命令行执行，打印的结果就为生成的签名
+php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=   请求测试、数据合并   postman测试
+  R脚本获取文本数据
+library(rvest) library(jsonlite) library(dplyr) library(readr) library(httr) h = c( &amp;#39;2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NDc4MDAmaz1BS0lEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=&amp;#39;, &amp;#39;recognition.</description>
     </item>
     
     <item>
@@ -28,9 +32,12 @@ php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFo
       
       <guid>/note/2018/02/27/linux-selenium-chromeheadless-install-test/</guid>
       <description>typora-copy-images-to: ipic
- centos7及以上Linux环境。使用PhantomJS设置cookie报错Can only set Cookies for the current domain，看样子后期相关维护也很慢。google chrome已经开始支持headless，可以考虑换大腿了
+  centos7及以上Linux环境。使用PhantomJS设置cookie报错Can only set Cookies for the current domain，看样子后期相关维护也很慢。google chrome已经开始支持headless，可以考虑换大腿了
  环境配置安装 可以直接使用配置yum源的方法来安装，但是由于伟大的墙可能访问不到Google服务，也可以先下载指定版本的安装文件再安装
- chromedriver安装  $ wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip $ unzip chromedriver_linux64.zip $ chromedriver --version #ChromeDriver 2.35.528139 # 将chromedriver执行文件所在的路径添加到PATH环境变量   chromebrowser安装  $ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm $ sudo yum install google-chrome-stable_current_x86_64.rpm $ google-chrome --version #Google Chrome 61.0.3163.100   Xvfb安装  Xvfb（virtual framebuffer X server for X Version 11）， Xvfb 可以直接处理 Window 的图形化功能，且不把图像輸出到屏幕，目的就是在没有 Xwindow的情况下仍然可以执行相关图像界面操作。实现一种虚拟窗口（window）的操作。安裝 XVFB 做 Selenium 測試</description>
+  chromedriver安装
+$ wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip $ unzip chromedriver_linux64.zip $ chromedriver --version #ChromeDriver 2.35.528139 # 将chromedriver执行文件所在的路径添加到PATH环境变量   chromebrowser安装
+$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm $ sudo yum install google-chrome-stable_current_x86_64.rpm $ google-chrome --version #Google Chrome 61.0.3163.100   Xvfb安装
+Xvfb（virtual framebuffer X server for X Version 11）， Xvfb 可以直接处理 Window 的图形化功能，且不把图像輸出到屏幕，目的就是在没有 Xwindow的情况下仍然可以执行相关图像界面操作。实现一种虚拟窗口（window）的操作。安裝 XVFB 做 Selenium 測試</description>
     </item>
     
     <item>

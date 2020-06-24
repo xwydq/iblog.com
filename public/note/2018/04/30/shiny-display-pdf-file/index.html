@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shiny display pdf file | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/shiny'>shiny</a>
+  <a href='../../../../../categories/shiny'>shiny</a>
   
   
   
@@ -45,11 +45,11 @@
   
   Tags:   
   
-  <a href='/tags/html'>html</a>
+  <a href='../../../../../tags/html'>html</a>
   
-  <a href='/tags/github'>github</a>
+  <a href='../../../../../tags/github'>github</a>
   
-  <a href='/tags/js'>JS</a>
+  <a href='../../../../../tags/js'>JS</a>
   
   
   
@@ -60,23 +60,16 @@
 
 
 <main>
-
-
 <blockquote>
 <p>使用pdf.js来使用在web页面中阅读PDF文件，同时禁止下载、打水印的功能</p>
 </blockquote>
-
-<h3 id="pdf-js">PDF.JS</h3>
-
+<h3 id="pdfjs">PDF.JS</h3>
 <p>参考 <a href="https://blog.csdn.net/For_GG/article/details/78616063">PDF.js 在线pdf阅读插件（禁止打印，下载，每页水印）</a>修改对应代码（JS/HTML）</p>
-
 <h3 id="shiny-web">shiny web</h3>
-
 <ul>
 <li>将修改测试无误的pdf.js保存在shiny项目的www路径下</li>
 </ul>
-
-<pre><code class="language-shell">└── www
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">└── www
     └── pdfView
         └── generic
             ├── build
@@ -84,45 +77,37 @@
                 ├── cmaps
                 ├── images
                 └── locale
-</code></pre>
-
-<ul>
+</code></pre></div><ul>
 <li>Shiny app代码</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">library</span>(shiny)
 
-<pre><code class="language-r">library(shiny)
-
-# Define UI for application that draws a histogram
-ui &lt;- fluidPage(
+<span style="color:#75715e"># Define UI for application that draws a histogram</span>
+ui <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fluidPage</span>(
    
-   # Application title
-   titlePanel(&quot;pdf view&quot;),
+   <span style="color:#75715e"># Application title</span>
+   <span style="color:#a6e22e">titlePanel</span>(<span style="color:#e6db74">&#34;pdf view&#34;</span>),
    
-   # Sidebar with a slider input for number of bins 
-   uiOutput(&quot;iframe_source&quot;)
+   <span style="color:#75715e"># Sidebar with a slider input for number of bins </span>
+   <span style="color:#a6e22e">uiOutput</span>(<span style="color:#e6db74">&#34;iframe_source&#34;</span>)
 )
 
-server &lt;- function(input, output) {
-  output$iframe_source &lt;- renderUI({
-  iframe_source = tags$iframe(
-    src=sprintf(&quot;pdfView/generic/web/viewer.html?file=../../0b781915c086876a5eac6b1b30ba0d18.pdf&quot;),
-                              height=800, width='90%')
+server <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(input, output) {
+  output<span style="color:#f92672">$</span>iframe_source <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">renderUI</span>({
+  iframe_source <span style="color:#f92672">=</span> tags<span style="color:#f92672">$</span><span style="color:#a6e22e">iframe</span>(
+    src<span style="color:#f92672">=</span><span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;pdfView/generic/web/viewer.html?file=../../0b781915c086876a5eac6b1b30ba0d18.pdf&#34;</span>),
+                              height<span style="color:#f92672">=</span><span style="color:#ae81ff">800</span>, width<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;90%&#39;</span>)
   iframe_source
   })
 }
 
-# Run the application 
-shinyApp(ui = ui, server = server)
-</code></pre>
-
-<ul>
+<span style="color:#75715e"># Run the application </span>
+<span style="color:#a6e22e">shinyApp</span>(ui <span style="color:#f92672">=</span> ui, server <span style="color:#f92672">=</span> server)
+</code></pre></div><ul>
 <li>具体效果见</li>
 </ul>
-
-<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fqueep3orfj30oe0ic456.jpg" alt="image-20180430085439710" /></p>
-
-<hr />
-
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fqueep3orfj30oe0ic456.jpg" alt="image-20180430085439710"></p>
+<hr>
 <p><a href="https://github.com/xwydq/shiny-pdfview.git">项目git仓库地址</a></p>
 
 </main>
@@ -145,21 +130,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -183,7 +171,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

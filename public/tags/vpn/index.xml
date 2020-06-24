@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vpn on 飞舞的尘埃</title>
+    <title>vpn on 飞舞的尘埃</title>
     <link>/tags/vpn/</link>
-    <description>Recent content in Vpn on 飞舞的尘埃</description>
+    <description>Recent content in vpn on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 01 Mar 2018 00:00:00 +0000</lastBuildDate>
@@ -19,7 +19,7 @@
       <guid>/note/2018/03/01/centos7-squid-http/</guid>
       <description>在centos7环境搭建带认证功能的squid代理服务
  yum安装 squid实现代理功能，httpd-tools文件加密
-yum -y install squid yum -y install httpd-tools  squid的使用参数 进程启动、状态控制
+yum -y install squid yum -y install httpd-tools squid的使用参数 进程启动、状态控制
 systemctl enable squid systemctl status/restart/stop squid systemctl status squid ● squid.service - Squid caching proxy Loaded: loaded (/usr/lib/systemd/system/squid.service; enabled; vendor preset: disabled) Active: active (running) since 三 2018-02-28 05:56:10 CST; 23h ago Process: 4889 ExecStop=/usr/sbin/squid -k shutdown -f $SQUID_CONF (code=exited, status=0/SUCCESS) Process: 4898 ExecStart=/usr/sbin/squid $SQUID_OPTS -f $SQUID_CONF (code=exited, status=0/SUCCESS) Process: 4892 ExecStartPre=/usr/libexec/squid/cache_swap.sh (code=exited, status=0/SUCCESS) Main PID: 4900 (squid) CGroup: /system.</description>
     </item>
     

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on 飞舞的尘埃</title>
@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 10 May 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>rmd-test</title>
+      <link>/post/2020/06/23/rmd-test/</link>
+      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2020/06/23/rmd-test/</guid>
+      <description>library(plotly) ## 载入需要的程辑包：ggplot2 ## ## 载入程辑包：&amp;#39;plotly&amp;#39; ## The following object is masked from &amp;#39;package:ggplot2&amp;#39;: ## ## last_plot ## The following object is masked from &amp;#39;package:stats&amp;#39;: ## ## filter ## The following object is masked from &amp;#39;package:graphics&amp;#39;: ## ## layout plot_ly(economics, x = ~date, color = I(&amp;quot;black&amp;quot;)) %&amp;gt;% add_lines(y = ~uempmed) %&amp;gt;% add_lines(y = ~psavert, color = I(&amp;quot;red&amp;quot;)) ## Warning: `arrange_()` is deprecated as of dplyr 0.</description>
+    </item>
     
     <item>
       <title>R使用代理并行下载</title>
@@ -18,7 +27,7 @@
       
       <guid>/post/2018/05/10/r-proxy-parallel-download/</guid>
       <description>在R中结合parallel包来实现并行下载或者请求多个URL地址以提高速度
- urls = c( &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220648.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220649.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220650.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220651.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220653.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220654.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220726.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220878.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220882.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220939.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220942.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220945.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220947.PDF&amp;quot;, &amp;quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204221018.PDF&amp;quot; ) library(parallel) library(httr) library(readr) # wget proxy str1 = &#39;wget -e &amp;quot;http_proxy=%s&amp;quot; %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2&#39; str1 = &#39;wget %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2 --quiet&#39; lturls = as.list(urls) t1 = Sys.time() mclapply(lturls, FUN = function(x){ print(x) ## update ips # if(runif(1) &amp;gt; 0.6){ # ips &amp;lt;&amp;lt;- updateIps(ips) # } fnm = digest(x) ## wget proxy # cmd_str = sprintf(str1, sample(ips, 1), x, fnm) cmd_str = sprintf(str1, x, fnm) system(cmd_str) ## rm file # system(sprintf(&#39;rm ~/test/annouce/%s.</description>
+ urls = c( &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220648.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220649.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220650.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220651.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220653.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220654.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220726.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220878.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220882.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220939.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220942.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220945.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220947.PDF&amp;#34;, &amp;#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204221018.PDF&amp;#34; ) library(parallel) library(httr) library(readr) # wget proxy str1 = &amp;#39;wget -e &amp;#34;http_proxy=%s&amp;#34; %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2&amp;#39; str1 = &amp;#39;wget %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2 --quiet&amp;#39; lturls = as.list(urls) t1 = Sys.time() mclapply(lturls, FUN = function(x){ print(x) ## update ips # if(runif(1) &amp;gt; 0.6){ # ips &amp;lt;&amp;lt;- updateIps(ips) # } fnm = digest(x) ## wget proxy # cmd_str = sprintf(str1, sample(ips, 1), x, fnm) cmd_str = sprintf(str1, x, fnm) system(cmd_str) ## rm file # system(sprintf(&amp;#39;rm ~/test/annouce/%s.</description>
     </item>
     
     <item>
@@ -41,8 +50,8 @@ widgetframe简介 使用pym.js来实现iframe的潜入，主要函数：
       <guid>/post/2018/02/06/shiny-tagsinput-by-selectizejs/</guid>
       <description>selectize.js是基于jQuery开发的混合了文本输入框与下拉选择框功能的JS库，对应的GITHUB地址
  最新版本的shiny已经整合了selectize.js 到 selectInput
-&amp;gt; sessionInfo() R version 3.4.3 (2017-11-30) ... other attached packages: [1] shiny_1.0.5  打标签 使用 selectInput/selectizeInput 实现打标签功能
-selectizeInput(inputId=&#39;ids1&#39;, label= tags$h5(&#39;标签效果&#39;), choices = NULL, multiple = TRUE, options = list( placeholder = &#39;Please select/type something&#39;, maxItems = 3, # 最大数量限制 onInitialize = I(&#39;function() { this.setValue(&amp;quot;hello world&amp;quot;); }&#39;), # 未发现具体作用 # class=&amp;quot;demo&amp;quot;, plugins = list(&#39;restore_on_backspace&#39;, # backspace 按钮可以起到编辑效果 &#39;remove_button&#39;, # 显示移除按钮 &#39;drag_drop&#39;), # 可以拖动编辑顺序 create = TRUE, delimiter = &#39;,&#39;, persist = FALSE, onDelete = I(&amp;quot;function(values) { return confirm(values.</description>
+&amp;gt; sessionInfo() R version 3.4.3 (2017-11-30) ... other attached packages: [1] shiny_1.0.5 打标签 使用 selectInput/selectizeInput 实现打标签功能
+selectizeInput(inputId=&amp;#39;ids1&amp;#39;, label= tags$h5(&amp;#39;标签效果&amp;#39;), choices = NULL, multiple = TRUE, options = list( placeholder = &amp;#39;Please select/type something&amp;#39;, maxItems = 3, # 最大数量限制 onInitialize = I(&amp;#39;function() { this.setValue(&amp;#34;hello world&amp;#34;); }&amp;#39;), # 未发现具体作用 # class=&amp;#34;demo&amp;#34;, plugins = list(&amp;#39;restore_on_backspace&amp;#39;, # backspace 按钮可以起到编辑效果 &amp;#39;remove_button&amp;#39;, # 显示移除按钮 &amp;#39;drag_drop&amp;#39;), # 可以拖动编辑顺序 create = TRUE, delimiter = &amp;#39;,&amp;#39;, persist = FALSE, onDelete = I(&amp;#34;function(values) { return confirm(values.</description>
     </item>
     
     <item>
@@ -51,7 +60,7 @@ selectizeInput(inputId=&#39;ids1&#39;, label= tags$h5(&#39;标签效果&#39;), c
       <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>/post/2015/03/26/rstudio-git-version-control/</guid>
-      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install   方法二：yum安装（epel源）  yum install git 测试安装成功： git --version   生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.</description>
+      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install  方法二：yum安装（epel源）  yum install git 测试安装成功： git --version  生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.md git commit -m &amp;#34;first commit&amp;#34; git remote add origin https://github.</description>
     </item>
     
   </channel>

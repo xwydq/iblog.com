@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>中文 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -38,9 +38,9 @@
   
   Tags:   
   
-  <a href='/tags/error'>error</a>
+  <a href='../../../../../tags/error'>error</a>
   
-  <a href='/tags/test'>test</a>
+  <a href='../../../../../tags/test'>test</a>
   
   
   
@@ -51,12 +51,7 @@
 
 
 <main>
-<script src="/note/2018-02-20-中文_files/htmlwidgets/htmlwidgets.js"></script>
-<script src="/note/2018-02-20-中文_files/echarts/echarts-all.js"></script>
-<script src="/note/2018-02-20-中文_files/charts-ext/main.js"></script>
-<script src="/note/2018-02-20-中文_files/charts-ext/BMap.js"></script>
-<script src="/note/2018-02-20-中文_files/echarts-binding/echarts.js"></script>
-<script src="/note/2018-02-20-中文_files/echarts-module/scatter.js"></script>
+
 
 
 <pre class="r"><code>library(knitr)
@@ -134,11 +129,11 @@ fit</code></pre>
 ## (Intercept)        speed  
 ##     -17.579        3.932</code></pre>
 <pre class="r"><code>plot(rnorm(10), main = &quot;童话的世界&quot;)</code></pre>
-<p><img src="/note/2018-02-20-%E4%B8%AD%E6%96%87_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>library(recharts)
-echart(iris, ~ Sepal.Length, ~ Sepal.Width, series = ~ Species)</code></pre>
-<div id="htmlwidget-1" style="width:672px;height:480px;" class="echarts html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"series":[{"name":"setosa","type":"scatter","data":[[5.1,3.5],[4.9,3],[4.7,3.2],[4.6,3.1],[5,3.6],[5.4,3.9],[4.6,3.4],[5,3.4],[4.4,2.9],[4.9,3.1],[5.4,3.7],[4.8,3.4],[4.8,3],[4.3,3],[5.8,4],[5.7,4.4],[5.4,3.9],[5.1,3.5],[5.7,3.8],[5.1,3.8],[5.4,3.4],[5.1,3.7],[4.6,3.6],[5.1,3.3],[4.8,3.4],[5,3],[5,3.4],[5.2,3.5],[5.2,3.4],[4.7,3.2],[4.8,3.1],[5.4,3.4],[5.2,4.1],[5.5,4.2],[4.9,3.1],[5,3.2],[5.5,3.5],[4.9,3.6],[4.4,3],[5.1,3.4],[5,3.5],[4.5,2.3],[4.4,3.2],[5,3.5],[5.1,3.8],[4.8,3],[5.1,3.8],[4.6,3.2],[5.3,3.7],[5,3.3]]},{"name":"versicolor","type":"scatter","data":[[7,3.2],[6.4,3.2],[6.9,3.1],[5.5,2.3],[6.5,2.8],[5.7,2.8],[6.3,3.3],[4.9,2.4],[6.6,2.9],[5.2,2.7],[5,2],[5.9,3],[6,2.2],[6.1,2.9],[5.6,2.9],[6.7,3.1],[5.6,3],[5.8,2.7],[6.2,2.2],[5.6,2.5],[5.9,3.2],[6.1,2.8],[6.3,2.5],[6.1,2.8],[6.4,2.9],[6.6,3],[6.8,2.8],[6.7,3],[6,2.9],[5.7,2.6],[5.5,2.4],[5.5,2.4],[5.8,2.7],[6,2.7],[5.4,3],[6,3.4],[6.7,3.1],[6.3,2.3],[5.6,3],[5.5,2.5],[5.5,2.6],[6.1,3],[5.8,2.6],[5,2.3],[5.6,2.7],[5.7,3],[5.7,2.9],[6.2,2.9],[5.1,2.5],[5.7,2.8]]},{"name":"virginica","type":"scatter","data":[[6.3,3.3],[5.8,2.7],[7.1,3],[6.3,2.9],[6.5,3],[7.6,3],[4.9,2.5],[7.3,2.9],[6.7,2.5],[7.2,3.6],[6.5,3.2],[6.4,2.7],[6.8,3],[5.7,2.5],[5.8,2.8],[6.4,3.2],[6.5,3],[7.7,3.8],[7.7,2.6],[6,2.2],[6.9,3.2],[5.6,2.8],[7.7,2.8],[6.3,2.7],[6.7,3.3],[7.2,3.2],[6.2,2.8],[6.1,3],[6.4,2.8],[7.2,3],[7.4,2.8],[7.9,3.8],[6.4,2.8],[6.3,2.8],[6.1,2.6],[7.7,3],[6.3,3.4],[6.4,3.1],[6,3],[6.9,3.1],[6.7,3.1],[6.9,3.1],[5.8,2.7],[6.8,3.2],[6.7,3.3],[6.7,3],[6.3,2.5],[6.5,3],[6.2,3.4],[5.9,3]]}],"xAxis":{"type":"value","show":true,"position":"bottom","name":"Sepal.Length","nameLocation":"end","boundaryGap":[0,0],"scale":true,"axisLine":{"show":true,"onZero":false},"axisTick":{"show":false},"axisLabel":{"show":true},"splitLine":{"show":true},"splitArea":{"show":false}},"yAxis":{"type":"value","show":true,"position":"left","name":"Sepal.Width","nameLocation":"end","boundaryGap":[0,0],"scale":true,"axisLine":{"show":true,"onZero":false},"axisTick":{"show":false},"axisLabel":{"show":true},"splitLine":{"show":true},"splitArea":{"show":false}},"legend":{"data":["setosa","versicolor","virginica"]}},"evals":[],"jsHooks":[]}</script>
+<p><img src="../../../../../note/2018-02-20-%E4%B8%AD%E6%96%87_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code># if (!require(devtools)) library(devtools)
+# # install_github(&quot;madlogos/recharts&quot;)
+# library(recharts)
+# echart(iris, ~ Sepal.Length, ~ Sepal.Width, series = ~ Species)</code></pre>
 
 </main>
 
@@ -160,21 +155,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -198,7 +196,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

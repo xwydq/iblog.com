@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>win7下安装ROracle | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/r'>R</a>
+  <a href='../../../../../categories/r'>R</a>
   
   
   
@@ -45,9 +45,9 @@
   
   Tags:   
   
-  <a href='/tags/oracle'>oracle</a>
+  <a href='../../../../../tags/oracle'>oracle</a>
   
-  <a href='/tags/roracle'>ROracle</a>
+  <a href='../../../../../tags/roracle'>ROracle</a>
   
   
   
@@ -58,53 +58,38 @@
 
 
 <main>
-
-
 <p>win7下安装R的ROracle来连接Oracle数据库速度比ODBC的方式快很多</p>
-
 <p>安装配置也比较简单，但是有个问题：</p>
-
 <p>同时使用PL/SQL(32bits)与R(64bits，当然完全可以使用32位的，但是32的有保存使用限制~~~~~)。</p>
-
 <p>本配置的目的就是同时兼顾以上两者：</p>
-
-<h3 id="一-roracle-oracle-instantclient下载">一、ROracle、Oracle instantclient下载</h3>
-
+<h3 id="一roracleoracle-instantclient下载">一、ROracle、Oracle instantclient下载</h3>
 <ul>
 <li>（1）ROracle下载</li>
 </ul>
-
 <p><a href="http://download.csdn.net/detail/xwydq/8440643">ROracle下载地址</a></p>
-
 <ul>
 <li>（2）Oracle instantclient下载</li>
 </ul>
-
 <p>将文件夹32/64（文件夹中分别包含将32位、64位的Oracle instant client（basic、jdbc、odbc、sdk、sqlplus）解压后的文件，都解压到instantclient_11_2文件夹下，且将TNS数据源配置直接复制到该文件下）COPY到D盘
 如果使用版本instantclient_11_2可以直接<a href="http://download.csdn.net/detail/xwydq/8440861">32bits</a>、<a href="http://download.csdn.net/detail/xwydq/8440909">64bits</a></p>
-
 <p>其他版本可以官网下载
 解压后见下图
-<img src="http://img.blog.csdn.net/20150211174614234?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img" /></p>
-
-<h3 id="二-环境变量的配置">二、环境变量的配置</h3>
-
+<img src="http://img.blog.csdn.net/20150211174614234?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveHd5ZHE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<h3 id="二环境变量的配置">二、环境变量的配置</h3>
 <p>在此例中需要设置如下环境变量：</p>
-
-<pre><code class="language-Shell">Path
-D:\32\instantclient_11_2;D:\64\instantclient_11_2;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">Path
+D:<span style="color:#ae81ff">\3</span>2<span style="color:#ae81ff">\i</span>nstantclient_11_2;D:<span style="color:#ae81ff">\6</span>4<span style="color:#ae81ff">\i</span>nstantclient_11_2;
 ORACLE_HOME
-D:\32\instantclient_11_2
+D:<span style="color:#ae81ff">\3</span>2<span style="color:#ae81ff">\i</span>nstantclient_11_2
 TNS_ADMIN
-D:\32\instantclient_11_2
+D:<span style="color:#ae81ff">\3</span>2<span style="color:#ae81ff">\i</span>nstantclient_11_2
 NLS_LANG
 SIMPLIFIED CHINESE_CHINA.ZHS16GBK
 OCI_LIB64
-D:\64\instantclient_11_2
+D:<span style="color:#ae81ff">\6</span>4<span style="color:#ae81ff">\i</span>nstantclient_11_2
 OCI_LIB32
-D:\32\instantclient_11_2
-</code></pre>
-
+D:<span style="color:#ae81ff">\3</span>2<span style="color:#ae81ff">\i</span>nstantclient_11_2
+</code></pre></div>
 </main>
 
   <footer>
@@ -125,21 +110,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -163,7 +151,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>centos7 中rstudio-server画图中文显示问题 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/r'>R</a>
+  <a href='../../../../../categories/r'>R</a>
   
   
   
@@ -45,13 +45,13 @@
   
   Tags:   
   
-  <a href='/tags/%E4%B9%B1%E7%A0%81'>乱码</a>
+  <a href='../../../../../tags/%E4%B9%B1%E7%A0%81'>乱码</a>
   
-  <a href='/tags/%E7%94%BB%E5%9B%BE'>画图</a>
+  <a href='../../../../../tags/%E7%94%BB%E5%9B%BE'>画图</a>
   
-  <a href='/tags/%E9%85%8D%E7%BD%AE'>配置</a>
+  <a href='../../../../../tags/%E9%85%8D%E7%BD%AE'>配置</a>
   
-  <a href='/tags/plot'>plot</a>
+  <a href='../../../../../tags/plot'>plot</a>
   
   
   
@@ -63,104 +63,80 @@
 
 <main>
 <p>关于centos 7中rstudio-server画图中文不显示问题整理</p>
-
 <ul>
 <li>修改操作系统默认字符编码的支持</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /etc/locale.conf
 
-<pre><code class="language-shell">vi /etc/locale.conf
+LANG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zh_CN.UTF-8&#34;</span>
+SUPPORTED<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&#34;</span>
+SYSFONT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Microsoft YaHei&#34;</span>
 
-LANG=&quot;zh_CN.UTF-8&quot;
-SUPPORTED=&quot;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&quot;
-SYSFONT=&quot;Microsoft YaHei&quot;
+<span style="color:#75715e"># LANG变量，设置系统语言。</span>
+<span style="color:#75715e"># SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。</span>
+<span style="color:#75715e"># SYSFONT变量表示系统字体。</span>
 
-# LANG变量，设置系统语言。
-# SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。
-# SYSFONT变量表示系统字体。
-
-reboot #需要重启后生效
-</code></pre>
-
-<ul>
-<li>查看已经安装的中文字体</li>
-</ul>
-
-<pre><code class="language-shell">  fc-list :lang=zh
-</code></pre>
-
-<p>如果查询为空就需安装中文字体</p>
-
+reboot <span style="color:#75715e">#需要重启后生效</span>
+</code></pre></div><ul>
+<li>
+<p>查看已经安装的中文字体</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">fc-list :lang<span style="color:#f92672">=</span>zh
+</code></pre></div><p>如果查询为空就需安装中文字体</p>
 <p>安装部分中文字体后的查询结果如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">fc-list :lang<span style="color:#f92672">=</span>zh
 
-<pre><code class="language-shell">  fc-list :lang=zh
-
-  # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持
-  /usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style=Regular,Normal,obyčejné,Standard,Κανονικά,No
-  rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta
-  /usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style=常规,Regular
-  /usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style=Regular,Normal,obyčejné,Standard,Κανον
-  ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta
-  /usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style=常规,Regular
-</code></pre>
-
-<ul>
-<li>无中文字体时安装</li>
-</ul>
-
-<pre><code class="language-shell">  yum install -y fontconfig mkfontscale
-  #1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。
-  #2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下：
-  mkdir /usr/share/fonts/win
-  #3) 将上传的字体解压至/usr/share/fonts/win目录
-  #4) 建立字体索引信息，更新字体缓存：
-  cd /usr/share/fonts/win
-  mkfontscale
-  mkfontdir
-  fc-cache
-  #至此，字体已经安装完毕！
-  #5) 重启系统，实测只需要重启对应的应用即可
-  reboot
-</code></pre>
-
-<p>同样centos7.3微软云默认已安装仿宋中文字体，而阿里云无任何中文字体</p>
-
-<ul>
-<li>R中画图中文字体指定</li>
-</ul>
-
-<pre><code class="language-r">  par(family='Microsoft YaHei') #par(family='微软雅黑')中英文名称都支持
-  plot(rnorm(10), main = '中文')
-  par(family='NSimSun')
-  plot(rnorm(10), main = '中文')
-</code></pre>
-
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fnif2xxq9gj30hy0cujrk.jpg" style="zoom:60%" /><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fnif2xhaojj30hy0cu0sv.jpg" style="zoom:60%" /></p>
-
-<pre><code class="language-r">  #ggplot2 上述在par中指定family对ggplot2不起作用，需要按以下重新指定（同上）
-  library(ggplot2)
-  p &lt;- ggplot(mpg, aes(class, hwy))
-  p + geom_boxplot() + ggtitle(&quot;微软雅黑&quot;) +
-    theme(text=element_text(size=16,  family=&quot;微软雅黑&quot;))
-</code></pre>
-
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fnifffhmsmj30hy0cu0te.jpg" alt="Rplot02" /></p>
-
+<span style="color:#75715e"># 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持</span>
+/usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style<span style="color:#f92672">=</span>Regular,Normal,obyčejné,Standard,Κανονικά,No
+rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta
+/usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style<span style="color:#f92672">=</span>常规,Regular
+/usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style<span style="color:#f92672">=</span>Regular,Normal,obyčejné,Standard,Κανον
+ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta
+/usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style<span style="color:#f92672">=</span>常规,Regular
+</code></pre></div></li>
+<li>
+<p>无中文字体时安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum install -y fontconfig mkfontscale
+<span style="color:#75715e">#1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。</span>
+<span style="color:#75715e">#2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下：</span>
+mkdir /usr/share/fonts/win
+<span style="color:#75715e">#3) 将上传的字体解压至/usr/share/fonts/win目录</span>
+<span style="color:#75715e">#4) 建立字体索引信息，更新字体缓存：</span>
+cd /usr/share/fonts/win
+mkfontscale
+mkfontdir
+fc-cache
+<span style="color:#75715e">#至此，字体已经安装完毕！</span>
+<span style="color:#75715e">#5) 重启系统，实测只需要重启对应的应用即可</span>
+reboot
+</code></pre></div><p>同样centos7.3微软云默认已安装仿宋中文字体，而阿里云无任何中文字体</p>
+</li>
+<li>
+<p>R中画图中文字体指定</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">par</span>(family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Microsoft YaHei&#39;</span>) <span style="color:#75715e">#par(family=&#39;微软雅黑&#39;)中英文名称都支持</span>
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">10</span>), main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;中文&#39;</span>)
+<span style="color:#a6e22e">par</span>(family<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;NSimSun&#39;</span>)
+<span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">10</span>), main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;中文&#39;</span>)
+</code></pre></div><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#75715e">#ggplot2 上述在par中指定family对ggplot2不起作用，需要按以下重新指定（同上）</span>
+<span style="color:#a6e22e">library</span>(ggplot2)
+p <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggplot</span>(mpg, <span style="color:#a6e22e">aes</span>(class, hwy))
+p <span style="color:#f92672">+</span> <span style="color:#a6e22e">geom_boxplot</span>() <span style="color:#f92672">+</span> <span style="color:#a6e22e">ggtitle</span>(<span style="color:#e6db74">&#34;微软雅黑&#34;</span>) <span style="color:#f92672">+</span>
+  <span style="color:#a6e22e">theme</span>(text<span style="color:#f92672">=</span><span style="color:#a6e22e">element_text</span>(size<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,  family<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;微软雅黑&#34;</span>))
+</code></pre></div><p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fnifffhmsmj30hy0cu0te.jpg" alt="Rplot02"></p>
 <p>注：安装多个中文字体后，即是在<code>/etc/locale.conf</code>设置<code>SYSFONT=&quot;Microsoft YaHei&quot;</code>，R画图时中文默认字体也一定是<code>Microsoft YaHei</code></p>
-
-<ul>
-<li>使用指定PDF的画图设备包CairoPDF解决中文乱码问题</li>
+</li>
+<li>
+<p>使用指定PDF的画图设备包CairoPDF解决中文乱码问题</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e"># sudo yum install libXt-devel</span>
+<span style="color:#a6e22e">library</span>(Cairo)
+<span style="color:#a6e22e">CairoPDF</span>(<span style="color:#e6db74">&#34;test.pdf&#34;</span>)
+<span style="color:#a6e22e">par</span>(family <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;simsun&#34;</span>)
+<span style="color:#a6e22e">plot</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n&#34;</span>, main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;五角星&#34;</span>)
+<span style="color:#a6e22e">points</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, pch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;☆&#34;</span>, cex <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, col <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;blue&#34;</span>)
+<span style="color:#a6e22e">dev.off</span>()
+</code></pre></div><p>显示效果与具体AI有关</p>
+</li>
 </ul>
-
-<pre><code class="language-R">  # sudo yum install libXt-devel
-  library(Cairo)
-  CairoPDF(&quot;test.pdf&quot;)
-  par(family = &quot;simsun&quot;)
-  plot(3, 3, type = &quot;n&quot;, main = &quot;五角星&quot;)
-  points(3, 3, pch = &quot;☆&quot;, cex = 2, col = &quot;blue&quot;)
-  dev.off()
-</code></pre>
-
-<p>显示效果与具体AI有关</p>
 
 </main>
 
@@ -182,21 +158,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -220,7 +199,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on 飞舞的尘埃</title>
@@ -6,10 +6,19 @@
     <description>Recent content in R on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 02 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>rmd-test</title>
+      <link>/post/2020/06/23/rmd-test/</link>
+      <pubDate>Tue, 23 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2020/06/23/rmd-test/</guid>
+      <description>library(plotly) ## 载入需要的程辑包：ggplot2 ## ## 载入程辑包：&amp;#39;plotly&amp;#39; ## The following object is masked from &amp;#39;package:ggplot2&amp;#39;: ## ## last_plot ## The following object is masked from &amp;#39;package:stats&amp;#39;: ## ## filter ## The following object is masked from &amp;#39;package:graphics&amp;#39;: ## ## layout plot_ly(economics, x = ~date, color = I(&amp;quot;black&amp;quot;)) %&amp;gt;% add_lines(y = ~uempmed) %&amp;gt;% add_lines(y = ~psavert, color = I(&amp;quot;red&amp;quot;)) ## Warning: `arrange_()` is deprecated as of dplyr 0.</description>
+    </item>
     
     <item>
       <title>list-apply及符号函数的使用</title>
@@ -27,7 +36,7 @@
       
       <guid>/note/2018/08/27/selfdefine-rmd-output-table-format/</guid>
       <description>Rmd yaml 配置 自定义CSS格式输出html，css文件与Rmd同一目录下，添加格式
-# output: # html_document: # css: test.css  Rmd chunk 中循环输出需要使用cat函数 knitr::opts_chunk$set(echo = TRUE) library(dplyr) library(lubridate) library(knitr) library(kableExtra) library(htmltools) for (i in 1:3) { cat(&amp;quot;\n&amp;quot;) cat(&amp;quot;### &amp;quot;, sprintf(&amp;#39;第%d次&amp;#39;, i), &amp;quot;\n&amp;quot;) tab11 = iris %&amp;gt;% head(10) %&amp;gt;% kable(row.names = F) %&amp;gt;% kable_styling() %&amp;gt;% row_spec(0, background = &amp;#39;grey&amp;#39;) %&amp;gt;% row_spec(10, background = &amp;#39;#E6C1C1&amp;#39;) cat(tab11) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) } 第1次   Sepal.Length  Sepal.Width  Petal.Length  Petal.Width  Species      5.</description>
+# output: # html_document: # css: test.css  Rmd chunk 中循环输出需要使用cat函数 knitr::opts_chunk$set(echo = TRUE) library(dplyr) library(lubridate) library(knitr) library(kableExtra) library(htmltools) for (i in 1:3) { cat(&amp;quot;\n&amp;quot;) cat(&amp;quot;### &amp;quot;, sprintf(&amp;#39;第%d次&amp;#39;, i), &amp;quot;\n&amp;quot;) tab11 = iris %&amp;gt;% head(10) %&amp;gt;% kable(row.names = F) %&amp;gt;% kable_styling() %&amp;gt;% row_spec(0, background = &amp;#39;grey&amp;#39;) %&amp;gt;% row_spec(10, background = &amp;#39;#E6C1C1&amp;#39;) cat(tab11) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) } 第1次   Sepal.Length  Sepal.Width  Petal.Length  Petal.</description>
     </item>
     
     <item>
@@ -36,7 +45,7 @@
       <pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/05/23/r-reg-sub-invalid-string/</guid>
-      <description> 文本解析过程中常出现异常字符，如：\xe42b61d592.PDF,\n\xbc\xb0情定折现率R：RRd1
+      <description>  文本解析过程中常出现异常字符，如：\xe42b61d592.PDF,\n\xbc\xb0情定折现率R：RRd1
  保留常用标点符号、中文、英文、数字的方式 str1 = &amp;#39;体评\xe42b61d592.PDF,\n\xbc\xb0情定折-现率R：RRd1TWdReWe式中 ：‘&amp;#39; gsub(&amp;#39;[^\u4E00-\u9FA5A-Za-z0-9_,.;:‘’“”，。；：《》—\\-]&amp;#39;, &amp;#39;&amp;#39;, str1) ## [1] &amp;quot;体评2b61d592.PDF,情定折-现率R：RRd1TWdReWe式中：‘&amp;quot; # [1] &amp;quot;体评2b61d592.PDF,情定折-现率R：RRd1TWdReWe式中：‘&amp;quot; 常用正则表达式
  </description>
     </item>
@@ -70,15 +79,17 @@
       <guid>/note/2018/03/04/shinyapp-login-auth/</guid>
       <description>shiny-server可以方便实现交互式文档报告、web应用的开发，很快生成示例性的展示效果。但是基于开源的shiny-server并不支持用户认证，该功能在pro版本。在实际业务场景中由于数据的敏感性及重要程度都需要对每个应用有相关的认证功能并实现权限管理
  shiny-server的权限管理 shiny-server的权限管理可以看作两个不同的方面：
- 直接对shiny-server的应用程序做权限管理  如shiny-server的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置adding-authentication-to-shiny-server，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦
- 对单个shiny app进行认证/权限管理  为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多
-本文针对第二种方式实现两类shiny app的认证/权限管理
+  直接对shiny-server的应用程序做权限管理
+如shiny-server的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置adding-authentication-to-shiny-server，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦
+  对单个shiny app进行认证/权限管理
+为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多
+  本文针对第二种方式实现两类shiny app的认证/权限管理
 基于单页面认证/权限管理 主要实现功能：
  登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 recharts一个交互式画图的示例展示 登陆界面到应用界面的过度，将UI全部设为变量  效果展示：
 代码地址：single-page
 关于登陆界面的样式还要做进一步调整，在此未细化
 在shinydashboard包基础上实现dashboard模式的认证/权限管理 因为shinydashboard不能使用上述方法直接直接所有UI（dashboardHeader;dashboardSidebar;dashboardBody）作为整体使用uiOutput输出，只能将这三部分分别动态输出，这里使用shinyjs调整加载登陆页面、及加载后的页面，即在加载登陆页面时隐藏（dashboardHeader;dashboardSidebar）,判断登陆成功再展示
-# 登陆前 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;) # 登陆成功 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;)  具体代码地址：dashboard-page
+# 登陆前 shinyjs::addClass(selector = &amp;#34;body&amp;#34;, class = &amp;#34;sidebar-collapse&amp;#34;) shinyjs::removeClass(selector = &amp;#34;header&amp;#34;, class = &amp;#34;main-header&amp;#34;) # 登陆成功 shinyjs::addClass(selector = &amp;#34;body&amp;#34;, class = &amp;#34;sidebar-collapse&amp;#34;) shinyjs::removeClass(selector = &amp;#34;header&amp;#34;, class = &amp;#34;main-header&amp;#34;) 具体代码地址：dashboard-page
 主要实现功能：
  登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 调用shinyjs动态操作相关页面样式 将ui; server分离增加扩展性  效果展示：</description>
     </item>
@@ -91,7 +102,10 @@
       <guid>/note/2018/02/24/r-github-package-rename/</guid>
       <description>由于package命名习惯及各种历史原因，不同开发者对类似功能的package命名有可能一样，或者package的更新不是兼容之前老版本。比如本人之前使用的R package recharts ，目前这个包换到统计之都维护更新
 解决方案：是package的名称不一致，针对github操作，其他类似
- fork原package到自己的github仓库  devtools::install_github(&#39;madlogos/recharts&#39;) # 原package # devtools::install_github(&#39;xwydq/recharts-1&#39;) 已经存在recharts仓库所以追加后缀1   clone到本地修改包名rechartsX  git clone git@github.com:xwydq/recharts-1.git # recharts 替换为 rechartsX sed -i &amp;quot;s/recharts/rechartsX/g&amp;quot; `grep recharts -rl ./test/recharts-1` # git相关配置不能修改（还原），不让push失败 sed -i &amp;quot;s/rechartsX/recharts/g&amp;quot; `grep rechartsX -rl ./test/recharts-1/.git` git commit -am &amp;quot;rename X&amp;quot; git push   安装修改后的包  devtools::install_github(&#39;xwydq/recharts-1&#39;) library(rechartsX) # 一般情况下可以正常使用，如果原包中有函数名包含recharts，那直接全局替换会有些问题  </description>
+  fork原package到自己的github仓库
+devtools::install_github(&amp;#39;madlogos/recharts&amp;#39;) # 原package # devtools::install_github(&amp;#39;xwydq/recharts-1&amp;#39;) 已经存在recharts仓库所以追加后缀1   clone到本地修改包名rechartsX
+git clone git@github.com:xwydq/recharts-1.git # recharts 替换为 rechartsX sed -i &amp;#34;s/recharts/rechartsX/g&amp;#34; `grep recharts -rl ./test/recharts-1` # git相关配置不能修改（还原），不让push失败 sed -i &amp;#34;s/rechartsX/recharts/g&amp;#34; `grep rechartsX -rl ./test/recharts-1/.git` git commit -am &amp;#34;rename X&amp;#34; git push   安装修改后的包
+devtools::install_github(&amp;#39;xwydq/recharts-1&amp;#39;) library(rechartsX) # 一般情况下可以正常使用，如果原包中有函数名包含recharts，那直接全局替换会有些问题   </description>
     </item>
     
     <item>
@@ -113,9 +127,11 @@ widgetframe简介 使用pym.js来实现iframe的潜入，主要函数：
       
       <guid>/note/2017/08/18/centos7-rstudio-server-chinese/</guid>
       <description>关于centos 7中rstudio-server画图中文不显示问题整理
- 修改操作系统默认字符编码的支持  vi /etc/locale.conf LANG=&amp;quot;zh_CN.UTF-8&amp;quot; SUPPORTED=&amp;quot;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&amp;quot; SYSFONT=&amp;quot;Microsoft YaHei&amp;quot; # LANG变量，设置系统语言。 # SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。 # SYSFONT变量表示系统字体。 reboot #需要重启后生效   查看已经安装的中文字体  fc-list :lang=zh  如果查询为空就需安装中文字体
+ 修改操作系统默认字符编码的支持  vi /etc/locale.conf LANG=&amp;#34;zh_CN.UTF-8&amp;#34; SUPPORTED=&amp;#34;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&amp;#34; SYSFONT=&amp;#34;Microsoft YaHei&amp;#34; # LANG变量，设置系统语言。 # SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。 # SYSFONT变量表示系统字体。 reboot #需要重启后生效   查看已经安装的中文字体
+fc-list :lang=zh 如果查询为空就需安装中文字体
 安装部分中文字体后的查询结果如下
-fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持 /usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style=Regular,Normal,obyčejné,Standard,Κανονικά,No rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style=常规,Regular /usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style=Regular,Normal,obyčejné,Standard,Κανον ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style=常规,Regular   无中文字体时安装  yum install -y fontconfig mkfontscale #1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。 #2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下： mkdir /usr/share/fonts/win #3) 将上传的字体解压至/usr/share/fonts/win目录 #4) 建立字体索引信息，更新字体缓存： cd /usr/share/fonts/win mkfontscale mkfontdir fc-cache #至此，字体已经安装完毕！ #5) 重启系统，实测只需要重启对应的应用即可 reboot  同样centos7.</description>
+fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持 /usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style=Regular,Normal,obyčejné,Standard,Κανονικά,No rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style=常规,Regular /usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style=Regular,Normal,obyčejné,Standard,Κανον ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style=常规,Regular   无中文字体时安装
+yum install -y fontconfig mkfontscale #1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。 #2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下： mkdir /usr/share/fonts/win #3) 将上传的字体解压至/usr/share/fonts/win目录 #4) 建立字体索引信息，更新字体缓存： cd /usr/share/fonts/win mkfontscale mkfontdir fc-cache #至此，字体已经安装完毕！ #5) 重启系统，实测只需要重启对应的应用即可 reboot 同样centos7.</description>
     </item>
     
     <item>
@@ -126,7 +142,7 @@ fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Micr
       <guid>/note/2015/04/09/r-visualization-sandkey/</guid>
       <description>桑基图（Sankey diagram），即桑基能量分流图，也叫桑基能量平衡图。它是一种特定类型的流程图，图中延伸的分支的宽度对应数据流量的大小，通常应用于能源、材料成分、金融等数据的可视化分析。因1898年Matthew Henry Phineas Riall Sankey绘制的“蒸汽机的能源效率图”而闻名，此后便以其名字命名为“桑基图”。桑基图可以用来表示各个节点之间转换（转化率、客流走向/分流等情况）
  在R中可以直接定义使用data.frame/list等数据结构定义节点之间的关系，再使用相应的package画桑基图
-静态图片展示：riverplot library(riverplot) # 构造连接节点的数据框 edges = data.frame( N1 = paste0(rep(LETTERS[1:4], each = 4), rep(1:5, each = 16)), N2 = paste0(rep(LETTERS[1:4], 4), rep(2:6, each = 16)), Value = runif(80, min = 2, max = 5) * rep(c(1, 0.8, 0.6, 0.4, 0.3), each = 16), stringsAsFactors = F ) # 筛选80%的记录，以免每个点都对应到4个点 edges = edges[sample(c(TRUE, FALSE), nrow(edges), replace = TRUE, prob = c(0.8, 0.</description>
+静态图片展示：riverplot library(riverplot) # 构造连接节点的数据框 edges = data.frame( N1 = paste0(rep(LETTERS[1:4], each = 4), rep(1:5, each = 16)), N2 = paste0(rep(LETTERS[1:4], 4), rep(2:6, each = 16)), Value = runif(80, min = 2, max = 5) * rep(c(1, 0.8, 0.6, 0.4, 0.3), each = 16), stringsAsFactors = F ) # 筛选80%的记录，以免每个点都对应到4个点 edges = edges[sample(c(TRUE, FALSE), nrow(edges), replace = TRUE, prob = c(0.8, 0.2)), ] head(edges) # N1 N2 Value # 1 A1 A2 2.</description>
     </item>
     
     <item>
@@ -137,10 +153,10 @@ fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Micr
       <guid>/note/2015/03/28/r-%E6%95%B0%E5%AD%A6%E6%A6%82%E5%BF%B5%E4%B8%AD%E7%9A%84%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</guid>
       <description>最近被R中的round函数搞得郁闷，有人说round函数的规则是如此定义。引用cos 版主肖楠：这个规则有个俗名叫「四舍六入五凑偶」，也叫「银行家舍入」，完整版如下：
  被修约的数字等于或小于 4 时，该数字舍去； 被修约的数字等于或大于 6 时，则进位； 被修约的数字等于 5 时，要看 5 前面的数字，若是奇数则进位，若是偶数则将 5 舍掉，即修约后末尾数字都成为偶数；若 5 的后面还有不为 “0” 的任何数，则此时无论 5 的前面是奇数还是偶数，均应进位。   举例，用上述规则对下列数据保留 3 位有效数字：
-9.8249=9.82, 9.82671=9.83 9.8350=9.84, 9.8351 =9.84 9.8250=9.82, 9.82501=9.83  好像是说明了问题，但是：
-round(9.9995,3) # 9.999  难道9是奇数中一个特例？
+9.8249=9.82, 9.82671=9.83 9.8350=9.84, 9.8351 =9.84 9.8250=9.82, 9.82501=9.83 好像是说明了问题，但是：
+round(9.9995,3) # 9.999 难道9是奇数中一个特例？
 以下为自己在R中实现的小数的四舍五入（主要是想按照数学中的规则：对该数的的绝对值四舍五入再加上正负号）。代码还有许多改进的方面，目前只是满足个人需要示例（对某个数小数位后保留n位后四舍五入）：
-myRound &amp;lt;- function(x, keep=4){ x &amp;lt;- as.character(x) if(grepl(&amp;quot;[.]&amp;quot;, x)){ xSplit &amp;lt;- unlist(strsplit(x, &amp;quot;[.]&amp;quot;)) xSplitBef &amp;lt;- xSplit[1] minusYN &amp;lt;- substring(xSplitBef, 1, 1) # minusYN &amp;lt;- minusYN == &amp;quot;-&amp;quot; xSplitAft &amp;lt;- xSplit[2] xSplitAft &amp;lt;- substring(xSplitAft, 1:nchar(xSplitAft), 1:nchar(xSplitAft)) if(minusYN == &amp;quot;-&amp;quot;){ xSplitBef &amp;lt;- substring(xSplitBef, 2:nchar(xSplitBef), 2:nchar(xSplitBef)) lenBef &amp;lt;- length(xSplitBef) lenAft &amp;lt;- length(xSplitAft) if(lenAft &amp;gt; keep){ all &amp;lt;- c(xSplitBef, xSplitAft[1:(keep + 1)]) if(as.</description>
+myRound &amp;lt;- function(x, keep=4){ x &amp;lt;- as.character(x) if(grepl(&amp;#34;[.]&amp;#34;, x)){ xSplit &amp;lt;- unlist(strsplit(x, &amp;#34;[.]&amp;#34;)) xSplitBef &amp;lt;- xSplit[1] minusYN &amp;lt;- substring(xSplitBef, 1, 1) # minusYN &amp;lt;- minusYN == &amp;#34;-&amp;#34; xSplitAft &amp;lt;- xSplit[2] xSplitAft &amp;lt;- substring(xSplitAft, 1:nchar(xSplitAft), 1:nchar(xSplitAft)) if(minusYN == &amp;#34;-&amp;#34;){ xSplitBef &amp;lt;- substring(xSplitBef, 2:nchar(xSplitBef), 2:nchar(xSplitBef)) lenBef &amp;lt;- length(xSplitBef) lenAft &amp;lt;- length(xSplitAft) if(lenAft &amp;gt; keep){ all &amp;lt;- c(xSplitBef, xSplitAft[1:(keep + 1)]) if(as.</description>
     </item>
     
     <item>
@@ -149,7 +165,7 @@ myRound &amp;lt;- function(x, keep=4){ x &amp;lt;- as.character(x) if(grepl(&amp
       <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>/post/2015/03/26/rstudio-git-version-control/</guid>
-      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install   方法二：yum安装（epel源）  yum install git 测试安装成功： git --version   生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.</description>
+      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install  方法二：yum安装（epel源）  yum install git 测试安装成功： git --version  生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.md git commit -m &amp;#34;first commit&amp;#34; git remote add origin https://github.</description>
     </item>
     
     <item>
@@ -159,22 +175,8 @@ myRound &amp;lt;- function(x, keep=4){ x &amp;lt;- as.character(x) if(grepl(&amp
       
       <guid>/note/2015/02/20/linux-rstudioserver-roracle/</guid>
       <description>rstudio-server安装在Linux服务器中，数据库一般也部署在服务器，所以在Linux服务器上使用R直连数据库操作更加方便，由于ROracle文档理解不到位，安装遇到一些问题在此补充，本文安装环境centos 6.5并测试通过
- 一、oracle-instantclient的安装  Oracle Instant Client下载（与数据库版本一致）
-下载地址：官网
-可以下载rpm包或者zip包进行安装,这里已rpm包（64位）为例
-下载rpm包csdn下载地址
-oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  查看默认安装路径
-rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  安装
-使用如下命令进行安装：
-rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm  安装完成后，ORACLE Instant Client 相关的头文件在 /usr/include/oracle/11.2/client64/下；库文件在/usr/lib/oracle/11.2/client64/下(cliient目录下有 lib 和 bin两个目录.)
- 指定TNS文件目录
-一般情况将TNS文件（tnsnames.ora）保存到以下目录：
-目录不存在，建目录先：
-mkdir -p /usr/lib/oracle/11.2/client64/network/admin # 将已有的TNS文件（tnsnames.ora）复制到该目录下  头文件的转移
-相关的头文件在/usr/include/oracle/11.2/client64/目录下
-但是需要转移到目录（如果不复制过去，安装ROracle时就提示~/rdbms/public目录不存在，真的不存在啊，为啥去这个路径找？ROracle安装文档尽然没有提到，太坑了）：/usr/lib/oracle/11.2/client64/rdbms/public
-如下命令：
-mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public cd /usr/lib/oracle/11.2/client64/rdbms/public cp /usr/include/oracle/11.</description>
+ 一、oracle-instantclient的安装  Oracle Instant Client下载（与数据库版本一致） 下载地址：官网 可以下载rpm包或者zip包进行安装,这里已rpm包（64位）为例 下载rpm包csdn下载地址  oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  查看默认安装路径  rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  安装 使用如下命令进行安装：  rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm 安装完成后，ORACLE Instant Client 相关的头文件在 /usr/include/oracle/11.2/client64/下；库文件在/usr/lib/oracle/11.2/client64/下(cliient目录下有 lib 和 bin两个目录.)
+ 指定TNS文件目录 一般情况将TNS文件（tnsnames.ora）保存到以下目录： 目录不存在，建目录先：  mkdir -p /usr/lib/oracle/11.2/client64/network/admin # 将已有的TNS文件（tnsnames.ora）复制到该目录下  头文件的转移 相关的头文件在/usr/include/oracle/11.2/client64/目录下 但是需要转移到目录（如果不复制过去，安装ROracle时就提示~/rdbms/public目录不存在，真的不存在啊，为啥去这个路径找？ROracle安装文档尽然没有提到，太坑了）：/usr/lib/oracle/11.2/client64/rdbms/public 如下命令：  mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public cd /usr/lib/oracle/11.</description>
     </item>
     
     <item>
@@ -183,14 +185,14 @@ mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public cd /usr/lib/oracle/11.2/clie
       <pubDate>Wed, 11 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>/note/2015/02/11/win7-roracle/</guid>
-      <description> win7下安装R的ROracle来连接Oracle数据库速度比ODBC的方式快很多
+      <description>win7下安装R的ROracle来连接Oracle数据库速度比ODBC的方式快很多
 安装配置也比较简单，但是有个问题：
 同时使用PL/SQL(32bits)与R(64bits，当然完全可以使用32位的，但是32的有保存使用限制~~~~~)。
 本配置的目的就是同时兼顾以上两者：
 一、ROracle、Oracle instantclient下载  （1）ROracle下载  ROracle下载地址
  （2）Oracle instantclient下载  将文件夹32/64（文件夹中分别包含将32位、64位的Oracle instant client（basic、jdbc、odbc、sdk、sqlplus）解压后的文件，都解压到instantclient_11_2文件夹下，且将TNS数据源配置直接复制到该文件下）COPY到D盘 如果使用版本instantclient_11_2可以直接32bits、64bits
 其他版本可以官网下载 解压后见下图 二、环境变量的配置 在此例中需要设置如下环境变量：
-Path D:\32\instantclient_11_2;D:\64\instantclient_11_2; ORACLE_HOME D:\32\instantclient_11_2 TNS_ADMIN D:\32\instantclient_11_2 NLS_LANG SIMPLIFIED CHINESE_CHINA.ZHS16GBK OCI_LIB64 D:\64\instantclient_11_2 OCI_LIB32 D:\32\instantclient_11_2  </description>
+Path D:\32\instantclient_11_2;D:\64\instantclient_11_2; ORACLE_HOME D:\32\instantclient_11_2 TNS_ADMIN D:\32\instantclient_11_2 NLS_LANG SIMPLIFIED CHINESE_CHINA.ZHS16GBK OCI_LIB64 D:\64\instantclient_11_2 OCI_LIB32 D:\32\instantclient_11_2 </description>
     </item>
     
     <item>
@@ -200,7 +202,7 @@ Path D:\32\instantclient_11_2;D:\64\instantclient_11_2; ORACLE_HOME D:\32\instan
       
       <guid>/note/2015/02/06/r-readtable-bycolumn/</guid>
       <description>背景：文本数据字段太多，只需要读取有用字段，以此降低内存压力方便分析
- 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
+ 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
 dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = c(-27L, -27L, -27L), Mar = c(-25L, -25L, -2L), Apr = c(-31L, -31L, -6L), May = c(-31L, -31L, -10L), Jun = c(-39L, -39L, -32L), Jul = c(-25L, -25L, -13L), Aug = c(-15L, -15L, -12L), Sep = c(-30L, -30L, -27L), Oct = c(-27L, -27L, -30L), Nov = c(-21L, -21L, -38L), Dec = c(-25L, -25L, -29L)), .</description>
     </item>
     
@@ -211,7 +213,7 @@ dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = 
       
       <guid>/note/2013/10/24/r-plot-linebreak/</guid>
       <description>在画图是有label; main等字符串太长，或者为美观的需要进行分行。只需在分行的位置添加换行符\n
- plot(3, 3, type = &amp;quot;n&amp;quot;, main = &amp;quot;五角星\nI LOVE R \n R is GREAT&amp;quot;) points(3, 3, pch = &amp;quot;☆&amp;quot;, cex = 2, col = &amp;quot;blue&amp;quot;)  效果</description>
+ plot(3, 3, type = &amp;#34;n&amp;#34;, main = &amp;#34;五角星\nI LOVE R \n R is GREAT&amp;#34;) points(3, 3, pch = &amp;#34;☆&amp;#34;, cex = 2, col = &amp;#34;blue&amp;#34;) 效果</description>
     </item>
     
     <item>
@@ -221,7 +223,7 @@ dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = 
       
       <guid>/note/2013/09/22/r-loop-dataframe-vs-matrix/</guid>
       <description>一直以来，在R中使用data.frame处理数据跟方便，大多数统计函数直接支持data.frame类型的运算，虽说在R中要尽可能避免使用循环，but由于能力与临时需要，循环还是不经意间就出现了。今天对一个例子测试下，R循环中使用matrix的速度明显大于使用data.frame。有如下简单循环代码：
-test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 0.310 0.015 0.324 test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 1.868 0.002 1.868  结果差距明显（5倍多）！！</description>
+test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝  # 0.310 0.015 0.324  test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝  # 1.868 0.002 1.868 结果差距明显（5倍多）！！</description>
     </item>
     
   </channel>

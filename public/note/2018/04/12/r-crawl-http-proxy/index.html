@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>R爬虫-代理使用 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  <a href='../../../../../categories/%E7%88%AC%E8%99%AB'>爬虫</a>
   
   
   
@@ -45,11 +45,11 @@
   
   Tags:   
   
-  <a href='/tags/%E4%BB%A3%E7%90%86'>代理</a>
+  <a href='../../../../../tags/%E4%BB%A3%E7%90%86'>代理</a>
   
-  <a href='/tags/httr'>httr</a>
+  <a href='../../../../../tags/httr'>httr</a>
   
-  <a href='/tags/rvest'>rvest</a>
+  <a href='../../../../../tags/rvest'>rvest</a>
   
   
   
@@ -60,158 +60,145 @@
 
 
 <main>
-
-
 <p>R爬虫的利器<code>rvest</code>，可以方便实现数据的定位与提取</p>
-
 <p>添加代理需在<code>httr</code>下实现</p>
-
 <h2 id="直接在请求中使用代理">直接在请求中使用代理</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(httr)
 
-<pre><code class="language-R">library(httr)
+<span style="color:#75715e">## header 使用vector类型</span>
+h <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&#34;</span>,
+       <span style="color:#e6db74">&#34;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#34;</span>,
+       <span style="color:#e6db74">&#34;gzip, deflate&#34;</span>,
+       <span style="color:#e6db74">&#34;keep-alive&#34;</span>)
+<span style="color:#a6e22e">names</span>(h) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;User-Agent&#34;</span>, <span style="color:#e6db74">&#34;Accept&#34;</span>, <span style="color:#e6db74">&#34;Accept-Encoding&#34;</span>, <span style="color:#e6db74">&#34;Connection&#34;</span>)
 
-## header 使用vector类型
-h &lt;- c(&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&quot;,
-       &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&quot;,
-       &quot;gzip, deflate&quot;,
-       &quot;keep-alive&quot;)
-names(h) &lt;- c(&quot;User-Agent&quot;, &quot;Accept&quot;, &quot;Accept-Encoding&quot;, &quot;Connection&quot;)
-
-## 持续获取代理
-get_ips = function(){
-  while(TRUE){
-    IP_proxy = 'http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=41620212070f4853bf27fd12&amp;count=20&amp;expiryDate=0&amp;format=1'
-    ips = read_json(IP_proxy)
+<span style="color:#75715e">## 持续获取代理</span>
+get_ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(){
+  <span style="color:#a6e22e">while</span>(<span style="color:#66d9ef">TRUE</span>){
+    IP_proxy <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=41620212070f4853bf27fd12&amp;count=20&amp;expiryDate=0&amp;format=1&#39;</span>
+    ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">read_json</span>(IP_proxy)
     
-    if(ips$code == '0'){
+    <span style="color:#a6e22e">if</span>(ips<span style="color:#f92672">$</span>code <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span>){
       break
     }else{
-      Sys.sleep(5)
+      <span style="color:#a6e22e">Sys.sleep</span>(<span style="color:#ae81ff">5</span>)
     }
   }
   
-  ips = ips[['msg']]
+  ips <span style="color:#f92672">=</span> ips[[<span style="color:#e6db74">&#39;msg&#39;</span>]]
   
-  ips = as.data.frame(do.call(rbind, ips))
-  ips$ip = as.character(ips$ip)
-  ips$port = as.numeric(ips$port)
-  return(ips)
+  ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.data.frame</span>(<span style="color:#a6e22e">do.call</span>(rbind, ips))
+  ips<span style="color:#f92672">$</span>ip <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.character</span>(ips<span style="color:#f92672">$</span>ip)
+  ips<span style="color:#f92672">$</span>port <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.numeric</span>(ips<span style="color:#f92672">$</span>port)
+  <span style="color:#a6e22e">return</span>(ips)
 }
-ips = get_ips()
+ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_ips</span>()
 
-# port              ip
-# 1  39358 125.109.194.199
-# 2  22420  180.122.148.51
-# 3  35374  121.234.90.107
-# 4  24793     1.196.3.186
-# 5  36472  115.213.206.29
+<span style="color:#75715e"># port              ip</span>
+<span style="color:#75715e"># 1  39358 125.109.194.199</span>
+<span style="color:#75715e"># 2  22420  180.122.148.51</span>
+<span style="color:#75715e"># 3  35374  121.234.90.107</span>
+<span style="color:#75715e"># 4  24793     1.196.3.186</span>
+<span style="color:#75715e"># 5  36472  115.213.206.29</span>
 
 
-get_html_withproxy = function(url, ips, trys = 10){
-  try_num = 1
-  while (try_num &lt;= trys) {
-    # print(try_num &lt;= trys)
-    tryCatch({
-      randi = sample(c(1:nrow(ips)), size = 1)
-      ip = ips$ip[randi]
-      port = ips$port[randi]
-      u1 = GET(url, use_proxy(ip, port), timeout(1), add_headers(.headers = h))
-      # print(u1)
+get_html_withproxy <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(url, ips, trys <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>){
+  try_num <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#a6e22e">while </span>(try_num <span style="color:#f92672">&lt;=</span> trys) {
+    <span style="color:#75715e"># print(try_num &lt;= trys)</span>
+    <span style="color:#a6e22e">tryCatch</span>({
+      randi <span style="color:#f92672">=</span> <span style="color:#a6e22e">sample</span>(<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nrow</span>(ips)), size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+      ip <span style="color:#f92672">=</span> ips<span style="color:#f92672">$</span>ip[randi]
+      port <span style="color:#f92672">=</span> ips<span style="color:#f92672">$</span>port[randi]
+      u1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">GET</span>(url, <span style="color:#a6e22e">use_proxy</span>(ip, port), <span style="color:#a6e22e">timeout</span>(<span style="color:#ae81ff">1</span>), <span style="color:#a6e22e">add_headers</span>(.headers <span style="color:#f92672">=</span> h))
+      <span style="color:#75715e"># print(u1)</span>
       break
-    }, error = function(e) {
-      # print(e)
-      ips &lt;&lt;- ips[-randi, ]
-      try_num &lt;&lt;- try_num + 1
-      # print(try_num)
+    }, error <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(e) {
+      <span style="color:#75715e"># print(e)</span>
+      ips <span style="color:#f92672">&lt;&lt;-</span> ips[<span style="color:#f92672">-</span>randi, ]
+      try_num <span style="color:#f92672">&lt;&lt;-</span> try_num <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+      <span style="color:#75715e"># print(try_num)</span>
       
-      if(nrow(ips) &lt; 5){
-        ips &lt;&lt;- rbind(ips, get_ips())
+      <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">nrow</span>(ips) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>){
+        ips <span style="color:#f92672">&lt;&lt;-</span> <span style="color:#a6e22e">rbind</span>(ips, <span style="color:#a6e22e">get_ips</span>())
       }
     })
   }
-  if(try_num &lt;= trys){
-    return(read_html(u1))
+  <span style="color:#a6e22e">if</span>(try_num <span style="color:#f92672">&lt;=</span> trys){
+    <span style="color:#a6e22e">return</span>(<span style="color:#a6e22e">read_html</span>(u1))
   }else{
-    return(NA)
+    <span style="color:#a6e22e">return</span>(<span style="color:#66d9ef">NA</span>)
   }
 }
 
-url = 'http://www.huaxintrust.com/productlist.asp?page=1&amp;pid=1'
-ips = get_ips()
-ttt = get_html_withproxy(url, ips, trys = 10)
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://www.huaxintrust.com/productlist.asp?page=1&amp;pid=1&#39;</span>
+ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_ips</span>()
+ttt <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_html_withproxy</span>(url, ips, trys <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>)
 ttt
-# {xml_document}
-# &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-#   [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;\n&lt;title&gt;华信信托 ...
-# [2] &lt;body&gt;\r\n    &lt;div id=&quot;box&quot;&gt;\r\n        &lt;div id=&quot;top&quot;&gt;\r\n    &lt;div class=&quot;top1&quot;&gt;\r\n     ...
-# &gt; 
+<span style="color:#75715e"># {xml_document}</span>
+<span style="color:#75715e"># &lt;html xmlns=&#34;http://www.w3.org/1999/xhtml&#34;&gt;</span>
+<span style="color:#75715e">#   [1] &lt;head&gt;\n&lt;meta http-equiv=&#34;Content-Type&#34; content=&#34;text/html; charset=UTF-8&#34;&gt;\n&lt;title&gt;华信信托 ...</span>
+<span style="color:#75715e"># [2] &lt;body&gt;\r\n    &lt;div id=&#34;box&#34;&gt;\r\n        &lt;div id=&#34;top&#34;&gt;\r\n    &lt;div class=&#34;top1&#34;&gt;\r\n     ...</span>
+<span style="color:#75715e"># &gt; </span>
 
-</code></pre>
-
-<h2 id="维护简单的代理池-或者全局变量">维护简单的代理池(或者全局变量)</h2>
-
+</code></pre></div><h2 id="维护简单的代理池或者全局变量">维护简单的代理池(或者全局变量)</h2>
 <h3 id="代理有效性的验证">代理有效性的验证</h3>
-
-<pre><code class="language-R">validIP = function(ip, port){
-  url = 'http://httpbin.org/ip' #一个可以正常请求访问的网站，改地址也可直接返回代理是否已经使用
-  res = FALSE
-  try({
-    u1 = GET(url, use_proxy(ip, port), timeout(1)) #timeout表示等待响应时长
-    res = TRUE
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">validIP <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(ip, port){
+  url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://httpbin.org/ip&#39;</span> <span style="color:#75715e">#一个可以正常请求访问的网站，改地址也可直接返回代理是否已经使用</span>
+  res <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>
+  <span style="color:#a6e22e">try</span>({
+    u1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">GET</span>(url, <span style="color:#a6e22e">use_proxy</span>(ip, port), <span style="color:#a6e22e">timeout</span>(<span style="color:#ae81ff">1</span>)) <span style="color:#75715e">#timeout表示等待响应时长</span>
+    res <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>
   })
-  return(res)
+  <span style="color:#a6e22e">return</span>(res)
 }
-</code></pre>
+</code></pre></div><h3 id="代理池更新">代理池更新</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(parallel)
+<span style="color:#a6e22e">library</span>(dplyr)
+<span style="color:#a6e22e">library</span>(httr)
+<span style="color:#a6e22e">library</span>(readr)
 
-<h3 id="代理池更新">代理池更新</h3>
-
-<pre><code class="language-R">library(parallel)
-library(dplyr)
-library(httr)
-library(readr)
-
-updateIps = function(oldips = NULL){
-  proxy_url = 'http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=3276318912478216381273a5cec0&amp;count=10&amp;expiryDate=0&amp;format=2'
-  if(is.null(oldips)){
-    while(TRUE){
-      ips = read_table(proxy_url,
-                       col_names = FALSE)
-      oldips = ips$X1
-      if(length(oldips) == 10){
+updateIps <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(oldips <span style="color:#f92672">=</span> <span style="color:#66d9ef">NULL</span>){
+  proxy_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=3276318912478216381273a5cec0&amp;count=10&amp;expiryDate=0&amp;format=2&#39;</span>
+  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">is.null</span>(oldips)){
+    <span style="color:#a6e22e">while</span>(<span style="color:#66d9ef">TRUE</span>){
+      ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">read_table</span>(proxy_url,
+                       col_names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+      oldips <span style="color:#f92672">=</span> ips<span style="color:#f92672">$</span>X1
+      <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(oldips) <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>){
         break
       }
     }
   }
   
-  ips = read_table(proxy_url,
-                   col_names = FALSE)
-  ips = ips$X1
+  ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">read_table</span>(proxy_url,
+                   col_names <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+  ips <span style="color:#f92672">=</span> ips<span style="color:#f92672">$</span>X1
   
-  if(length(ips) &lt; 10){
-    ltips = oldips
+  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">length</span>(ips) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>){
+    ltips <span style="color:#f92672">=</span> oldips
   }else{
-    ltips = c(ips, oldips)
+    ltips <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(ips, oldips)
   }
   
   
-  ltips = as.list(ltips)
-  # 使用并行的方法验证有效性
-  rr = mclapply(ltips, FUN = function(x){
-    ipt = strsplit(x, &quot;:&quot;)[[1]]
-    tt =validIP(ipt[1], as.integer(ipt[2]))
+  ltips <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.list</span>(ltips)
+  <span style="color:#75715e"># 使用并行的方法验证有效性</span>
+  rr <span style="color:#f92672">=</span> <span style="color:#a6e22e">mclapply</span>(ltips, FUN <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x){
+    ipt <span style="color:#f92672">=</span> <span style="color:#a6e22e">strsplit</span>(x, <span style="color:#e6db74">&#34;:&#34;</span>)[[1]]
+    tt <span style="color:#f92672">=</span><span style="color:#a6e22e">validIP</span>(ipt[1], <span style="color:#a6e22e">as.integer</span>(ipt[2]))
     tt
-  }, mc.cores = 5
+  }, mc.cores <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
   )
   
-  newips = unlist(ltips)[unlist(rr)]
+  newips <span style="color:#f92672">=</span> <span style="color:#a6e22e">unlist</span>(ltips)<span style="color:#a6e22e">[unlist</span>(rr)]
   
-  return(newips)
+  <span style="color:#a6e22e">return</span>(newips)
 }
 
-ips = updateIps()
-ips = updateIps(ips)
-</code></pre>
-
+ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">updateIps</span>()
+ips <span style="color:#f92672">=</span> <span style="color:#a6e22e">updateIps</span>(ips)
+</code></pre></div>
 </main>
 
   <footer>
@@ -232,21 +219,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -270,7 +260,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Error on 飞舞的尘埃</title>
+    <title>error on 飞舞的尘埃</title>
     <link>/tags/error/</link>
-    <description>Recent content in Error on 飞舞的尘埃</description>
+    <description>Recent content in error on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 30 Apr 2018 00:00:00 +0000</lastBuildDate>
@@ -19,7 +19,7 @@
       <guid>/note/2018/04/30/shiny-textouput/</guid>
       <description>在shiny中动态显示一个字符串变量最好使用renderText/textOutput的方法，使用renderText/reactiveValues会出现异常或不成功的情况。
  比较示例代码：
-library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;quot;Old Faithful Geyser Data&amp;quot;), # Sidebar with a slider input for number of bins sidebarLayout( sidebarPanel( sliderInput(&amp;quot;bins&amp;quot;, &amp;quot;Number of bins:&amp;quot;, min = 1, max = 50, value = 30) ), # test textOutput mainPanel( div(h3(&amp;quot;固定值&amp;quot;)), div(h4(&amp;quot;text1: hello world!!&amp;quot;)), hr(), div(h3(&amp;quot;reactiveValues引入的变量值(不能显示)&amp;quot;)), div(h4(renderText(vt$numName))), hr(), div(h3(&amp;quot;textOutput动态输出&amp;quot;)), div(h4(textOutput(&amp;quot;text1&amp;quot;))), hr(), div(h3(&amp;quot;input$bins 报错&amp;quot;)), div(h4(renderText(input$bins))) ) ) ) # Define server logic required to draw a histogram server &amp;lt;- function(session, input, output) { vt = reactiveValues(numName = &#39;heloo&#39;) observe({ vt$numName = as.</description>
+library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;#34;Old Faithful Geyser Data&amp;#34;), # Sidebar with a slider input for number of bins  sidebarLayout( sidebarPanel( sliderInput(&amp;#34;bins&amp;#34;, &amp;#34;Number of bins:&amp;#34;, min = 1, max = 50, value = 30) ), # test textOutput mainPanel( div(h3(&amp;#34;固定值&amp;#34;)), div(h4(&amp;#34;text1: hello world!!&amp;#34;)), hr(), div(h3(&amp;#34;reactiveValues引入的变量值(不能显示)&amp;#34;)), div(h4(renderText(vt$numName))), hr(), div(h3(&amp;#34;textOutput动态输出&amp;#34;)), div(h4(textOutput(&amp;#34;text1&amp;#34;))), hr(), div(h3(&amp;#34;input$bins 报错&amp;#34;)), div(h4(renderText(input$bins))) ) ) ) # Define server logic required to draw a histogram server &amp;lt;- function(session, input, output) { vt = reactiveValues(numName = &amp;#39;heloo&amp;#39;) observe({ vt$numName = as.</description>
     </item>
     
     <item>
@@ -28,7 +28,7 @@ library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- f
       <pubDate>Tue, 20 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/02/20/%E4%B8%AD%E6%96%87/</guid>
-      <description>library(knitr) kable(head(iris))   Sepal.Length Sepal.Width Petal.Length Petal.Width Species    5.1 3.5 1.4 0.2 setosa  4.9 3.0 1.4 0.2 setosa  4.7 3.2 1.3 0.2 setosa  4.6 3.1 1.5 0.2 setosa  5.0 3.6 1.4 0.2 setosa  5.4 3.9 1.7 0.4 setosa    summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.</description>
+      <description>library(knitr) kable(head(iris))   Sepal.Length Sepal.Width Petal.Length Petal.Width Species    5.1 3.5 1.4 0.2 setosa  4.9 3.0 1.4 0.2 setosa  4.7 3.2 1.3 0.2 setosa  4.6 3.1 1.5 0.2 setosa  5.0 3.6 1.4 0.2 setosa  5.4 3.9 1.7 0.4 setosa    summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.</description>
     </item>
     
   </channel>

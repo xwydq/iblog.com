@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>shinyapp登陆认证功能的实现方式及示例 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,9 +36,9 @@
   
   Categories:   
   
-  <a href='/categories/r'>R</a>
+  <a href='../../../../../categories/r'>R</a>
   
-  <a href='/categories/shiny'>shiny</a>
+  <a href='../../../../../categories/shiny'>shiny</a>
   
   
   
@@ -47,11 +47,11 @@
   
   Tags:   
   
-  <a href='/tags/cookie'>cookie</a>
+  <a href='../../../../../tags/cookie'>cookie</a>
   
-  <a href='/tags/login'>login</a>
+  <a href='../../../../../tags/login'>login</a>
   
-  <a href='/tags/auth'>auth</a>
+  <a href='../../../../../tags/auth'>auth</a>
   
   
   
@@ -62,36 +62,25 @@
 
 
 <main>
-
-
 <blockquote>
 <p><a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>可以方便实现交互式文档报告、web应用的开发，很快生成示例性的展示效果。但是基于开源的<a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>并不支持用户认证，该功能在pro版本。在实际业务场景中由于数据的敏感性及重要程度都需要对每个应用有相关的认证功能并实现权限管理</p>
 </blockquote>
-
-<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fp0px2xsstj31kw0tkdnv.jpg" alt="1520129904988" /></p>
-
-<h3 id="shiny-server-https-www-rstudio-com-products-shiny-shiny-server-的权限管理"><a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>的权限管理</h3>
-
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fp0px2xsstj31kw0tkdnv.jpg" alt="1520129904988"></p>
+<h3 id="shiny-serverhttpswwwrstudiocomproductsshinyshiny-server的权限管理"><a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>的权限管理</h3>
 <p><a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>的权限管理可以看作两个不同的方面：</p>
-
 <ul>
-<li>直接对<a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>的应用程序做权限管理</li>
-</ul>
-
+<li>
+<p>直接对<a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>的应用程序做权限管理</p>
 <p>如<a href="https://www.rstudio.com/products/shiny/shiny-server/">shiny-server</a>的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置<a href="https://auth0.com/blog/adding-authentication-to-shiny-server/">adding-authentication-to-shiny-server</a>，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦</p>
-
-<ul>
-<li>对单个shiny app进行认证/权限管理</li>
-</ul>
-
+</li>
+<li>
+<p>对单个shiny app进行认证/权限管理</p>
 <p>为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多</p>
-
+</li>
+</ul>
 <p><strong>本文针对第二种方式实现两类shiny app的认证/权限管理</strong></p>
-
-<h3 id="基于单页面认证-权限管理">基于单页面认证/权限管理</h3>
-
+<h3 id="基于单页面认证权限管理">基于单页面认证/权限管理</h3>
 <p>主要实现功能：</p>
-
 <ul>
 <li>登陆认证，认证失败提示错误信息</li>
 <li>自配置/修改登陆认证界面（样式等）</li>
@@ -99,36 +88,23 @@
 <li>recharts一个交互式画图的示例展示</li>
 <li>登陆界面到应用界面的过度，将UI全部设为变量</li>
 </ul>
-
 <p>效果展示：</p>
-
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fp0pvgd41jj31kw13qjw3.jpg" alt="1520127231794" /></p>
-
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fp0px1lvh0j31kw12n43i.jpg" alt="1520127324976" /></p>
-
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fp0px0fsbrj31kw14m7d8.jpg" alt="1520127379223" /></p>
-
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fp0pvgd41jj31kw13qjw3.jpg" alt="1520127231794"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fp0px1lvh0j31kw12n43i.jpg" alt="1520127324976"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fp0px0fsbrj31kw14m7d8.jpg" alt="1520127379223"></p>
 <p>代码地址：<a href="https://github.com/xwydq/shiny-login/tree/master/single-page">single-page</a></p>
-
 <p>关于登陆界面的样式还要做进一步调整，在此未细化</p>
-
-<h3 id="在shinydashboard包基础上实现dashboard模式的认证-权限管理">在shinydashboard包基础上实现dashboard模式的认证/权限管理</h3>
-
+<h3 id="在shinydashboard包基础上实现dashboard模式的认证权限管理">在shinydashboard包基础上实现dashboard模式的认证/权限管理</h3>
 <p>因为shinydashboard不能使用上述方法直接直接所有UI（<code>dashboardHeader;dashboardSidebar;dashboardBody</code>）作为整体使用uiOutput输出，只能将这三部分分别动态输出，这里使用shinyjs调整加载登陆页面、及加载后的页面，即在加载登陆页面时隐藏（<code>dashboardHeader;dashboardSidebar</code>）,判断登陆成功再展示</p>
-
-<pre><code class="language-R"># 登陆前
-shinyjs::addClass(selector = &quot;body&quot;, class = &quot;sidebar-collapse&quot;)
-shinyjs::removeClass(selector = &quot;header&quot;, class = &quot;main-header&quot;)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#75715e"># 登陆前</span>
+shinyjs<span style="color:#f92672">::</span><span style="color:#a6e22e">addClass</span>(selector <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;body&#34;</span>, class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sidebar-collapse&#34;</span>)
+shinyjs<span style="color:#f92672">::</span><span style="color:#a6e22e">removeClass</span>(selector <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;header&#34;</span>, class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;main-header&#34;</span>)
   
-# 登陆成功
-shinyjs::addClass(selector = &quot;body&quot;, class = &quot;sidebar-collapse&quot;)
-shinyjs::removeClass(selector = &quot;header&quot;, class = &quot;main-header&quot;)
-</code></pre>
-
-<p>具体代码地址：<a href="https://github.com/xwydq/shiny-login/tree/master/dashboard">dashboard-page</a></p>
-
+<span style="color:#75715e"># 登陆成功</span>
+shinyjs<span style="color:#f92672">::</span><span style="color:#a6e22e">addClass</span>(selector <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;body&#34;</span>, class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sidebar-collapse&#34;</span>)
+shinyjs<span style="color:#f92672">::</span><span style="color:#a6e22e">removeClass</span>(selector <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;header&#34;</span>, class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;main-header&#34;</span>)
+</code></pre></div><p>具体代码地址：<a href="https://github.com/xwydq/shiny-login/tree/master/dashboard">dashboard-page</a></p>
 <p>主要实现功能：</p>
-
 <ul>
 <li>登陆认证，认证失败提示错误信息</li>
 <li>自配置/修改登陆认证界面（样式等）</li>
@@ -136,14 +112,10 @@ shinyjs::removeClass(selector = &quot;header&quot;, class = &quot;main-header&qu
 <li>调用shinyjs动态操作相关页面样式</li>
 <li>将ui; server分离增加扩展性</li>
 </ul>
-
 <p>效果展示：</p>
-
-<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fp0pwys38uj31kw1brn1g.jpg" alt="1520140261036" /></p>
-
-<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fp0pvfdb8zj31kw1braei.jpg" alt="1520140286274" /></p>
-
-<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fp0pvhdtjpj31kw1braf3.jpg" alt="1520140206765" /></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fp0pwys38uj31kw1brn1g.jpg" alt="1520140261036"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fp0pvfdb8zj31kw1braei.jpg" alt="1520140286274"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fp0pvhdtjpj31kw1braf3.jpg" alt="1520140206765"></p>
 
 </main>
 
@@ -165,21 +137,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -203,7 +178,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

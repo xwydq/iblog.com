@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Notes on 飞舞的尘埃</title>
@@ -27,7 +27,7 @@
       
       <guid>/note/2018/08/27/selfdefine-rmd-output-table-format/</guid>
       <description>Rmd yaml 配置 自定义CSS格式输出html，css文件与Rmd同一目录下，添加格式
-# output: # html_document: # css: test.css  Rmd chunk 中循环输出需要使用cat函数 knitr::opts_chunk$set(echo = TRUE) library(dplyr) library(lubridate) library(knitr) library(kableExtra) library(htmltools) for (i in 1:3) { cat(&amp;quot;\n&amp;quot;) cat(&amp;quot;### &amp;quot;, sprintf(&amp;#39;第%d次&amp;#39;, i), &amp;quot;\n&amp;quot;) tab11 = iris %&amp;gt;% head(10) %&amp;gt;% kable(row.names = F) %&amp;gt;% kable_styling() %&amp;gt;% row_spec(0, background = &amp;#39;grey&amp;#39;) %&amp;gt;% row_spec(10, background = &amp;#39;#E6C1C1&amp;#39;) cat(tab11) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) } 第1次   Sepal.Length  Sepal.Width  Petal.Length  Petal.Width  Species      5.</description>
+# output: # html_document: # css: test.css  Rmd chunk 中循环输出需要使用cat函数 knitr::opts_chunk$set(echo = TRUE) library(dplyr) library(lubridate) library(knitr) library(kableExtra) library(htmltools) for (i in 1:3) { cat(&amp;quot;\n&amp;quot;) cat(&amp;quot;### &amp;quot;, sprintf(&amp;#39;第%d次&amp;#39;, i), &amp;quot;\n&amp;quot;) tab11 = iris %&amp;gt;% head(10) %&amp;gt;% kable(row.names = F) %&amp;gt;% kable_styling() %&amp;gt;% row_spec(0, background = &amp;#39;grey&amp;#39;) %&amp;gt;% row_spec(10, background = &amp;#39;#E6C1C1&amp;#39;) cat(tab11) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) cat(&amp;#39;\n&amp;#39;) } 第1次   Sepal.Length  Sepal.Width  Petal.Length  Petal.</description>
     </item>
     
     <item>
@@ -36,8 +36,12 @@
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/06/01/mqcloudocr/</guid>
-      <description>账号配置  API密钥管理申请对应的ID/Key   鉴权签名  &amp;lt;?php $appid = &amp;quot;1256847800&amp;quot;; $bucket = &amp;quot;tencentyun&amp;quot;; $secret_id = &amp;quot;AKIDlQxV4XsCNRN9xgmfuxqqhNrNjutgZjy2&amp;quot;; $secret_key = &amp;quot;61oSxv0ueCdsmlgPyMYaWQDtQo162oOq&amp;quot;; $expired = time() + 5592000; $onceExpired = 0; $current = time(); $rdm = rand(); $userid = &amp;quot;0&amp;quot;; $fileid = &amp;quot;tencentyunSignTest&amp;quot;; $srcStr = &#39;a=&#39;.$appid.&#39;&amp;amp;k=&#39;.$secret_id.&#39;&amp;amp;e=&#39;.$expired.&#39;&amp;amp;t=&#39;.$current.&#39;&amp;amp;r=&#39;.$rdm.&#39;&amp;amp;u=&#39; .$userid.&#39;&amp;amp;f=&#39;; $signStr = base64_encode(hash_hmac(&#39;SHA1&#39;, $srcStr, $secret_key, true).$srcStr); echo $signStr.&amp;quot;\n&amp;quot;; ?&amp;gt;  以上文件保存为php，并在命令行执行，打印的结果就为生成的签名
-php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=  请求测试、数据合并  postman测试   R脚本获取文本数据  library(rvest) library(jsonlite) library(dplyr) library(readr) library(httr) h = c( &#39;2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NDc4MDAmaz1BS0lEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=&#39;, &#39;recognition.</description>
+      <description>账号配置   API密钥管理申请对应的ID/Key
+  鉴权签名
+&amp;lt;?php $appid = &amp;#34;1256847800&amp;#34;; $bucket = &amp;#34;tencentyun&amp;#34;; $secret_id = &amp;#34;AKIDlQxV4XsCNRN9xgmfuxqqhNrNjutgZjy2&amp;#34;; $secret_key = &amp;#34;61oSxv0ueCdsmlgPyMYaWQDtQo162oOq&amp;#34;; $expired = time() + 5592000; $onceExpired = 0; $current = time(); $rdm = rand(); $userid = &amp;#34;0&amp;#34;; $fileid = &amp;#34;tencentyunSignTest&amp;#34;; $srcStr = &amp;#39;a=&amp;#39;.$appid.&amp;#39;&amp;amp;k=&amp;#39;.$secret_id.&amp;#39;&amp;amp;e=&amp;#39;.$expired.&amp;#39;&amp;amp;t=&amp;#39;.$current.&amp;#39;&amp;amp;r=&amp;#39;.$rdm.&amp;#39;&amp;amp;u=&amp;#39; .$userid.&amp;#39;&amp;amp;f=&amp;#39;; $signStr = base64_encode(hash_hmac(&amp;#39;SHA1&amp;#39;, $srcStr, $secret_key, true).$srcStr); echo $signStr.&amp;#34;\n&amp;#34;; ?&amp;gt; 以上文件保存为php，并在命令行执行，打印的结果就为生成的签名
+php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=   请求测试、数据合并   postman测试
+  R脚本获取文本数据
+library(rvest) library(jsonlite) library(dplyr) library(readr) library(httr) h = c( &amp;#39;2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NDc4MDAmaz1BS0lEbFF4VjRYc0NOUk45eGdtZnV4cXFoTnJOanV0Z1pqeTImZT0xNTMzNDM0ODAwJnQ9MTUyNzg0MjgwMCZyPTE5NTkwMzQ0NiZ1PTAmZj0=&amp;#39;, &amp;#39;recognition.</description>
     </item>
     
     <item>
@@ -46,7 +50,7 @@ php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFo
       <pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/05/23/r-reg-sub-invalid-string/</guid>
-      <description> 文本解析过程中常出现异常字符，如：\xe42b61d592.PDF,\n\xbc\xb0情定折现率R：RRd1
+      <description>  文本解析过程中常出现异常字符，如：\xe42b61d592.PDF,\n\xbc\xb0情定折现率R：RRd1
  保留常用标点符号、中文、英文、数字的方式 str1 = &amp;#39;体评\xe42b61d592.PDF,\n\xbc\xb0情定折-现率R：RRd1TWdReWe式中 ：‘&amp;#39; gsub(&amp;#39;[^\u4E00-\u9FA5A-Za-z0-9_,.;:‘’“”，。；：《》—\\-]&amp;#39;, &amp;#39;&amp;#39;, str1) ## [1] &amp;quot;体评2b61d592.PDF,情定折-现率R：RRd1TWdReWe式中：‘&amp;quot; # [1] &amp;quot;体评2b61d592.PDF,情定折-现率R：RRd1TWdReWe式中：‘&amp;quot; 常用正则表达式
  </description>
     </item>
@@ -59,7 +63,7 @@ php test.php #2jMeRhhMXLKcmE4lT2mleNOFQ5lhPTEyNTY4NEbFF4VjRYc0NOUk45eGdtZnV4cXFo
       <guid>/note/2018/04/30/shiny-display-pdf-file/</guid>
       <description>使用pdf.js来使用在web页面中阅读PDF文件，同时禁止下载、打水印的功能
  PDF.JS 参考 PDF.js 在线pdf阅读插件（禁止打印，下载，每页水印）修改对应代码（JS/HTML）
-shiny web  将修改测试无误的pdf.js保存在shiny项目的www路径下  └── www └── pdfView └── generic ├── build └── web ├── cmaps ├── images └── locale   Shiny app代码  library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;quot;pdf view&amp;quot;), # Sidebar with a slider input for number of bins uiOutput(&amp;quot;iframe_source&amp;quot;) ) server &amp;lt;- function(input, output) { output$iframe_source &amp;lt;- renderUI({ iframe_source = tags$iframe( src=sprintf(&amp;quot;pdfView/generic/web/viewer.</description>
+shiny web  将修改测试无误的pdf.js保存在shiny项目的www路径下  └── www └── pdfView └── generic ├── build └── web ├── cmaps ├── images └── locale  Shiny app代码  library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;#34;pdf view&amp;#34;), # Sidebar with a slider input for number of bins  uiOutput(&amp;#34;iframe_source&amp;#34;) ) server &amp;lt;- function(input, output) { output$iframe_source &amp;lt;- renderUI({ iframe_source = tags$iframe( src=sprintf(&amp;#34;pdfView/generic/web/viewer.</description>
     </item>
     
     <item>
@@ -70,7 +74,7 @@ shiny web  将修改测试无误的pdf.js保存在shiny项目的www路径下  �
       <guid>/note/2018/04/30/shiny-textouput/</guid>
       <description>在shiny中动态显示一个字符串变量最好使用renderText/textOutput的方法，使用renderText/reactiveValues会出现异常或不成功的情况。
  比较示例代码：
-library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;quot;Old Faithful Geyser Data&amp;quot;), # Sidebar with a slider input for number of bins sidebarLayout( sidebarPanel( sliderInput(&amp;quot;bins&amp;quot;, &amp;quot;Number of bins:&amp;quot;, min = 1, max = 50, value = 30) ), # test textOutput mainPanel( div(h3(&amp;quot;固定值&amp;quot;)), div(h4(&amp;quot;text1: hello world!!&amp;quot;)), hr(), div(h3(&amp;quot;reactiveValues引入的变量值(不能显示)&amp;quot;)), div(h4(renderText(vt$numName))), hr(), div(h3(&amp;quot;textOutput动态输出&amp;quot;)), div(h4(textOutput(&amp;quot;text1&amp;quot;))), hr(), div(h3(&amp;quot;input$bins 报错&amp;quot;)), div(h4(renderText(input$bins))) ) ) ) # Define server logic required to draw a histogram server &amp;lt;- function(session, input, output) { vt = reactiveValues(numName = &#39;heloo&#39;) observe({ vt$numName = as.</description>
+library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;#34;Old Faithful Geyser Data&amp;#34;), # Sidebar with a slider input for number of bins  sidebarLayout( sidebarPanel( sliderInput(&amp;#34;bins&amp;#34;, &amp;#34;Number of bins:&amp;#34;, min = 1, max = 50, value = 30) ), # test textOutput mainPanel( div(h3(&amp;#34;固定值&amp;#34;)), div(h4(&amp;#34;text1: hello world!!&amp;#34;)), hr(), div(h3(&amp;#34;reactiveValues引入的变量值(不能显示)&amp;#34;)), div(h4(renderText(vt$numName))), hr(), div(h3(&amp;#34;textOutput动态输出&amp;#34;)), div(h4(textOutput(&amp;#34;text1&amp;#34;))), hr(), div(h3(&amp;#34;input$bins 报错&amp;#34;)), div(h4(renderText(input$bins))) ) ) ) # Define server logic required to draw a histogram server &amp;lt;- function(session, input, output) { vt = reactiveValues(numName = &amp;#39;heloo&amp;#39;) observe({ vt$numName = as.</description>
     </item>
     
     <item>
@@ -79,11 +83,11 @@ library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- f
       <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/04/19/get-office-doc-content/</guid>
-      <description>批量获取Office文档的文本内容用于文本解析或者文本分析
- docx类型文档读取 使用pandoc命令进行文件类型转换 pandoc test-getdocxcontent.docx -o testdocx.txt  使用python的模块docx2txt  安装 docx2txt  pip install docx2txt   获取文档内容  docx2txt ./test/test-getdocxcontent.docx # extract text and images # docx2txt -i /tmp/img_dir test-getdocxcontent.docx  原始文档
+      <description> 批量获取Office文档的文本内容用于文本解析或者文本分析
+ docx类型文档读取 使用pandoc命令进行文件类型转换 pandoc test-getdocxcontent.docx -o testdocx.txt 使用python的模块docx2txt  安装 docx2txt  pip install docx2txt  获取文档内容  docx2txt ./test/test-getdocxcontent.docx # extract text and images # docx2txt -i /tmp/img_dir test-getdocxcontent.docx 原始文档
 解析结果
-让工作 更精彩 推荐编号：207339 推荐公司：浙jds投资管理有限公司 推荐职位：数据挖掘工程师 推荐顾问： 推荐时间：2017-11-06 。。。。。。。  doc类型文档读取 目前尝试成功的方法：使用开源的Office：libreoffice通过命令行来进行格式转换或者获取文本内容
-## libreoffice下载地址 https://downloadarchive.documentfoundation.org/libreoffice/old/4.4.2.2/rpm/x86_64/ ## 安装方法 http://www.techoism.com/install-libreoffice-4-4-on-centosrhel/ ## 格式转化命令:将doc转为docx libreoffice4.4 --headless --convert-to docx --outdir /u/user/doc_folder /u/user/doc_folder/old_office/file.doc ## 格式转化命令:将doc转为txt libreoffice4.4 --headless --convert-to txt --outdir /u/user/doc_folder /u/user/doc_folder/old_office/file.</description>
+让工作 更精彩 推荐编号：207339 推荐公司：浙jds投资管理有限公司 推荐职位：数据挖掘工程师 推荐顾问： 推荐时间：2017-11-06 。。。。。。。 doc类型文档读取 目前尝试成功的方法：使用开源的Office：libreoffice通过命令行来进行格式转换或者获取文本内容
+## libreoffice下载地址 https://downloadarchive.documentfoundation.org/libreoffice/old/4.4.2.2/rpm/x86_64/ ## 安装方法 http://www.techoism.com/install-libreoffice-4-4-on-centosrhel/ ## 格式转化命令:将doc转为docx libreoffice4.4 --headless --convert-to docx --outdir /u/user/doc_folder /u/user/doc_folder/old_office/file.doc ## 格式转化命令:将doc转为txt libreoffice4.4 --headless --convert-to txt --outdir /u/user/doc_folder /u/user/doc_folder/old_office/file.doc </description>
     </item>
     
     <item>
@@ -106,7 +110,7 @@ library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- f
       <guid>/note/2018/04/12/r-crawl-http-proxy/</guid>
       <description>R爬虫的利器rvest，可以方便实现数据的定位与提取
 添加代理需在httr下实现
-直接在请求中使用代理 library(httr) ## header 使用vector类型 h &amp;lt;- c(&amp;quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&amp;quot;, &amp;quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&amp;quot;, &amp;quot;gzip, deflate&amp;quot;, &amp;quot;keep-alive&amp;quot;) names(h) &amp;lt;- c(&amp;quot;User-Agent&amp;quot;, &amp;quot;Accept&amp;quot;, &amp;quot;Accept-Encoding&amp;quot;, &amp;quot;Connection&amp;quot;) ## 持续获取代理 get_ips = function(){ while(TRUE){ IP_proxy = &#39;http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=41620212070f4853bf27fd12&amp;amp;count=20&amp;amp;expiryDate=0&amp;amp;format=1&#39; ips = read_json(IP_proxy) if(ips$code == &#39;0&#39;){ break }else{ Sys.sleep(5) } } ips = ips[[&#39;msg&#39;]] ips = as.data.frame(do.call(rbind, ips)) ips$ip = as.character(ips$ip) ips$port = as.numeric(ips$port) return(ips) } ips = get_ips() # port ip # 1 39358 125.</description>
+直接在请求中使用代理 library(httr) ## header 使用vector类型 h &amp;lt;- c(&amp;#34;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&amp;#34;, &amp;#34;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&amp;#34;, &amp;#34;gzip, deflate&amp;#34;, &amp;#34;keep-alive&amp;#34;) names(h) &amp;lt;- c(&amp;#34;User-Agent&amp;#34;, &amp;#34;Accept&amp;#34;, &amp;#34;Accept-Encoding&amp;#34;, &amp;#34;Connection&amp;#34;) ## 持续获取代理 get_ips = function(){ while(TRUE){ IP_proxy = &amp;#39;http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=41620212070f4853bf27fd12&amp;amp;count=20&amp;amp;expiryDate=0&amp;amp;format=1&amp;#39; ips = read_json(IP_proxy) if(ips$code == &amp;#39;0&amp;#39;){ break }else{ Sys.sleep(5) } } ips = ips[[&amp;#39;msg&amp;#39;]] ips = as.data.frame(do.call(rbind, ips)) ips$ip = as.character(ips$ip) ips$port = as.numeric(ips$port) return(ips) } ips = get_ips() # port ip # 1 39358 125.</description>
     </item>
     
     <item>
@@ -125,7 +129,7 @@ library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- f
       
       <guid>/note/2018/04/09/crawl-python-proxy/</guid>
       <description>http代理是爬虫工作中解决反爬的一项关键措施，下面说明不同场景下代理的使用及其验证
- requests中使用代理  无加密代理  import requests proxy1 = {&#39;http&#39;: &#39;117.90.51.49:42668&#39;, &#39;https&#39;: &#39;117.90.51.49:42668&#39;} resp = requests.get(&#39;http://httpbin.org/ip&#39;, proxies=proxy1) print(resp.json())   需认证的代理  import requests proxy1 = {&#39;http&#39;: &#39;http://user:passwd@106.15.95.226:9187&#39;, &#39;https&#39;: &#39;https://user:passwd@106.15.95.236:9187&#39;} resp = requests.get(&#39;http://httpbin.org/ip&#39;, proxies=proxy1) print(resp.json()) # {&#39;origin&#39;: &#39;101.47.19.29, 106.15.95.236&#39;}  selenium+浏览器中使用代理 phantomJS ## selenium+phantomJS代理 from selenium import webdriver driver = webdriver.PhantomJS( # executable_path = &#39;/usr/local/bin/phantomjs&#39;, service_args = [ &#39;--ignore-ssl-errors=true&#39;, &#39;--proxy=106.15.95.236:9187&#39;, # IP:port &#39;--proxy-type=http&#39;, &#39;--proxy-auth=user:passwd&#39;, # 如需认证添加 ]) url = &#39;http://httpbin.</description>
+ requests中使用代理  无加密代理  import requests proxy1 = {&amp;#39;http&amp;#39;: &amp;#39;117.90.51.49:42668&amp;#39;, &amp;#39;https&amp;#39;: &amp;#39;117.90.51.49:42668&amp;#39;} resp = requests.get(&amp;#39;http://httpbin.org/ip&amp;#39;, proxies=proxy1) print(resp.json())  需认证的代理  import requests proxy1 = {&amp;#39;http&amp;#39;: &amp;#39;http://user:passwd@106.15.95.226:9187&amp;#39;, &amp;#39;https&amp;#39;: &amp;#39;https://user:passwd@106.15.95.236:9187&amp;#39;} resp = requests.get(&amp;#39;http://httpbin.org/ip&amp;#39;, proxies=proxy1) print(resp.json()) # {&amp;#39;origin&amp;#39;: &amp;#39;101.47.19.29, 106.15.95.236&amp;#39;} selenium+浏览器中使用代理 phantomJS ## selenium+phantomJS代理 from selenium import webdriver driver = webdriver.PhantomJS( # executable_path = &amp;#39;/usr/local/bin/phantomjs&amp;#39;, service_args = [ &amp;#39;--ignore-ssl-errors=true&amp;#39;, &amp;#39;--proxy=106.15.95.236:9187&amp;#39;, # IP:port &amp;#39;--proxy-type=http&amp;#39;, &amp;#39;--proxy-auth=user:passwd&amp;#39;, # 如需认证添加 ]) url = &amp;#39;http://httpbin.org/ip&amp;#39; driver.</description>
     </item>
     
     <item>
@@ -145,7 +149,7 @@ library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- f
       <guid>/note/2018/03/16/shiny-display-recharts/</guid>
       <description>在shiny中使用recharts时，出现不能正常显示的问题：ePlot生成的R对象在shiny中可以显示；但是其他画图函数如:eBar、eBmap、eCandle等生成的对象不能正常显示。比较两类对象的差异发现在参数dependencies的设置上存在差异，通过修改变量可以正常显示，应该是依赖的一个bug。后续再查源码…..
  ePlot函数画图 Create rEcharts from an R object，直接使用ePlot函数画图可以正常显示
-library(recharts) # 定义数据部分 series = list(list( name = &amp;#39;Sales&amp;#39;, type = &amp;#39;bar&amp;#39;, data = c(5, 20, 36, 10, 10, 20) )) # 定义坐标轴部分 ext = list( xAxis = list(list( data = c(&amp;#39;shirt&amp;#39;,&amp;#39;cardign&amp;#39;,&amp;#39;chiffon shirt&amp;#39;,&amp;#39;pants&amp;#39;,&amp;#39;heels&amp;#39;,&amp;#39;socks&amp;#39;) )), yAxis = list(list()) ) # 绘制 e1 = ePlot(series, ext) e1  {&#34;x&#34;:{&#34;legend&#34;:{&#34;show&#34;:true,&#34;orient&#34;:&#34;horizontal&#34;,&#34;x&#34;:&#34;left&#34;,&#34;y&#34;:&#34;top&#34;,&#34;data&#34;:[&#34;Sales&#34;]},&#34;title&#34;:{&#34;text&#34;:&#34;&#34;,&#34;subtext&#34;:&#34;&#34;,&#34;x&#34;:&#34;center&#34;,&#34;y&#34;:&#34;top&#34;},&#34;calculable&#34;:true,&#34;theme&#34;:&#34;default&#34;,&#34;tooltip&#34;:{&#34;show&#34;:true,&#34;trigger&#34;:&#34;item&#34;,&#34;formatter&#34;:&#34;{a} {b} : {c}&#34;},&#34;series&#34;:[{&#34;name&#34;:&#34;Sales&#34;,&#34;type&#34;:&#34;bar&#34;,&#34;data&#34;:[5,20,36,10,10,20]}],&#34;xAxis&#34;:[{&#34;data&#34;:[&#34;shirt&#34;,&#34;cardign&#34;,&#34;chiffon shirt&#34;,&#34;pants&#34;,&#34;heels&#34;,&#34;socks&#34;]}],&#34;yAxis&#34;:[[]]},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}  eBar函数画图 Create an HTML bar charts widget using the ECharts(version:3.</description>
+library(recharts) # 定义数据部分 series = list(list( name = &amp;#39;Sales&amp;#39;, type = &amp;#39;bar&amp;#39;, data = c(5, 20, 36, 10, 10, 20) )) # 定义坐标轴部分 ext = list( xAxis = list(list( data = c(&amp;#39;shirt&amp;#39;,&amp;#39;cardign&amp;#39;,&amp;#39;chiffon shirt&amp;#39;,&amp;#39;pants&amp;#39;,&amp;#39;heels&amp;#39;,&amp;#39;socks&amp;#39;) )), yAxis = list(list()) ) # 绘制 e1 = ePlot(series, ext) e1  {&#34;x&#34;:{&#34;legend&#34;:{&#34;show&#34;:true,&#34;orient&#34;:&#34;horizontal&#34;,&#34;x&#34;:&#34;center&#34;,&#34;y&#34;:&#34;bottom&#34;,&#34;data&#34;:[&#34;Sales&#34;]},&#34;title&#34;:{&#34;text&#34;:&#34;&#34;,&#34;subtext&#34;:&#34;&#34;,&#34;x&#34;:&#34;center&#34;,&#34;y&#34;:&#34;top&#34;},&#34;calculable&#34;:true,&#34;theme&#34;:&#34;default&#34;,&#34;tooltip&#34;:{&#34;show&#34;:true,&#34;trigger&#34;:&#34;item&#34;,&#34;formatter&#34;:&#34;{b}: {c}&#34;},&#34;series&#34;:[{&#34;name&#34;:&#34;Sales&#34;,&#34;type&#34;:&#34;bar&#34;,&#34;data&#34;:[5,20,36,10,10,20]}],&#34;xAxis&#34;:[{&#34;data&#34;:[&#34;shirt&#34;,&#34;cardign&#34;,&#34;chiffon shirt&#34;,&#34;pants&#34;,&#34;heels&#34;,&#34;socks&#34;]}],&#34;yAxis&#34;:[[]]},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}  eBar函数画图 Create an HTML bar charts widget using the ECharts(version:3.</description>
     </item>
     
     <item>
@@ -154,9 +158,9 @@ library(recharts) # 定义数据部分 series = list(list( name = &amp;#39;Sales
       <pubDate>Sun, 11 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/03/11/crawl-amac-fund-manager/</guid>
-      <description>基金业协会备案信息之：基金管理人 模块引入 import requests import pandas as pd import random import math import time import datetime from sqlalchemy import create_engine from lxml import etree import re requests.__version__ # &#39;2.18.4&#39;  基金管理人列表 chrome打开network查看请求，具体请求API为 POST，接口：http://gs.amac.org.cn/amac-infodisc/api/pof/manager，参数：?rand=0.24323480064904235&amp;amp;page=1&amp;amp;size=20
+      <description>基金业协会备案信息之：基金管理人 模块引入 import requests import pandas as pd import random import math import time import datetime from sqlalchemy import create_engine from lxml import etree import re requests.__version__ # &amp;#39;2.18.4&amp;#39; 基金管理人列表 chrome打开network查看请求，具体请求API为 POST，接口：http://gs.amac.org.cn/amac-infodisc/api/pof/manager，参数：?rand=0.24323480064904235&amp;amp;page=1&amp;amp;size=20
  rand：0-1随机数 page：页码(第1页：page=0) size：每页显示的记录数  参数说明：
- Query String Parameters: params，查询参数 Request Payload: json，为空{}时，也需要添加该参数，否则有可能报错  # url = &#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;amp;page=0&amp;amp;size=20&#39; url = &#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager&#39; paras = {&amp;quot;rand&amp;quot;: 0.24121315630506435, &amp;quot;page&amp;quot;: 4, &amp;quot;size&amp;quot;: 2} headers = { &#39;Content-Type&#39;: &#39;application/json&#39; } rs = requests.</description>
+ Query String Parameters: params，查询参数 Request Payload: json，为空{}时，也需要添加该参数，否则有可能报错  # url = &amp;#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;amp;page=0&amp;amp;size=20&amp;#39; url = &amp;#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager&amp;#39; paras = {&amp;#34;rand&amp;#34;: 0.24121315630506435, &amp;#34;page&amp;#34;: 4, &amp;#34;size&amp;#34;: 2} headers = { &amp;#39;Content-Type&amp;#39;: &amp;#39;application/json&amp;#39; } rs = requests.</description>
     </item>
     
     <item>
@@ -167,12 +171,12 @@ library(recharts) # 定义数据部分 series = list(list( name = &amp;#39;Sales
       <guid>/note/2018/03/05/crawler-url-redirect/</guid>
       <description>使用python+requests爬虫时常常遇到请求URL地址变化（返回的URL地址不再是请求时的地址），这些很大可能是网页被重定向导致。所谓重定向(Redirect)就是通过各种方法将各种网络请求重新转到其它位置（URL）。每个网站主页是网站资源的入口，当重定向发生在网站主页时，如果不能正确处理就很有可能会错失这整个网站的内容。
  爬取网页时主要三种重定向的情况
- 服务器端重定向，在服务器端完成，一般来说爬虫可以自适应，是不需要特别处理的，如响应代码301（永久重定向）、302（暂时重定向）等。具体来说，可以通过requests请求得到的response对象中的url、status_code两个属性来判断。当status_code为301、302或其他代表重定向的代码时，表示原请求被重定向；当response对象的url属性与发送请求时的链接不一致时，也说明了原请求被重定向且已经自动处理。
- 客户端重定向：请求头meta refresh设置，即网页中的&amp;lt;meta&amp;gt;标签声明了网页重定向的链接，这种重定向由浏览器完成，需要编写代码进行处理。例如，某一重定向如下面的html代码第三行中的注释所示，浏览器能够自动跳转，但爬虫只能得到跳转前的页面，不能自动跳转。
-  如百度搜索requests后第一个结果地址https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929这个地址会跳转到http://www.python-requests.org/
-&amp;lt;meta http-equiv=&amp;quot;refresh&amp;quot; content=&amp;quot;0.1;url=http://www.redirectedtoxxx.com/&amp;quot;&amp;gt;&amp;lt;!--本网页会在0.1秒内refresh为url所指的网页--&amp;gt; &amp;lt;meta content=&amp;quot;always&amp;quot; name=&amp;quot;referrer&amp;quot;&amp;gt; &amp;lt;script&amp;gt;try{if(window.opener&amp;amp;&amp;amp;window.opener.bds&amp;amp;&amp;amp;window.opener.bds.pdc&amp;amp;&amp;amp;window.opener.bds.pdc.sendLinkLog){window.opener.bds.pdc.sendLinkLog();}}catch(e) {};var timeout = 0;if(/bdlksmp/.test(window.location.href)){var reg = /bdlksmp=([^=&amp;amp;]+)/,matches = window.location.href.match(reg);timeout = matches[1] ? matches[1] : 0};setTimeout(function(){window.location.replace(&amp;quot;http://www.python-requests.org/&amp;quot;)},timeout);window.opener=null;&amp;lt;/script&amp;gt; &amp;lt;noscript&amp;gt; &amp;lt;META http-equiv=&amp;quot;refresh&amp;quot; content=&amp;quot;0;URL=&#39;http://www.python-requests.org/&#39;&amp;quot;&amp;gt; &amp;lt;/noscript&amp;gt;  这种行为发生在客户端（浏览器），所以使用python requests 时不能实现自动跳转，返回结果仍然是原始URL地址。
-import requests url = &#39;https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929&#39; r = requests.get(url) r.status_code #200 r.url #&#39;https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929&#39;  解决方法：获取真正要请求的URL，再重新requests
-# xpath(&#39;//meta[@http-equiv=&amp;quot;refresh&amp;quot; and @content]/@content&#39;)提取出content的值 # 正则表达式提取出重定向的url import requests import re from lxml import etree def find_RealURL(url): r = requests.</description>
+  服务器端重定向，在服务器端完成，一般来说爬虫可以自适应，是不需要特别处理的，如响应代码301（永久重定向）、302（暂时重定向）等。具体来说，可以通过requests请求得到的response对象中的url、status_code两个属性来判断。当status_code为301、302或其他代表重定向的代码时，表示原请求被重定向；当response对象的url属性与发送请求时的链接不一致时，也说明了原请求被重定向且已经自动处理。
+  客户端重定向：请求头meta refresh设置，即网页中的&amp;lt;meta&amp;gt;标签声明了网页重定向的链接，这种重定向由浏览器完成，需要编写代码进行处理。例如，某一重定向如下面的html代码第三行中的注释所示，浏览器能够自动跳转，但爬虫只能得到跳转前的页面，不能自动跳转。
+如百度搜索requests后第一个结果地址https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929这个地址会跳转到http://www.python-requests.org/
+  &amp;lt;meta http-equiv=&amp;#34;refresh&amp;#34; content=&amp;#34;0.1;url=http://www.redirectedtoxxx.com/&amp;#34;&amp;gt;&amp;lt;!--本网页会在0.1秒内refresh为url所指的网页--&amp;gt; &amp;lt;meta content=&amp;#34;always&amp;#34; name=&amp;#34;referrer&amp;#34;&amp;gt; &amp;lt;script&amp;gt;try{if(window.opener&amp;amp;&amp;amp;window.opener.bds&amp;amp;&amp;amp;window.opener.bds.pdc&amp;amp;&amp;amp;window.opener.bds.pdc.sendLinkLog){window.opener.bds.pdc.sendLinkLog();}}catch(e) {};var timeout = 0;if(/bdlksmp/.test(window.location.href)){var reg = /bdlksmp=([^=&amp;amp;]+)/,matches = window.location.href.match(reg);timeout = matches[1] ? matches[1] : 0};setTimeout(function(){window.location.replace(&amp;#34;http://www.python-requests.org/&amp;#34;)},timeout);window.opener=null;&amp;lt;/script&amp;gt; &amp;lt;noscript&amp;gt; &amp;lt;META http-equiv=&amp;#34;refresh&amp;#34; content=&amp;#34;0;URL=&amp;#39;http://www.python-requests.org/&amp;#39;&amp;#34;&amp;gt; &amp;lt;/noscript&amp;gt; 这种行为发生在客户端（浏览器），所以使用python requests 时不能实现自动跳转，返回结果仍然是原始URL地址。
+import requests url = &amp;#39;https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929&amp;#39; r = requests.get(url) r.status_code #200 r.url #&amp;#39;https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02edoksu6FX81jzThBQbkehNlFLpXO18Wry6_S3p_sp8&amp;amp;wd=&amp;amp;eqid=9b51b77c000016fb000000045a9ca929&amp;#39; 解决方法：获取真正要请求的URL，再重新requests
+# xpath(&amp;#39;//meta[@http-equiv=&amp;#34;refresh&amp;#34; and @content]/@content&amp;#39;)提取出content的值 # 正则表达式提取出重定向的url import requests import re from lxml import etree def find_RealURL(url): r = requests.</description>
     </item>
     
     <item>
@@ -185,12 +189,12 @@ import requests url = &#39;https://www.baidu.com/link?url=n2d6IqviMKE2UKdm3cJo02
  Permutation test 置换检验是Fisher于20世纪30年代提出的一种基于大量计算（computationally intensive），利用样本数据的全（或随机）排列，进行统计推断的方法，因其对总体分布自由，应用较为广泛，特别适用于总体分布未知的小样本资料，以及某些难以用常规方法分析资料的假设检验问题。在具体使用上它和Bootstrap Methods类似，通过对样本进行顺序上的置换，重新计算统计检验量，构造经验分布，然后在此基础上求出P-value进行推断。
 下面通过一个简单例子来介绍Permutation test的思想。
 假设我们设计了一个实验来验证加入某种生长素后拟南芥的侧根数量会明显增加。A组是加入某种生长素后，拟南芥的侧根数量；B是不加生长素时，拟南芥的侧根数量（均为假定值）。
-A组侧根数量（共12个数据）：24 43 58 67 61 44 67 49 59 52 62 50 B组侧根数量（共16个数据）：42 43 65 26 33 41 19 54 42 20 17 60 37 42 55 28  我们来用假设检验的方法来判断生长素是否起作用。我们的零假设为：加入的生长素不会促进拟南芥的根系发育。在这个检验中，若零假设成立，那么A组数据的分布和B组数据的分布是一样的，也就是服从同个分布。
+A组侧根数量（共12个数据）：24 43 58 67 61 44 67 49 59 52 62 50 B组侧根数量（共16个数据）：42 43 65 26 33 41 19 54 42 20 17 60 37 42 55 28 我们来用假设检验的方法来判断生长素是否起作用。我们的零假设为：加入的生长素不会促进拟南芥的根系发育。在这个检验中，若零假设成立，那么A组数据的分布和B组数据的分布是一样的，也就是服从同个分布。
 接下来构造检验统计量&amp;ndash;A组侧根数目的均值同B组侧根数目的均值之差。
-statistic:= mean(Xa)-mean(Xb)  对于观测值有
-Sobs:=mean(Xa)-mean(Xb)=(24+43+58+67+61+44+67+49+59+52+62+50)/12(42+43+65+26+33+41+19+54+42+20+17+60+37+42+55+28)/16=14  我们可以通过Sobs在置换分布（permutation distribution）中的位置来得到它的P-value。
+statistic:= mean(Xa)-mean(Xb) 对于观测值有
+Sobs:=mean(Xa)-mean(Xb)=(24+43+58+67+61+44+67+49+59+52+62+50)/12(42+43+65+26+33+41+19+54+42+20+17+60+37+42+55+28)/16=14 我们可以通过Sobs在置换分布（permutation distribution）中的位置来得到它的P-value。
 Permutation test的具体步骤是：
- 将A、B两组数据合并到一个集合中，从中挑选出12个作为A组的数据（X&amp;rsquo;a），剩下的作为B组的数据（X&amp;rsquo;b）。  Gourp:=24 43 58 67 61 44 67 49 59 52 62 50 42 43 65 26 33 41 19 54 42 20 17 60 37 42 55 28 挑选出 X&#39;a:=43 17 44 62 60 26 28 61 50 43 33 19 X&#39;b:=55 41 42 65 59 24 54 52 42 49 37 67 67 20 42 58   计算并记录第一步中A组同B组的均值之差。Sper:=mean(X&#39;a)-mean(X&#39;b)= -7.</description>
+ 将A、B两组数据合并到一个集合中，从中挑选出12个作为A组的数据（X&amp;rsquo;a），剩下的作为B组的数据（X&amp;rsquo;b）。  Gourp:=24 43 58 67 61 44 67 49 59 52 62 50 42 43 65 26 33 41 19 54 42 20 17 60 37 42 55 28 挑选出 X&#39;a:=43 17 44 62 60 26 28 61 50 43 33 19 X&#39;b:=55 41 42 65 59 24 54 52 42 49 37 67 67 20 42 58  计算并记录第一步中A组同B组的均值之差。Sper:=mean(X&#39;a)-mean(X&#39;b)= -7.</description>
     </item>
     
     <item>
@@ -201,15 +205,17 @@ Permutation test的具体步骤是：
       <guid>/note/2018/03/04/shinyapp-login-auth/</guid>
       <description>shiny-server可以方便实现交互式文档报告、web应用的开发，很快生成示例性的展示效果。但是基于开源的shiny-server并不支持用户认证，该功能在pro版本。在实际业务场景中由于数据的敏感性及重要程度都需要对每个应用有相关的认证功能并实现权限管理
  shiny-server的权限管理 shiny-server的权限管理可以看作两个不同的方面：
- 直接对shiny-server的应用程序做权限管理  如shiny-server的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置adding-authentication-to-shiny-server，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦
- 对单个shiny app进行认证/权限管理  为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多
-本文针对第二种方式实现两类shiny app的认证/权限管理
+  直接对shiny-server的应用程序做权限管理
+如shiny-server的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置adding-authentication-to-shiny-server，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦
+  对单个shiny app进行认证/权限管理
+为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多
+  本文针对第二种方式实现两类shiny app的认证/权限管理
 基于单页面认证/权限管理 主要实现功能：
  登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 recharts一个交互式画图的示例展示 登陆界面到应用界面的过度，将UI全部设为变量  效果展示：
 代码地址：single-page
 关于登陆界面的样式还要做进一步调整，在此未细化
 在shinydashboard包基础上实现dashboard模式的认证/权限管理 因为shinydashboard不能使用上述方法直接直接所有UI（dashboardHeader;dashboardSidebar;dashboardBody）作为整体使用uiOutput输出，只能将这三部分分别动态输出，这里使用shinyjs调整加载登陆页面、及加载后的页面，即在加载登陆页面时隐藏（dashboardHeader;dashboardSidebar）,判断登陆成功再展示
-# 登陆前 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;) # 登陆成功 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;)  具体代码地址：dashboard-page
+# 登陆前 shinyjs::addClass(selector = &amp;#34;body&amp;#34;, class = &amp;#34;sidebar-collapse&amp;#34;) shinyjs::removeClass(selector = &amp;#34;header&amp;#34;, class = &amp;#34;main-header&amp;#34;) # 登陆成功 shinyjs::addClass(selector = &amp;#34;body&amp;#34;, class = &amp;#34;sidebar-collapse&amp;#34;) shinyjs::removeClass(selector = &amp;#34;header&amp;#34;, class = &amp;#34;main-header&amp;#34;) 具体代码地址：dashboard-page
 主要实现功能：
  登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 调用shinyjs动态操作相关页面样式 将ui; server分离增加扩展性  效果展示：</description>
     </item>
@@ -222,7 +228,7 @@ Permutation test的具体步骤是：
       <guid>/note/2018/03/01/centos7-squid-http/</guid>
       <description>在centos7环境搭建带认证功能的squid代理服务
  yum安装 squid实现代理功能，httpd-tools文件加密
-yum -y install squid yum -y install httpd-tools  squid的使用参数 进程启动、状态控制
+yum -y install squid yum -y install httpd-tools squid的使用参数 进程启动、状态控制
 systemctl enable squid systemctl status/restart/stop squid systemctl status squid ● squid.service - Squid caching proxy Loaded: loaded (/usr/lib/systemd/system/squid.service; enabled; vendor preset: disabled) Active: active (running) since 三 2018-02-28 05:56:10 CST; 23h ago Process: 4889 ExecStop=/usr/sbin/squid -k shutdown -f $SQUID_CONF (code=exited, status=0/SUCCESS) Process: 4898 ExecStart=/usr/sbin/squid $SQUID_OPTS -f $SQUID_CONF (code=exited, status=0/SUCCESS) Process: 4892 ExecStartPre=/usr/libexec/squid/cache_swap.sh (code=exited, status=0/SUCCESS) Main PID: 4900 (squid) CGroup: /system.</description>
     </item>
     
@@ -233,9 +239,12 @@ systemctl enable squid systemctl status/restart/stop squid systemctl status squi
       
       <guid>/note/2018/02/27/linux-selenium-chromeheadless-install-test/</guid>
       <description>typora-copy-images-to: ipic
- centos7及以上Linux环境。使用PhantomJS设置cookie报错Can only set Cookies for the current domain，看样子后期相关维护也很慢。google chrome已经开始支持headless，可以考虑换大腿了
+  centos7及以上Linux环境。使用PhantomJS设置cookie报错Can only set Cookies for the current domain，看样子后期相关维护也很慢。google chrome已经开始支持headless，可以考虑换大腿了
  环境配置安装 可以直接使用配置yum源的方法来安装，但是由于伟大的墙可能访问不到Google服务，也可以先下载指定版本的安装文件再安装
- chromedriver安装  $ wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip $ unzip chromedriver_linux64.zip $ chromedriver --version #ChromeDriver 2.35.528139 # 将chromedriver执行文件所在的路径添加到PATH环境变量   chromebrowser安装  $ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm $ sudo yum install google-chrome-stable_current_x86_64.rpm $ google-chrome --version #Google Chrome 61.0.3163.100   Xvfb安装  Xvfb（virtual framebuffer X server for X Version 11）， Xvfb 可以直接处理 Window 的图形化功能，且不把图像輸出到屏幕，目的就是在没有 Xwindow的情况下仍然可以执行相关图像界面操作。实现一种虚拟窗口（window）的操作。安裝 XVFB 做 Selenium 測試</description>
+  chromedriver安装
+$ wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip $ unzip chromedriver_linux64.zip $ chromedriver --version #ChromeDriver 2.35.528139 # 将chromedriver执行文件所在的路径添加到PATH环境变量   chromebrowser安装
+$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm $ sudo yum install google-chrome-stable_current_x86_64.rpm $ google-chrome --version #Google Chrome 61.0.3163.100   Xvfb安装
+Xvfb（virtual framebuffer X server for X Version 11）， Xvfb 可以直接处理 Window 的图形化功能，且不把图像輸出到屏幕，目的就是在没有 Xwindow的情况下仍然可以执行相关图像界面操作。实现一种虚拟窗口（window）的操作。安裝 XVFB 做 Selenium 測試</description>
     </item>
     
     <item>
@@ -246,7 +255,10 @@ systemctl enable squid systemctl status/restart/stop squid systemctl status squi
       <guid>/note/2018/02/24/r-github-package-rename/</guid>
       <description>由于package命名习惯及各种历史原因，不同开发者对类似功能的package命名有可能一样，或者package的更新不是兼容之前老版本。比如本人之前使用的R package recharts ，目前这个包换到统计之都维护更新
 解决方案：是package的名称不一致，针对github操作，其他类似
- fork原package到自己的github仓库  devtools::install_github(&#39;madlogos/recharts&#39;) # 原package # devtools::install_github(&#39;xwydq/recharts-1&#39;) 已经存在recharts仓库所以追加后缀1   clone到本地修改包名rechartsX  git clone git@github.com:xwydq/recharts-1.git # recharts 替换为 rechartsX sed -i &amp;quot;s/recharts/rechartsX/g&amp;quot; `grep recharts -rl ./test/recharts-1` # git相关配置不能修改（还原），不让push失败 sed -i &amp;quot;s/rechartsX/recharts/g&amp;quot; `grep rechartsX -rl ./test/recharts-1/.git` git commit -am &amp;quot;rename X&amp;quot; git push   安装修改后的包  devtools::install_github(&#39;xwydq/recharts-1&#39;) library(rechartsX) # 一般情况下可以正常使用，如果原包中有函数名包含recharts，那直接全局替换会有些问题  </description>
+  fork原package到自己的github仓库
+devtools::install_github(&amp;#39;madlogos/recharts&amp;#39;) # 原package # devtools::install_github(&amp;#39;xwydq/recharts-1&amp;#39;) 已经存在recharts仓库所以追加后缀1   clone到本地修改包名rechartsX
+git clone git@github.com:xwydq/recharts-1.git # recharts 替换为 rechartsX sed -i &amp;#34;s/recharts/rechartsX/g&amp;#34; `grep recharts -rl ./test/recharts-1` # git相关配置不能修改（还原），不让push失败 sed -i &amp;#34;s/rechartsX/recharts/g&amp;#34; `grep rechartsX -rl ./test/recharts-1/.git` git commit -am &amp;#34;rename X&amp;#34; git push   安装修改后的包
+devtools::install_github(&amp;#39;xwydq/recharts-1&amp;#39;) library(rechartsX) # 一般情况下可以正常使用，如果原包中有函数名包含recharts，那直接全局替换会有些问题   </description>
     </item>
     
     <item>
@@ -255,7 +267,7 @@ systemctl enable squid systemctl status/restart/stop squid systemctl status squi
       <pubDate>Tue, 20 Feb 2018 00:00:00 +0000</pubDate>
       
       <guid>/note/2018/02/20/%E4%B8%AD%E6%96%87/</guid>
-      <description>library(knitr) kable(head(iris))   Sepal.Length Sepal.Width Petal.Length Petal.Width Species    5.1 3.5 1.4 0.2 setosa  4.9 3.0 1.4 0.2 setosa  4.7 3.2 1.3 0.2 setosa  4.6 3.1 1.5 0.2 setosa  5.0 3.6 1.4 0.2 setosa  5.4 3.9 1.7 0.4 setosa    summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.</description>
+      <description>library(knitr) kable(head(iris))   Sepal.Length Sepal.Width Petal.Length Petal.Width Species    5.1 3.5 1.4 0.2 setosa  4.9 3.0 1.4 0.2 setosa  4.7 3.2 1.3 0.2 setosa  4.6 3.1 1.5 0.2 setosa  5.0 3.6 1.4 0.2 setosa  5.4 3.9 1.7 0.4 setosa    summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.</description>
     </item>
     
     <item>
@@ -265,9 +277,11 @@ systemctl enable squid systemctl status/restart/stop squid systemctl status squi
       
       <guid>/note/2017/08/18/centos7-rstudio-server-chinese/</guid>
       <description>关于centos 7中rstudio-server画图中文不显示问题整理
- 修改操作系统默认字符编码的支持  vi /etc/locale.conf LANG=&amp;quot;zh_CN.UTF-8&amp;quot; SUPPORTED=&amp;quot;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&amp;quot; SYSFONT=&amp;quot;Microsoft YaHei&amp;quot; # LANG变量，设置系统语言。 # SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。 # SYSFONT变量表示系统字体。 reboot #需要重启后生效   查看已经安装的中文字体  fc-list :lang=zh  如果查询为空就需安装中文字体
+ 修改操作系统默认字符编码的支持  vi /etc/locale.conf LANG=&amp;#34;zh_CN.UTF-8&amp;#34; SUPPORTED=&amp;#34;zh_CN.GB18030:zh_CN:zh:zh_CN.utf-8:en_US.UTF-8:en_US:en&amp;#34; SYSFONT=&amp;#34;Microsoft YaHei&amp;#34; # LANG变量，设置系统语言。 # SUPPORTED变量决定系统支持的语言，即系统能够显示的语言。 # SYSFONT变量表示系统字体。 reboot #需要重启后生效   查看已经安装的中文字体
+fc-list :lang=zh 如果查询为空就需安装中文字体
 安装部分中文字体后的查询结果如下
-fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持 /usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style=Regular,Normal,obyčejné,Standard,Κανονικά,No rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style=常规,Regular /usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style=Regular,Normal,obyčejné,Standard,Κανον ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style=常规,Regular   无中文字体时安装  yum install -y fontconfig mkfontscale #1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。 #2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下： mkdir /usr/share/fonts/win #3) 将上传的字体解压至/usr/share/fonts/win目录 #4) 建立字体索引信息，更新字体缓存： cd /usr/share/fonts/win mkfontscale mkfontdir fc-cache #至此，字体已经安装完毕！ #5) 重启系统，实测只需要重启对应的应用即可 reboot  同样centos7.</description>
+fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Microsoft YaHei，两个命名都支持 /usr/share/fonts/win/msyh.ttc: Microsoft YaHei UI:style=Regular,Normal,obyčejné,Standard,Κανονικά,No rmaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 宋体,SimSun:style=常规,Regular /usr/share/fonts/win/msyh.ttc: 微软雅黑,Microsoft YaHei:style=Regular,Normal,obyčejné,Standard,Κανον ικά,Normaali,Normál,Normale,Standaard,Normalny,Обычный,Normálne,Navadno,Arrunta /usr/share/fonts/win/simsun.ttc: 新宋体,NSimSun:style=常规,Regular   无中文字体时安装
+yum install -y fontconfig mkfontscale #1) Windows下的ttf字体与GNOME是兼容的！因而可以将C:\Windows\Fonts下的字体打包。 #2)在/usr/share/fonts目录下建立一个子目录，例如win，命令如下： mkdir /usr/share/fonts/win #3) 将上传的字体解压至/usr/share/fonts/win目录 #4) 建立字体索引信息，更新字体缓存： cd /usr/share/fonts/win mkfontscale mkfontdir fc-cache #至此，字体已经安装完毕！ #5) 重启系统，实测只需要重启对应的应用即可 reboot 同样centos7.</description>
     </item>
     
     <item>
@@ -278,8 +292,8 @@ fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Micr
       <guid>/note/2016/04/14/shiny-update-selectinput/</guid>
       <description>本文主要目的实现R shiny中的分级菜单 选择地区A之后，再选择A地区的门店（下拉选项中只显示A地区门店）
 实现效果 代码  global.R
- options(stringsAsFactors=FALSE, scipen=10, digits=4) library(dplyr) df_sample &amp;lt;- data.frame(region=rep(LETTERS[1:3], 4), store=paste(rep(LETTERS[1:3], 4), 1:4, sep=&amp;quot;&amp;quot;), result=sample(1:100, 12)) region &amp;lt;- unique(df_sample$region)   ui.R
- library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;分级菜单&amp;quot;), dashboardSidebar( sidebarMenu( selectInput(&amp;quot;region&amp;quot;, &amp;quot;地区:&amp;quot;, choices = region), uiOutput(&amp;quot;slt_store&amp;quot;), menuItem(&amp;quot;分级菜单&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( # 原始数据 box(h1(&amp;quot;原始数据&amp;quot;), tableOutput(&amp;quot;df1&amp;quot;)), # 筛选结果 box(h1(&amp;quot;筛选结果&amp;quot;), tableOutput(&amp;quot;df2&amp;quot;)) ) ) ) ) ) )   server.</description>
+ options(stringsAsFactors=FALSE, scipen=10, digits=4) library(dplyr) df_sample &amp;lt;- data.frame(region=rep(LETTERS[1:3], 4), store=paste(rep(LETTERS[1:3], 4), 1:4, sep=&amp;#34;&amp;#34;), result=sample(1:100, 12)) region &amp;lt;- unique(df_sample$region)  ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;#34;分级菜单&amp;#34;), dashboardSidebar( sidebarMenu( selectInput(&amp;#34;region&amp;#34;, &amp;#34;地区:&amp;#34;, choices = region), uiOutput(&amp;#34;slt_store&amp;#34;), menuItem(&amp;#34;分级菜单&amp;#34;, tabName = &amp;#34;tab_budget&amp;#34;, icon = icon(&amp;#34;gear&amp;#34;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;#34;tab_budget&amp;#34;, fluidRow( # 原始数据 box(h1(&amp;#34;原始数据&amp;#34;), tableOutput(&amp;#34;df1&amp;#34;)), # 筛选结果 box(h1(&amp;#34;筛选结果&amp;#34;), tableOutput(&amp;#34;df2&amp;#34;)) ) ) ) ) ) )  server.</description>
     </item>
     
     <item>
@@ -290,8 +304,8 @@ fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Micr
       <guid>/note/2016/04/14/shiny-updatexinput-example/</guid>
       <description>使用shiny实现对年、季度、月取值的连锁更新 实现目标 点击按钮年预算更新对所有的提升百分比更新 点击按钮季度预算更新对对应季度以及季度对应的月份的提升百分比更新 点击按钮月份预算更新对对应月份的提升百分比更新
 代码  global.R
- # 小数转化为百分数输出 numtop &amp;lt;- function(num, p=2){ num1 &amp;lt;- num * 100 formt &amp;lt;- paste0(&amp;quot;%.&amp;quot;, p, &amp;quot;f&amp;quot;) percent &amp;lt;- sprintf(formt, num1) percent &amp;lt;- paste0(percent, &amp;quot;%&amp;quot;) percent } # 年的预算提升百分比初始值 bg_year &amp;lt;- data.frame(year=2016, bg_year_pct=3) # 季度的预算提升百分比初始值 bg_quarter &amp;lt;- data.frame(quarter=1:4, bg_quarter_pct=3) # 月度的预算提升百分比初始值 bg_month &amp;lt;- data.frame(month=1:12, quarter=rep(1:4, each=3), bg_month_pct=3)   ui.R
- library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;quot;门店销售预算达成分析&amp;quot;), dashboardSidebar( sidebarMenu( menuItem(&amp;quot;预算百分比设置&amp;quot;, tabName = &amp;quot;tab_budget&amp;quot;, icon = icon(&amp;quot;gear&amp;quot;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;quot;tab_budget&amp;quot;, fluidRow( box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 140, textInput(&amp;quot;bg_year&amp;quot;, &amp;quot;年预算&amp;quot;, 3), actionButton(&#39;btn_year&#39;,&amp;quot;年预算更新&amp;quot;) ), box(&amp;quot;年预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 140, tableOutput(&amp;quot;tab_bg_year&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 240, selectInput(&amp;quot;slt_quarter&amp;quot;, label = &amp;quot;季度&amp;quot;, choices = unique(bg_quarter$quarter), selected = unique(bg_quarter$quarter)[1]), textInput(&amp;quot;num_quarter&amp;quot;, label = &amp;quot;季度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_quarter&#39;,&amp;quot;季度预算更新&amp;quot;) ), box(&amp;quot;季度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 240, tableOutput(&amp;quot;tab_bg_quarter&amp;quot;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;orange&amp;quot;, width = 4,height = 300, selectInput(&amp;quot;slt_month&amp;quot;, label = &amp;quot;月度&amp;quot;, choices = unique(bg_month$month), selected = unique(bg_month$month)[1]), textInput(&amp;quot;num_month&amp;quot;, label = &amp;quot;月度预算提升百分比&amp;quot;, value = 3), actionButton(&#39;btn_month&#39;,&amp;quot;月度预算更新&amp;quot;) ), box(&amp;quot;月度预算&amp;quot;, collapsible = TRUE, solidHeader = TRUE, background = &amp;quot;navy&amp;quot;, width = 5, height = 460, tableOutput(outputId=&amp;quot;tab_bg_month&amp;quot;) ) ) ) ) ) ) )   server.</description>
+ # 小数转化为百分数输出 numtop &amp;lt;- function(num, p=2){ num1 &amp;lt;- num * 100 formt &amp;lt;- paste0(&amp;#34;%.&amp;#34;, p, &amp;#34;f&amp;#34;) percent &amp;lt;- sprintf(formt, num1) percent &amp;lt;- paste0(percent, &amp;#34;%&amp;#34;) percent } # 年的预算提升百分比初始值 bg_year &amp;lt;- data.frame(year=2016, bg_year_pct=3) # 季度的预算提升百分比初始值 bg_quarter &amp;lt;- data.frame(quarter=1:4, bg_quarter_pct=3) # 月度的预算提升百分比初始值 bg_month &amp;lt;- data.frame(month=1:12, quarter=rep(1:4, each=3), bg_month_pct=3)  ui.R
+ library(shiny) library(shinydashboard) shinyUI( dashboardPage( dashboardHeader(title = &amp;#34;门店销售预算达成分析&amp;#34;), dashboardSidebar( sidebarMenu( menuItem(&amp;#34;预算百分比设置&amp;#34;, tabName = &amp;#34;tab_budget&amp;#34;, icon = icon(&amp;#34;gear&amp;#34;)) ) ), dashboardBody( tabItems( tabItem(tabName = &amp;#34;tab_budget&amp;#34;, fluidRow( box(collapsible = TRUE, solidHeader = TRUE, background = &amp;#34;orange&amp;#34;, width = 4,height = 140, textInput(&amp;#34;bg_year&amp;#34;, &amp;#34;年预算&amp;#34;, 3), actionButton(&amp;#39;btn_year&amp;#39;,&amp;#34;年预算更新&amp;#34;) ), box(&amp;#34;年预算&amp;#34;, collapsible = TRUE, solidHeader = TRUE, background = &amp;#34;navy&amp;#34;, width = 5, height = 140, tableOutput(&amp;#34;tab_bg_year&amp;#34;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;#34;orange&amp;#34;, width = 4,height = 240, selectInput(&amp;#34;slt_quarter&amp;#34;, label = &amp;#34;季度&amp;#34;, choices = unique(bg_quarter$quarter), selected = unique(bg_quarter$quarter)[1]), textInput(&amp;#34;num_quarter&amp;#34;, label = &amp;#34;季度预算提升百分比&amp;#34;, value = 3), actionButton(&amp;#39;btn_quarter&amp;#39;,&amp;#34;季度预算更新&amp;#34;) ), box(&amp;#34;季度预算&amp;#34;, collapsible = TRUE, solidHeader = TRUE, background = &amp;#34;navy&amp;#34;, width = 5, height = 240, tableOutput(&amp;#34;tab_bg_quarter&amp;#34;) ), box(collapsible = TRUE, solidHeader = TRUE, background = &amp;#34;orange&amp;#34;, width = 4,height = 300, selectInput(&amp;#34;slt_month&amp;#34;, label = &amp;#34;月度&amp;#34;, choices = unique(bg_month$month), selected = unique(bg_month$month)[1]), textInput(&amp;#34;num_month&amp;#34;, label = &amp;#34;月度预算提升百分比&amp;#34;, value = 3), actionButton(&amp;#39;btn_month&amp;#39;,&amp;#34;月度预算更新&amp;#34;) ), box(&amp;#34;月度预算&amp;#34;, collapsible = TRUE, solidHeader = TRUE, background = &amp;#34;navy&amp;#34;, width = 5, height = 460, tableOutput(outputId=&amp;#34;tab_bg_month&amp;#34;) ) ) ) ) ) ) )  server.</description>
     </item>
     
     <item>
@@ -302,7 +316,7 @@ fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Micr
       <guid>/note/2015/04/09/r-visualization-sandkey/</guid>
       <description>桑基图（Sankey diagram），即桑基能量分流图，也叫桑基能量平衡图。它是一种特定类型的流程图，图中延伸的分支的宽度对应数据流量的大小，通常应用于能源、材料成分、金融等数据的可视化分析。因1898年Matthew Henry Phineas Riall Sankey绘制的“蒸汽机的能源效率图”而闻名，此后便以其名字命名为“桑基图”。桑基图可以用来表示各个节点之间转换（转化率、客流走向/分流等情况）
  在R中可以直接定义使用data.frame/list等数据结构定义节点之间的关系，再使用相应的package画桑基图
-静态图片展示：riverplot library(riverplot) # 构造连接节点的数据框 edges = data.frame( N1 = paste0(rep(LETTERS[1:4], each = 4), rep(1:5, each = 16)), N2 = paste0(rep(LETTERS[1:4], 4), rep(2:6, each = 16)), Value = runif(80, min = 2, max = 5) * rep(c(1, 0.8, 0.6, 0.4, 0.3), each = 16), stringsAsFactors = F ) # 筛选80%的记录，以免每个点都对应到4个点 edges = edges[sample(c(TRUE, FALSE), nrow(edges), replace = TRUE, prob = c(0.8, 0.</description>
+静态图片展示：riverplot library(riverplot) # 构造连接节点的数据框 edges = data.frame( N1 = paste0(rep(LETTERS[1:4], each = 4), rep(1:5, each = 16)), N2 = paste0(rep(LETTERS[1:4], 4), rep(2:6, each = 16)), Value = runif(80, min = 2, max = 5) * rep(c(1, 0.8, 0.6, 0.4, 0.3), each = 16), stringsAsFactors = F ) # 筛选80%的记录，以免每个点都对应到4个点 edges = edges[sample(c(TRUE, FALSE), nrow(edges), replace = TRUE, prob = c(0.8, 0.2)), ] head(edges) # N1 N2 Value # 1 A1 A2 2.</description>
     </item>
     
     <item>
@@ -313,10 +327,10 @@ fc-list :lang=zh # 微软雅黑：msyh.ttc 对应字体名： 微软雅黑, Micr
       <guid>/note/2015/03/28/r-%E6%95%B0%E5%AD%A6%E6%A6%82%E5%BF%B5%E4%B8%AD%E7%9A%84%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</guid>
       <description>最近被R中的round函数搞得郁闷，有人说round函数的规则是如此定义。引用cos 版主肖楠：这个规则有个俗名叫「四舍六入五凑偶」，也叫「银行家舍入」，完整版如下：
  被修约的数字等于或小于 4 时，该数字舍去； 被修约的数字等于或大于 6 时，则进位； 被修约的数字等于 5 时，要看 5 前面的数字，若是奇数则进位，若是偶数则将 5 舍掉，即修约后末尾数字都成为偶数；若 5 的后面还有不为 “0” 的任何数，则此时无论 5 的前面是奇数还是偶数，均应进位。   举例，用上述规则对下列数据保留 3 位有效数字：
-9.8249=9.82, 9.82671=9.83 9.8350=9.84, 9.8351 =9.84 9.8250=9.82, 9.82501=9.83  好像是说明了问题，但是：
-round(9.9995,3) # 9.999  难道9是奇数中一个特例？
+9.8249=9.82, 9.82671=9.83 9.8350=9.84, 9.8351 =9.84 9.8250=9.82, 9.82501=9.83 好像是说明了问题，但是：
+round(9.9995,3) # 9.999 难道9是奇数中一个特例？
 以下为自己在R中实现的小数的四舍五入（主要是想按照数学中的规则：对该数的的绝对值四舍五入再加上正负号）。代码还有许多改进的方面，目前只是满足个人需要示例（对某个数小数位后保留n位后四舍五入）：
-myRound &amp;lt;- function(x, keep=4){ x &amp;lt;- as.character(x) if(grepl(&amp;quot;[.]&amp;quot;, x)){ xSplit &amp;lt;- unlist(strsplit(x, &amp;quot;[.]&amp;quot;)) xSplitBef &amp;lt;- xSplit[1] minusYN &amp;lt;- substring(xSplitBef, 1, 1) # minusYN &amp;lt;- minusYN == &amp;quot;-&amp;quot; xSplitAft &amp;lt;- xSplit[2] xSplitAft &amp;lt;- substring(xSplitAft, 1:nchar(xSplitAft), 1:nchar(xSplitAft)) if(minusYN == &amp;quot;-&amp;quot;){ xSplitBef &amp;lt;- substring(xSplitBef, 2:nchar(xSplitBef), 2:nchar(xSplitBef)) lenBef &amp;lt;- length(xSplitBef) lenAft &amp;lt;- length(xSplitAft) if(lenAft &amp;gt; keep){ all &amp;lt;- c(xSplitBef, xSplitAft[1:(keep + 1)]) if(as.</description>
+myRound &amp;lt;- function(x, keep=4){ x &amp;lt;- as.character(x) if(grepl(&amp;#34;[.]&amp;#34;, x)){ xSplit &amp;lt;- unlist(strsplit(x, &amp;#34;[.]&amp;#34;)) xSplitBef &amp;lt;- xSplit[1] minusYN &amp;lt;- substring(xSplitBef, 1, 1) # minusYN &amp;lt;- minusYN == &amp;#34;-&amp;#34; xSplitAft &amp;lt;- xSplit[2] xSplitAft &amp;lt;- substring(xSplitAft, 1:nchar(xSplitAft), 1:nchar(xSplitAft)) if(minusYN == &amp;#34;-&amp;#34;){ xSplitBef &amp;lt;- substring(xSplitBef, 2:nchar(xSplitBef), 2:nchar(xSplitBef)) lenBef &amp;lt;- length(xSplitBef) lenAft &amp;lt;- length(xSplitAft) if(lenAft &amp;gt; keep){ all &amp;lt;- c(xSplitBef, xSplitAft[1:(keep + 1)]) if(as.</description>
     </item>
     
     <item>
@@ -326,22 +340,8 @@ myRound &amp;lt;- function(x, keep=4){ x &amp;lt;- as.character(x) if(grepl(&amp
       
       <guid>/note/2015/02/20/linux-rstudioserver-roracle/</guid>
       <description>rstudio-server安装在Linux服务器中，数据库一般也部署在服务器，所以在Linux服务器上使用R直连数据库操作更加方便，由于ROracle文档理解不到位，安装遇到一些问题在此补充，本文安装环境centos 6.5并测试通过
- 一、oracle-instantclient的安装  Oracle Instant Client下载（与数据库版本一致）
-下载地址：官网
-可以下载rpm包或者zip包进行安装,这里已rpm包（64位）为例
-下载rpm包csdn下载地址
-oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  查看默认安装路径
-rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  安装
-使用如下命令进行安装：
-rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm  安装完成后，ORACLE Instant Client 相关的头文件在 /usr/include/oracle/11.2/client64/下；库文件在/usr/lib/oracle/11.2/client64/下(cliient目录下有 lib 和 bin两个目录.)
- 指定TNS文件目录
-一般情况将TNS文件（tnsnames.ora）保存到以下目录：
-目录不存在，建目录先：
-mkdir -p /usr/lib/oracle/11.2/client64/network/admin # 将已有的TNS文件（tnsnames.ora）复制到该目录下  头文件的转移
-相关的头文件在/usr/include/oracle/11.2/client64/目录下
-但是需要转移到目录（如果不复制过去，安装ROracle时就提示~/rdbms/public目录不存在，真的不存在啊，为啥去这个路径找？ROracle安装文档尽然没有提到，太坑了）：/usr/lib/oracle/11.2/client64/rdbms/public
-如下命令：
-mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public cd /usr/lib/oracle/11.2/client64/rdbms/public cp /usr/include/oracle/11.</description>
+ 一、oracle-instantclient的安装  Oracle Instant Client下载（与数据库版本一致） 下载地址：官网 可以下载rpm包或者zip包进行安装,这里已rpm包（64位）为例 下载rpm包csdn下载地址  oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  查看默认安装路径  rpm -qpl oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm rpm -qpl oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm  安装 使用如下命令进行安装：  rpm -ivh oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm rpm -ivh oracle-instantclient11.2-sqlplus-11.2.0.3.0-1. x86_64.rpm rpm -ivh oracle-instantclient11.2-devel-11.2.0.3.0-1. x86_64.rpm 安装完成后，ORACLE Instant Client 相关的头文件在 /usr/include/oracle/11.2/client64/下；库文件在/usr/lib/oracle/11.2/client64/下(cliient目录下有 lib 和 bin两个目录.)
+ 指定TNS文件目录 一般情况将TNS文件（tnsnames.ora）保存到以下目录： 目录不存在，建目录先：  mkdir -p /usr/lib/oracle/11.2/client64/network/admin # 将已有的TNS文件（tnsnames.ora）复制到该目录下  头文件的转移 相关的头文件在/usr/include/oracle/11.2/client64/目录下 但是需要转移到目录（如果不复制过去，安装ROracle时就提示~/rdbms/public目录不存在，真的不存在啊，为啥去这个路径找？ROracle安装文档尽然没有提到，太坑了）：/usr/lib/oracle/11.2/client64/rdbms/public 如下命令：  mkdir -p /usr/lib/oracle/11.2/client64/rdbms/public cd /usr/lib/oracle/11.</description>
     </item>
     
     <item>
@@ -381,14 +381,14 @@ Spark书籍资料整理</description>
       <pubDate>Wed, 11 Feb 2015 00:00:00 +0000</pubDate>
       
       <guid>/note/2015/02/11/win7-roracle/</guid>
-      <description> win7下安装R的ROracle来连接Oracle数据库速度比ODBC的方式快很多
+      <description>win7下安装R的ROracle来连接Oracle数据库速度比ODBC的方式快很多
 安装配置也比较简单，但是有个问题：
 同时使用PL/SQL(32bits)与R(64bits，当然完全可以使用32位的，但是32的有保存使用限制~~~~~)。
 本配置的目的就是同时兼顾以上两者：
 一、ROracle、Oracle instantclient下载  （1）ROracle下载  ROracle下载地址
  （2）Oracle instantclient下载  将文件夹32/64（文件夹中分别包含将32位、64位的Oracle instant client（basic、jdbc、odbc、sdk、sqlplus）解压后的文件，都解压到instantclient_11_2文件夹下，且将TNS数据源配置直接复制到该文件下）COPY到D盘 如果使用版本instantclient_11_2可以直接32bits、64bits
 其他版本可以官网下载 解压后见下图 二、环境变量的配置 在此例中需要设置如下环境变量：
-Path D:\32\instantclient_11_2;D:\64\instantclient_11_2; ORACLE_HOME D:\32\instantclient_11_2 TNS_ADMIN D:\32\instantclient_11_2 NLS_LANG SIMPLIFIED CHINESE_CHINA.ZHS16GBK OCI_LIB64 D:\64\instantclient_11_2 OCI_LIB32 D:\32\instantclient_11_2  </description>
+Path D:\32\instantclient_11_2;D:\64\instantclient_11_2; ORACLE_HOME D:\32\instantclient_11_2 TNS_ADMIN D:\32\instantclient_11_2 NLS_LANG SIMPLIFIED CHINESE_CHINA.ZHS16GBK OCI_LIB64 D:\64\instantclient_11_2 OCI_LIB32 D:\32\instantclient_11_2 </description>
     </item>
     
     <item>
@@ -398,7 +398,7 @@ Path D:\32\instantclient_11_2;D:\64\instantclient_11_2; ORACLE_HOME D:\32\instan
       
       <guid>/note/2015/02/06/r-readtable-bycolumn/</guid>
       <description>背景：文本数据字段太多，只需要读取有用字段，以此降低内存压力方便分析
- 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
+ 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
 dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = c(-27L, -27L, -27L), Mar = c(-25L, -25L, -2L), Apr = c(-31L, -31L, -6L), May = c(-31L, -31L, -10L), Jun = c(-39L, -39L, -32L), Jul = c(-25L, -25L, -13L), Aug = c(-15L, -15L, -12L), Sep = c(-30L, -30L, -27L), Oct = c(-27L, -27L, -30L), Nov = c(-21L, -21L, -38L), Dec = c(-25L, -25L, -29L)), .</description>
     </item>
     
@@ -409,12 +409,12 @@ dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = 
       
       <guid>/note/2014/04/01/centos6-install-shiny-server/</guid>
       <description>1 安装 环境：centos6.5
- 1.1 安装R  $ sudo yum install R   1.2 进入R，安装包shiny,rmarkdown  install.packages(&#39;shiny&#39;) install.packages(&#39;rmarkdown&#39;)   1.3 安装shiny-server  $ wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.2.786-rh5-x86_64.rpm $ sudo yum install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm  查看是否安装成功：进入ip:3838
+ 1.1 安装R  $ sudo yum install R  1.2 进入R，安装包shiny,rmarkdown  install.packages(&#39;shiny&#39;) install.packages(&#39;rmarkdown&#39;)  1.3 安装shiny-server  $ wget https://download3.rstudio.org/centos5.9/x86_64/shiny-server-1.4.2.786-rh5-x86_64.rpm $ sudo yum install --nogpgcheck shiny-server-1.4.2.786-rh5-x86_64.rpm 查看是否安装成功：进入ip:3838
 ##2 启动
-start shiny-server stop shiny-server status shiny-server reload shiny-server  ##3 配置
- 3.1 默认配置  cat /etc/shiny-server/shiny-server.conf  首页：/srv/shiny-server/index.html shiny app 的目录：/srv/shiny-server/sample-apps 详细配置参数见：shiny-server conf settings
+start shiny-server stop shiny-server status shiny-server reload shiny-server ##3 配置
+ 3.1 默认配置  cat /etc/shiny-server/shiny-server.conf 首页：/srv/shiny-server/index.html shiny app 的目录：/srv/shiny-server/sample-apps 详细配置参数见：shiny-server conf settings
 ##4 注意问题
- 4.1 The application took too long to respond.</description>
+ 4.1 The application took too long to respond.  修改**/etc/shiny-server/shiny-server.conf**中的参数增加延时</description>
     </item>
     
     <item>
@@ -424,7 +424,7 @@ start shiny-server stop shiny-server status shiny-server reload shiny-server  ##
       
       <guid>/note/2013/10/24/r-plot-linebreak/</guid>
       <description>在画图是有label; main等字符串太长，或者为美观的需要进行分行。只需在分行的位置添加换行符\n
- plot(3, 3, type = &amp;quot;n&amp;quot;, main = &amp;quot;五角星\nI LOVE R \n R is GREAT&amp;quot;) points(3, 3, pch = &amp;quot;☆&amp;quot;, cex = 2, col = &amp;quot;blue&amp;quot;)  效果</description>
+ plot(3, 3, type = &amp;#34;n&amp;#34;, main = &amp;#34;五角星\nI LOVE R \n R is GREAT&amp;#34;) points(3, 3, pch = &amp;#34;☆&amp;#34;, cex = 2, col = &amp;#34;blue&amp;#34;) 效果</description>
     </item>
     
     <item>
@@ -434,7 +434,7 @@ start shiny-server stop shiny-server status shiny-server reload shiny-server  ##
       
       <guid>/note/2013/09/22/r-loop-dataframe-vs-matrix/</guid>
       <description>一直以来，在R中使用data.frame处理数据跟方便，大多数统计函数直接支持data.frame类型的运算，虽说在R中要尽可能避免使用循环，but由于能力与临时需要，循环还是不经意间就出现了。今天对一个例子测试下，R循环中使用matrix的速度明显大于使用data.frame。有如下简单循环代码：
-test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 0.310 0.015 0.324 test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 1.868 0.002 1.868  结果差距明显（5倍多）！！</description>
+test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝  # 0.310 0.015 0.324  test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝  # 1.868 0.002 1.868 结果差距明显（5倍多）！！</description>
     </item>
     
   </channel>

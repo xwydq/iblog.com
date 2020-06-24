@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>R-数学概念中的四舍五入 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/r'>R</a>
+  <a href='../../../../../categories/r'>R</a>
   
   
   
@@ -45,9 +45,9 @@
   
   Tags:   
   
-  <a href='/tags/round'>round</a>
+  <a href='../../../../../tags/round'>round</a>
   
-  <a href='/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5'>四舍五入</a>
+  <a href='../../../../../tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5'>四舍五入</a>
   
   
   
@@ -60,138 +60,124 @@
 <main>
 <blockquote>
 <p>最近被R中的round函数搞得郁闷，有人说round函数的规则是如此定义。引用cos 版主肖楠：这个规则有个俗名叫「四舍六入五凑偶」，也叫「银行家舍入」，完整版如下：</p>
-
 <ol>
 <li>被修约的数字等于或小于 4 时，该数字舍去；</li>
 <li>被修约的数字等于或大于 6 时，则进位；</li>
 <li>被修约的数字等于 5 时，要看 5 前面的数字，若是奇数则进位，若是偶数则将 5 舍掉，即修约后末尾数字都成为偶数；若 5 的后面还有不为 “0” 的任何数，则此时无论 5 的前面是奇数还是偶数，均应进位。</li>
 </ol>
 </blockquote>
-
 <p>举例，用上述规则对下列数据保留 3 位有效数字：</p>
-
 <pre><code>9.8249=9.82, 9.82671=9.83
 9.8350=9.84, 9.8351 =9.84
 9.8250=9.82, 9.82501=9.83
-</code></pre>
-
-<p>好像是说明了问题，但是：</p>
-
-<pre><code class="language-r">round(9.9995,3)
-# 9.999
-</code></pre>
-
-<p>难道9是奇数中一个特例？</p>
-
+</code></pre><p>好像是说明了问题，但是：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#a6e22e">round</span>(<span style="color:#ae81ff">9.9995</span>,<span style="color:#ae81ff">3</span>)
+<span style="color:#75715e"># 9.999</span>
+</code></pre></div><p>难道9是奇数中一个特例？</p>
 <p><strong>以下为自己在R中实现的小数的四舍五入（主要是想按照数学中的规则：对该数的的绝对值四舍五入再加上正负号）。代码还有许多改进的方面，目前只是满足个人需要示例（对某个数小数位后保留n位后四舍五入）：</strong></p>
-
-<pre><code class="language-R">myRound &lt;- function(x, keep=4){
-  x &lt;- as.character(x)
-  if(grepl(&quot;[.]&quot;, x)){
-    xSplit &lt;- unlist(strsplit(x, &quot;[.]&quot;))
-    xSplitBef &lt;- xSplit[1]
-    minusYN &lt;- substring(xSplitBef, 1, 1)
-    #     minusYN &lt;- minusYN == &quot;-&quot;
-    xSplitAft &lt;- xSplit[2]
-    xSplitAft &lt;- substring(xSplitAft, 1:nchar(xSplitAft), 1:nchar(xSplitAft))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">myRound <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">function</span>(x, keep<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>){
+  x <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.character</span>(x)
+  <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">grepl</span>(<span style="color:#e6db74">&#34;[.]&#34;</span>, x)){
+    xSplit <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">unlist</span>(<span style="color:#a6e22e">strsplit</span>(x, <span style="color:#e6db74">&#34;[.]&#34;</span>))
+    xSplitBef <span style="color:#f92672">&lt;-</span> xSplit[1]
+    minusYN <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">substring</span>(xSplitBef, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+    <span style="color:#75715e">#     minusYN &lt;- minusYN == &#34;-&#34;</span>
+    xSplitAft <span style="color:#f92672">&lt;-</span> xSplit[2]
+    xSplitAft <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">substring</span>(xSplitAft, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nchar</span>(xSplitAft), <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nchar</span>(xSplitAft))
     
-    if(minusYN == &quot;-&quot;){
-      xSplitBef &lt;- substring(xSplitBef, 2:nchar(xSplitBef), 2:nchar(xSplitBef))
-      lenBef &lt;- length(xSplitBef)
-      lenAft &lt;- length(xSplitAft)
+    <span style="color:#a6e22e">if</span>(minusYN <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;-&#34;</span>){
+      xSplitBef <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">substring</span>(xSplitBef, <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nchar</span>(xSplitBef), <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nchar</span>(xSplitBef))
+      lenBef <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(xSplitBef)
+      lenAft <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(xSplitAft)
       
-      if(lenAft &gt; keep){
-        all &lt;- c(xSplitBef, xSplitAft[1:(keep + 1)])
-        if(as.integer(tail(all,1)) &lt; 5){
-          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
-          res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
-          res1 &lt;- -as.numeric(res1)
+      <span style="color:#a6e22e">if</span>(lenAft <span style="color:#f92672">&gt;</span> keep){
+        all <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(xSplitBef, xSplitAft[1<span style="color:#f92672">:</span>(keep <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)])
+        <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">as.integer</span>(<span style="color:#a6e22e">tail</span>(all,<span style="color:#ae81ff">1</span>)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>){
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(xSplitBef, xSplitAft[1<span style="color:#f92672">:</span>keep])
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">c</span>(res1[1<span style="color:#f92672">:</span>lenBef], <span style="color:#e6db74">&#34;.&#34;</span>, res1<span style="color:#a6e22e">[</span>(lenBef<span style="color:#ae81ff">+1</span>)<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(res1)]), collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">as.numeric</span>(res1)
         }else{
-          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
-          res1 &lt;- as.integer(res1)
-          for(i in length(res1):1){
-            if(i == length(res1)){
-              res1[i] &lt;- res1[i] + 1
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(xSplitBef, xSplitAft[1<span style="color:#f92672">:</span>keep])
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.integer</span>(res1)
+          <span style="color:#a6e22e">for</span>(i in <span style="color:#a6e22e">length</span>(res1)<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>){
+            <span style="color:#a6e22e">if</span>(i <span style="color:#f92672">==</span> <span style="color:#a6e22e">length</span>(res1)){
+              res1[i] <span style="color:#f92672">&lt;-</span> res1[i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
             }
-            if(res1[i] != 10){
+            <span style="color:#a6e22e">if</span>(res1[i] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">10</span>){
               break
             }else{
-              res1[i - 1] &lt;- res1[i - 1] + 1
+              res1[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;-</span> res1[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
             }
           }
           
-          if(res1[1] == 10){
-            res1[-1] &lt;- 0
-            res1 &lt;- c(1,0,res1[-1])
-            res1 &lt;- paste(c(res1[1:(lenBef+1)], &quot;.&quot;, res1[(lenBef+2):length(res1)]), collapse=&quot;&quot;)
-            res1 &lt;- -as.numeric(res1)
+          <span style="color:#a6e22e">if</span>(res1[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>){
+            res1[<span style="color:#ae81ff">-1</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0</span>
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,res1[<span style="color:#ae81ff">-1</span>])
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">c</span>(res1[1<span style="color:#f92672">:</span>(lenBef<span style="color:#ae81ff">+1</span>)], <span style="color:#e6db74">&#34;.&#34;</span>, res1<span style="color:#a6e22e">[</span>(lenBef<span style="color:#ae81ff">+2</span>)<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(res1)]), collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">as.numeric</span>(res1)
           }else{
-            res1[which(res1 == 10)] &lt;- 0
-            res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
-            res1 &lt;- -as.numeric(res1)
+            res1<span style="color:#a6e22e">[which</span>(res1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>)] <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0</span>
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">c</span>(res1[1<span style="color:#f92672">:</span>lenBef], <span style="color:#e6db74">&#34;.&#34;</span>, res1<span style="color:#a6e22e">[</span>(lenBef<span style="color:#ae81ff">+1</span>)<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(res1)]), collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">as.numeric</span>(res1)
           }
 
         }
       }else{
-        res1 &lt;- as.numeric(x)
+        res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(x)
       }
     }else{
-      xSplitBef &lt;- substring(xSplitBef, 1:nchar(xSplitBef), 1:nchar(xSplitBef))
-      lenBef &lt;- length(xSplitBef)
-      lenAft &lt;- length(xSplitAft)
+      xSplitBef <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">substring</span>(xSplitBef, <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nchar</span>(xSplitBef), <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#a6e22e">nchar</span>(xSplitBef))
+      lenBef <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(xSplitBef)
+      lenAft <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">length</span>(xSplitAft)
       
-      if(lenAft &gt; keep){
-        all &lt;- c(xSplitBef, xSplitAft[1:(keep + 1)])
-        if(as.integer(tail(all,1)) &lt; 5){
-          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
-          res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
-          res1 &lt;- as.numeric(res1)
+      <span style="color:#a6e22e">if</span>(lenAft <span style="color:#f92672">&gt;</span> keep){
+        all <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(xSplitBef, xSplitAft[1<span style="color:#f92672">:</span>(keep <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)])
+        <span style="color:#a6e22e">if</span>(<span style="color:#a6e22e">as.integer</span>(<span style="color:#a6e22e">tail</span>(all,<span style="color:#ae81ff">1</span>)) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>){
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(xSplitBef, xSplitAft[1<span style="color:#f92672">:</span>keep])
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">c</span>(res1[1<span style="color:#f92672">:</span>lenBef], <span style="color:#e6db74">&#34;.&#34;</span>, res1<span style="color:#a6e22e">[</span>(lenBef<span style="color:#ae81ff">+1</span>)<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(res1)]), collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(res1)
         }else{
-          res1 &lt;- c(xSplitBef, xSplitAft[1:keep])
-          res1 &lt;- as.integer(res1)
-          for(i in length(res1):1){
-            if(i == length(res1)){
-              res1[i] &lt;- res1[i] + 1
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(xSplitBef, xSplitAft[1<span style="color:#f92672">:</span>keep])
+          res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.integer</span>(res1)
+          <span style="color:#a6e22e">for</span>(i in <span style="color:#a6e22e">length</span>(res1)<span style="color:#f92672">:</span><span style="color:#ae81ff">1</span>){
+            <span style="color:#a6e22e">if</span>(i <span style="color:#f92672">==</span> <span style="color:#a6e22e">length</span>(res1)){
+              res1[i] <span style="color:#f92672">&lt;-</span> res1[i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
             }
-            if(res1[i] != 10){
+            <span style="color:#a6e22e">if</span>(res1[i] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">10</span>){
               break
             }else{
-              res1[i - 1] &lt;- res1[i - 1] + 1
+              res1[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;-</span> res1[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
             }
           }
           
-          if(res1[1] == 10){
-            res1[-1] &lt;- 0
-            res1 &lt;- c(1,0,res1[-1])
-            res1 &lt;- paste(c(res1[1:(lenBef+1)], &quot;.&quot;, res1[(lenBef+2):length(res1)]), collapse=&quot;&quot;)
-            res1 &lt;- as.numeric(res1)
+          <span style="color:#a6e22e">if</span>(res1[1] <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>){
+            res1[<span style="color:#ae81ff">-1</span>] <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0</span>
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,res1[<span style="color:#ae81ff">-1</span>])
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">c</span>(res1[1<span style="color:#f92672">:</span>(lenBef<span style="color:#ae81ff">+1</span>)], <span style="color:#e6db74">&#34;.&#34;</span>, res1<span style="color:#a6e22e">[</span>(lenBef<span style="color:#ae81ff">+2</span>)<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(res1)]), collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(res1)
           }else{
-            res1[which(res1 == 10)] &lt;- 0
-            res1 &lt;- paste(c(res1[1:lenBef], &quot;.&quot;, res1[(lenBef+1):length(res1)]), collapse=&quot;&quot;)
-            res1 &lt;- as.numeric(res1)
+            res1<span style="color:#a6e22e">[which</span>(res1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>)] <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">0</span>
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">paste</span>(<span style="color:#a6e22e">c</span>(res1[1<span style="color:#f92672">:</span>lenBef], <span style="color:#e6db74">&#34;.&#34;</span>, res1<span style="color:#a6e22e">[</span>(lenBef<span style="color:#ae81ff">+1</span>)<span style="color:#f92672">:</span><span style="color:#a6e22e">length</span>(res1)]), collapse<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+            res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(res1)
           }
 
         }
       }else{
-        res1 &lt;- as.numeric(x)
+        res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(x)
       }
     }
   }else{
-    res1 &lt;- as.numeric(x)
+    res1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.numeric</span>(x)
   }
-  return(res1)
+  <span style="color:#a6e22e">return</span>(res1)
 }
 
-myRound(-0.374832,3)
+<span style="color:#a6e22e">myRound</span>(<span style="color:#ae81ff">-0.374832</span>,<span style="color:#ae81ff">3</span>)
 
-</code></pre>
-
-<p><strong>该函数不适合向量计算，x必须为单一数值。对多个数值可使用：</strong></p>
-
-<pre><code class="language-R">( x1 &lt;- seq(-.2, .4, by = .05) )
-sapply(x1, myRound, keep=1)
-</code></pre>
-
+</code></pre></div><p><strong>该函数不适合向量计算，x必须为单一数值。对多个数值可使用：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">( x1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">seq</span>(<span style="color:#ae81ff">-.2</span>, <span style="color:#ae81ff">.4</span>, by <span style="color:#f92672">=</span> <span style="color:#ae81ff">.05</span>) )
+<span style="color:#a6e22e">sapply</span>(x1, myRound, keep<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</code></pre></div>
 </main>
 
   <footer>
@@ -212,21 +198,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -250,7 +239,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

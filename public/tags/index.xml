@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on 飞舞的尘埃</title>
@@ -6,76 +6,13 @@
     <description>Recent content in Tags on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 04 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 02 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Auth</title>
-      <link>/tags/auth/</link>
-      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/auth/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Blog</title>
-      <link>/tags/blog/</link>
-      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/blog/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Blogdown</title>
-      <link>/tags/blogdown/</link>
-      <pubDate>Tue, 20 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/blogdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Chrome</title>
-      <link>/tags/chrome/</link>
-      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/chrome/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Cookie</title>
-      <link>/tags/cookie/</link>
-      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/cookie/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DB</title>
-      <link>/tags/db/</link>
-      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/db/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data</title>
-      <link>/tags/data/</link>
-      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/data/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data.frame</title>
+      <title>data.frame</title>
       <link>/tags/data.frame/</link>
       <pubDate>Sun, 02 Dec 2018 00:00:00 +0000</pubDate>
       
@@ -84,133 +21,34 @@
     </item>
     
     <item>
-      <title>Error</title>
-      <link>/tags/error/</link>
-      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      <title>R Markdown</title>
+      <link>/tags/r-markdown/</link>
+      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/error/</guid>
+      <guid>/tags/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Git</title>
-      <link>/tags/git/</link>
-      <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
+      <title>画图</title>
+      <link>/tags/%E7%94%BB%E5%9B%BE/</link>
+      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/git/</guid>
+      <guid>/tags/%E7%94%BB%E5%9B%BE/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Github</title>
-      <link>/tags/github/</link>
-      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      <title>配置</title>
+      <link>/tags/%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/github/</guid>
+      <guid>/tags/%E9%85%8D%E7%BD%AE/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Html</title>
-      <link>/tags/html/</link>
-      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/html/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Http</title>
-      <link>/tags/http/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/http/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Httr</title>
-      <link>/tags/httr/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/httr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JS</title>
-      <link>/tags/js/</link>
-      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/js/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>/tags/linux/</link>
-      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Login</title>
-      <link>/tags/login/</link>
-      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/login/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Matrix</title>
-      <link>/tags/matrix/</link>
-      <pubDate>Sun, 22 Sep 2013 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/matrix/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Oracle</title>
-      <link>/tags/oracle/</link>
-      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/oracle/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Package</title>
-      <link>/tags/package/</link>
-      <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/package/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PhantomJS</title>
-      <link>/tags/phantomjs/</link>
-      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/phantomjs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Plot</title>
-      <link>/tags/plot/</link>
-      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/plot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
+      <title>python</title>
       <link>/tags/python/</link>
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
       
@@ -228,200 +66,11 @@
     </item>
     
     <item>
-      <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/r-markdown/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ROracle</title>
-      <link>/tags/roracle/</link>
-      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/roracle/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>RStudio</title>
-      <link>/tags/rstudio/</link>
-      <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rstudio/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Recharts</title>
-      <link>/tags/recharts/</link>
-      <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/recharts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rename</title>
-      <link>/tags/rename/</link>
-      <pubDate>Sat, 24 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rename/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Round</title>
-      <link>/tags/round/</link>
-      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/round/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rvest</title>
-      <link>/tags/rvest/</link>
-      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/rvest/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Selectize.js</title>
-      <link>/tags/selectize.js/</link>
-      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/selectize.js/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Selenium</title>
-      <link>/tags/selenium/</link>
-      <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/selenium/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Test</title>
-      <link>/tags/test/</link>
-      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/test/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Vpn</title>
-      <link>/tags/vpn/</link>
-      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/vpn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>乱码</title>
-      <link>/tags/%E4%B9%B1%E7%A0%81/</link>
-      <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E4%B9%B1%E7%A0%81/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>代理</title>
-      <link>/tags/%E4%BB%A3%E7%90%86/</link>
-      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E4%BB%A3%E7%90%86/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>可视化</title>
-      <link>/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
-      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>四舍五入</title>
-      <link>/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</link>
-      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>基金</title>
-      <link>/tags/%E5%9F%BA%E9%87%91/</link>
-      <pubDate>Sun, 11 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E5%9F%BA%E9%87%91/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>循环</title>
-      <link>/tags/%E5%BE%AA%E7%8E%AF/</link>
-      <pubDate>Sun, 22 Sep 2013 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E5%BE%AA%E7%8E%AF/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>性能</title>
-      <link>/tags/%E6%80%A7%E8%83%BD/</link>
-      <pubDate>Fri, 06 Feb 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E6%80%A7%E8%83%BD/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>文本</title>
       <link>/tags/%E6%96%87%E6%9C%AC/</link>
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/%E6%96%87%E6%9C%AC/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>时间轴</title>
-      <link>/tags/%E6%97%B6%E9%97%B4%E8%BD%B4/</link>
-      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E6%97%B6%E9%97%B4%E8%BD%B4/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>标签功能</title>
-      <link>/tags/%E6%A0%87%E7%AD%BE%E5%8A%9F%E8%83%BD/</link>
-      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E6%A0%87%E7%AD%BE%E5%8A%9F%E8%83%BD/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>桑基图</title>
-      <link>/tags/%E6%A1%91%E5%9F%BA%E5%9B%BE/</link>
-      <pubDate>Thu, 09 Apr 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/%E6%A1%91%E5%9F%BA%E5%9B%BE/</guid>
       <description></description>
     </item>
     
@@ -435,11 +84,155 @@
     </item>
     
     <item>
-      <title>画图</title>
-      <link>/tags/%E7%94%BB%E5%9B%BE/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
+      <title>http</title>
+      <link>/tags/http/</link>
+      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/%E7%94%BB%E5%9B%BE/</guid>
+      <guid>/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>httr</title>
+      <link>/tags/httr/</link>
+      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/httr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>代理</title>
+      <link>/tags/%E4%BB%A3%E7%90%86/</link>
+      <pubDate>Thu, 10 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E4%BB%A3%E7%90%86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>error</title>
+      <link>/tags/error/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/error/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>/tags/github/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>html</title>
+      <link>/tags/html/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JS</title>
+      <link>/tags/js/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>/tags/test/</link>
+      <pubDate>Mon, 30 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>乱码</title>
+      <link>/tags/%E4%B9%B1%E7%A0%81/</link>
+      <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E4%B9%B1%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rvest</title>
+      <link>/tags/rvest/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rvest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>selenium</title>
+      <link>/tags/selenium/</link>
+      <pubDate>Mon, 09 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/selenium/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plot</title>
+      <link>/tags/plot/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/plot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>可视化</title>
+      <link>/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>时间轴</title>
+      <link>/tags/%E6%97%B6%E9%97%B4%E8%BD%B4/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E6%97%B6%E9%97%B4%E8%BD%B4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>package</title>
+      <link>/tags/package/</link>
+      <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/package/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recharts</title>
+      <link>/tags/recharts/</link>
+      <pubDate>Fri, 16 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/recharts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>基金</title>
+      <link>/tags/%E5%9F%BA%E9%87%91/</link>
+      <pubDate>Sun, 11 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E5%9F%BA%E9%87%91/</guid>
       <description></description>
     </item>
     
@@ -453,11 +246,218 @@
     </item>
     
     <item>
-      <title>配置</title>
-      <link>/tags/%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Mon, 27 Aug 2018 00:00:00 +0000</pubDate>
+      <title>auth</title>
+      <link>/tags/auth/</link>
+      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/%E9%85%8D%E7%BD%AE/</guid>
+      <guid>/tags/auth/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cookie</title>
+      <link>/tags/cookie/</link>
+      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cookie/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>login</title>
+      <link>/tags/login/</link>
+      <pubDate>Sun, 04 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/login/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vpn</title>
+      <link>/tags/vpn/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/vpn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>chrome</title>
+      <link>/tags/chrome/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/chrome/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PhantomJS</title>
+      <link>/tags/phantomjs/</link>
+      <pubDate>Tue, 27 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/phantomjs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rename</title>
+      <link>/tags/rename/</link>
+      <pubDate>Sat, 24 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rename/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blogdown</title>
+      <link>/tags/blogdown/</link>
+      <pubDate>Tue, 20 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/blogdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>selectize.js</title>
+      <link>/tags/selectize.js/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/selectize.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>标签功能</title>
+      <link>/tags/%E6%A0%87%E7%AD%BE%E5%8A%9F%E8%83%BD/</link>
+      <pubDate>Tue, 06 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E6%A0%87%E7%AD%BE%E5%8A%9F%E8%83%BD/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data</title>
+      <link>/tags/data/</link>
+      <pubDate>Thu, 14 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/data/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>桑基图</title>
+      <link>/tags/%E6%A1%91%E5%9F%BA%E5%9B%BE/</link>
+      <pubDate>Thu, 09 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E6%A1%91%E5%9F%BA%E5%9B%BE/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>round</title>
+      <link>/tags/round/</link>
+      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/round/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>四舍五入</title>
+      <link>/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</link>
+      <pubDate>Sat, 28 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E5%9B%9B%E8%88%8D%E4%BA%94%E5%85%A5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>/tags/git/</link>
+      <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RStudio</title>
+      <link>/tags/rstudio/</link>
+      <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rstudio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>oracle</title>
+      <link>/tags/oracle/</link>
+      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/oracle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ROracle</title>
+      <link>/tags/roracle/</link>
+      <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/roracle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blog</title>
+      <link>/tags/blog/</link>
+      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DB</title>
+      <link>/tags/db/</link>
+      <pubDate>Tue, 17 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/db/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>性能</title>
+      <link>/tags/%E6%80%A7%E8%83%BD/</link>
+      <pubDate>Fri, 06 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E6%80%A7%E8%83%BD/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>matrix</title>
+      <link>/tags/matrix/</link>
+      <pubDate>Sun, 22 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/matrix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>循环</title>
+      <link>/tags/%E5%BE%AA%E7%8E%AF/</link>
+      <pubDate>Sun, 22 Sep 2013 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/%E5%BE%AA%E7%8E%AF/</guid>
       <description></description>
     </item>
     

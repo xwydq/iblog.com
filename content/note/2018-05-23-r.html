@@ -15,7 +15,7 @@ tags:
 <blockquote>
 <p>文本解析过程中常出现异常字符，如：<code>\xe42b61d592.PDF,\n\xbc\xb0情定折现率R：RRd1</code></p>
 </blockquote>
-<div class="section level3">
+<div id="保留常用标点符号中文英文数字的方式" class="section level3">
 <h3>保留常用标点符号、中文、英文、数字的方式</h3>
 <pre class="r"><code>str1 = &#39;体评\xe42b61d592.PDF,\n\xbc\xb0情定折-现率R：RRd1TWdReWe式中 ：‘&#39;
 gsub(&#39;[^\u4E00-\u9FA5A-Za-z0-9_,.;:‘’“”，。；：《》—\\-]&#39;, &#39;&#39;, str1)</code></pre>

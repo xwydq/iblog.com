@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>R使用代理并行下载 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  <a href='../../../../../categories/%E7%88%AC%E8%99%AB'>爬虫</a>
   
   
   
@@ -45,13 +45,13 @@
   
   Tags:   
   
-  <a href='/tags/%E4%BB%A3%E7%90%86'>代理</a>
+  <a href='../../../../../tags/%E4%BB%A3%E7%90%86'>代理</a>
   
-  <a href='/tags/http'>http</a>
+  <a href='../../../../../tags/http'>http</a>
   
-  <a href='/tags/httr'>httr</a>
+  <a href='../../../../../tags/httr'>httr</a>
   
-  <a href='/tags/r'>R</a>
+  <a href='../../../../../tags/r'>R</a>
   
   
   
@@ -65,58 +65,56 @@
 <blockquote>
 <p>在R中结合<code>parallel</code>包来实现并行下载或者请求多个URL地址以提高速度</p>
 </blockquote>
-
-<pre><code class="language-R">urls = c(
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220648.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220649.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220650.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220651.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220653.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220654.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220726.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220878.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220882.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220939.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220942.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220945.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220947.PDF&quot;,
-&quot;http://www.cninfo.com.cn/finalpage/2017-12-14/1204221018.PDF&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">urls <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220648.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220649.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220650.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220651.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220653.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220654.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220726.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220878.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220882.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220939.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220942.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220945.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204220947.PDF&#34;</span>,
+<span style="color:#e6db74">&#34;http://www.cninfo.com.cn/finalpage/2017-12-14/1204221018.PDF&#34;</span>
 )
 
-library(parallel)
-library(httr)
-library(readr)
+<span style="color:#a6e22e">library</span>(parallel)
+<span style="color:#a6e22e">library</span>(httr)
+<span style="color:#a6e22e">library</span>(readr)
 
-# wget proxy
-str1 = 'wget -e &quot;http_proxy=%s&quot;  %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2' 
+<span style="color:#75715e"># wget proxy</span>
+str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;wget -e &#34;http_proxy=%s&#34;  %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2&#39;</span> 
 
-str1 = 'wget %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2 --quiet'
+str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;wget %s -O ~/test/annouce/%s.pdf --timeout=10 --tries=2 --quiet&#39;</span>
 
-lturls = as.list(urls)
+lturls <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.list</span>(urls)
 
-t1 = Sys.time()
-mclapply(lturls, FUN = function(x){
-  print(x)
-  ## update ips
-  # if(runif(1) &gt; 0.6){
-  #   ips &lt;&lt;- updateIps(ips)
-  # }
-  fnm = digest(x)
-  ## wget proxy
-  # cmd_str = sprintf(str1, sample(ips, 1), x, fnm)
-  cmd_str = sprintf(str1, x, fnm)
-  system(cmd_str)
+t1 <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.time</span>()
+<span style="color:#a6e22e">mclapply</span>(lturls, FUN <span style="color:#f92672">=</span> <span style="color:#a6e22e">function</span>(x){
+  <span style="color:#a6e22e">print</span>(x)
+  <span style="color:#75715e">## update ips</span>
+  <span style="color:#75715e"># if(runif(1) &gt; 0.6){</span>
+  <span style="color:#75715e">#   ips &lt;&lt;- updateIps(ips)</span>
+  <span style="color:#75715e"># }</span>
+  fnm <span style="color:#f92672">=</span> <span style="color:#a6e22e">digest</span>(x)
+  <span style="color:#75715e">## wget proxy</span>
+  <span style="color:#75715e"># cmd_str = sprintf(str1, sample(ips, 1), x, fnm)</span>
+  cmd_str <span style="color:#f92672">=</span> <span style="color:#a6e22e">sprintf</span>(str1, x, fnm)
+  <span style="color:#a6e22e">system</span>(cmd_str)
   
-  ## rm file
-  # system(sprintf('rm ~/test/annouce/%s.pdf', fnm))
+  <span style="color:#75715e">## rm file</span>
+  <span style="color:#75715e"># system(sprintf(&#39;rm ~/test/annouce/%s.pdf&#39;, fnm))</span>
   
-}, mc.cores = 10
+}, mc.cores <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
 )
 
-t2 = Sys.time()
-print(difftime(t2, t1))
-</code></pre>
-
+t2 <span style="color:#f92672">=</span> <span style="color:#a6e22e">Sys.time</span>()
+<span style="color:#a6e22e">print</span>(<span style="color:#a6e22e">difftime</span>(t2, t1))
+</code></pre></div>
 </main>
 
   <footer>
@@ -137,21 +135,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -175,7 +176,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

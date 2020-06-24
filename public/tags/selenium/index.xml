@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Selenium on 飞舞的尘埃</title>
+    <title>selenium on 飞舞的尘埃</title>
     <link>/tags/selenium/</link>
-    <description>Recent content in Selenium on 飞舞的尘埃</description>
+    <description>Recent content in selenium on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 09 Apr 2018 00:00:00 +0000</lastBuildDate>
@@ -18,7 +18,7 @@
       
       <guid>/note/2018/04/09/crawl-python-proxy/</guid>
       <description>http代理是爬虫工作中解决反爬的一项关键措施，下面说明不同场景下代理的使用及其验证
- requests中使用代理  无加密代理  import requests proxy1 = {&#39;http&#39;: &#39;117.90.51.49:42668&#39;, &#39;https&#39;: &#39;117.90.51.49:42668&#39;} resp = requests.get(&#39;http://httpbin.org/ip&#39;, proxies=proxy1) print(resp.json())   需认证的代理  import requests proxy1 = {&#39;http&#39;: &#39;http://user:passwd@106.15.95.226:9187&#39;, &#39;https&#39;: &#39;https://user:passwd@106.15.95.236:9187&#39;} resp = requests.get(&#39;http://httpbin.org/ip&#39;, proxies=proxy1) print(resp.json()) # {&#39;origin&#39;: &#39;101.47.19.29, 106.15.95.236&#39;}  selenium+浏览器中使用代理 phantomJS ## selenium+phantomJS代理 from selenium import webdriver driver = webdriver.PhantomJS( # executable_path = &#39;/usr/local/bin/phantomjs&#39;, service_args = [ &#39;--ignore-ssl-errors=true&#39;, &#39;--proxy=106.15.95.236:9187&#39;, # IP:port &#39;--proxy-type=http&#39;, &#39;--proxy-auth=user:passwd&#39;, # 如需认证添加 ]) url = &#39;http://httpbin.</description>
+ requests中使用代理  无加密代理  import requests proxy1 = {&amp;#39;http&amp;#39;: &amp;#39;117.90.51.49:42668&amp;#39;, &amp;#39;https&amp;#39;: &amp;#39;117.90.51.49:42668&amp;#39;} resp = requests.get(&amp;#39;http://httpbin.org/ip&amp;#39;, proxies=proxy1) print(resp.json())  需认证的代理  import requests proxy1 = {&amp;#39;http&amp;#39;: &amp;#39;http://user:passwd@106.15.95.226:9187&amp;#39;, &amp;#39;https&amp;#39;: &amp;#39;https://user:passwd@106.15.95.236:9187&amp;#39;} resp = requests.get(&amp;#39;http://httpbin.org/ip&amp;#39;, proxies=proxy1) print(resp.json()) # {&amp;#39;origin&amp;#39;: &amp;#39;101.47.19.29, 106.15.95.236&amp;#39;} selenium+浏览器中使用代理 phantomJS ## selenium+phantomJS代理 from selenium import webdriver driver = webdriver.PhantomJS( # executable_path = &amp;#39;/usr/local/bin/phantomjs&amp;#39;, service_args = [ &amp;#39;--ignore-ssl-errors=true&amp;#39;, &amp;#39;--proxy=106.15.95.236:9187&amp;#39;, # IP:port &amp;#39;--proxy-type=http&amp;#39;, &amp;#39;--proxy-auth=user:passwd&amp;#39;, # 如需认证添加 ]) url = &amp;#39;http://httpbin.org/ip&amp;#39; driver.</description>
     </item>
     
     <item>
@@ -28,9 +28,12 @@
       
       <guid>/note/2018/02/27/linux-selenium-chromeheadless-install-test/</guid>
       <description>typora-copy-images-to: ipic
- centos7及以上Linux环境。使用PhantomJS设置cookie报错Can only set Cookies for the current domain，看样子后期相关维护也很慢。google chrome已经开始支持headless，可以考虑换大腿了
+  centos7及以上Linux环境。使用PhantomJS设置cookie报错Can only set Cookies for the current domain，看样子后期相关维护也很慢。google chrome已经开始支持headless，可以考虑换大腿了
  环境配置安装 可以直接使用配置yum源的方法来安装，但是由于伟大的墙可能访问不到Google服务，也可以先下载指定版本的安装文件再安装
- chromedriver安装  $ wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip $ unzip chromedriver_linux64.zip $ chromedriver --version #ChromeDriver 2.35.528139 # 将chromedriver执行文件所在的路径添加到PATH环境变量   chromebrowser安装  $ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm $ sudo yum install google-chrome-stable_current_x86_64.rpm $ google-chrome --version #Google Chrome 61.0.3163.100   Xvfb安装  Xvfb（virtual framebuffer X server for X Version 11）， Xvfb 可以直接处理 Window 的图形化功能，且不把图像輸出到屏幕，目的就是在没有 Xwindow的情况下仍然可以执行相关图像界面操作。实现一种虚拟窗口（window）的操作。安裝 XVFB 做 Selenium 測試</description>
+  chromedriver安装
+$ wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip $ unzip chromedriver_linux64.zip $ chromedriver --version #ChromeDriver 2.35.528139 # 将chromedriver执行文件所在的路径添加到PATH环境变量   chromebrowser安装
+$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm $ sudo yum install google-chrome-stable_current_x86_64.rpm $ google-chrome --version #Google Chrome 61.0.3163.100   Xvfb安装
+Xvfb（virtual framebuffer X server for X Version 11）， Xvfb 可以直接处理 Window 的图形化功能，且不把图像輸出到屏幕，目的就是在没有 Xwindow的情况下仍然可以执行相关图像界面操作。实现一种虚拟窗口（window）的操作。安裝 XVFB 做 Selenium 測試</description>
     </item>
     
   </channel>

@@ -26,7 +26,9 @@ plot(rnorm(10), main = "童话的世界")
 ```
 
 ```{r}
-library(recharts)
-echart(iris, ~ Sepal.Length, ~ Sepal.Width, series = ~ Species)
+# if (!require(devtools)) library(devtools)
+# # install_github("madlogos/recharts")
+# library(recharts)
+# echart(iris, ~ Sepal.Length, ~ Sepal.Width, series = ~ Species)
 ```
 

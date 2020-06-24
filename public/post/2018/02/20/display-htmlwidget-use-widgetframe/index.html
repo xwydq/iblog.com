@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>widgetframe辅助R交互式展示 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/r'>R</a>
+  <a href='../../../../../categories/r'>R</a>
   
   
   
@@ -45,11 +45,11 @@
   
   Tags:   
   
-  <a href='/tags/js'>JS</a>
+  <a href='../../../../../tags/js'>JS</a>
   
-  <a href='/tags/r-markdown'>R Markdown</a>
+  <a href='../../../../../tags/r-markdown'>R Markdown</a>
   
-  <a href='/tags/blogdown'>blogdown</a>
+  <a href='../../../../../tags/blogdown'>blogdown</a>
   
   
   
@@ -60,16 +60,17 @@
 
 
 <main>
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
-<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+<script src="../../../../../rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="../../../../../rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="../../../../../rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
 
 
 <blockquote>
 <p><code>R</code>的画图包千千万，其中有许多优秀的交互式画图、数据展示包，如<code>leaflet</code>; <code>dygraphs</code>; <code>DT</code>等。但是如果要线上使用这些结果常常存在<code>JS</code>加载冲突的问题，因为加载这些包同时要引入许多相关的<code>JS</code>库</p>
 </blockquote>
 <p>其中一个解决方法就是把相关的<code>R</code>展示模块当作一个<code>iframe</code>来处理，具体操作已有包<a href="https://github.com/bhaskarvk/widgetframe"><code>widgetframe</code></a>，使用<code>frameWidget</code>将输出结果进行包装</p>
-<div id="widgetframe" class="section level3">
+<div id="widgetframe简介" class="section level3">
 <h3><code>widgetframe</code>简介</h3>
 <p>使用<a href="http://blog.apps.npr.org/pym.js/"><code>pym.js</code></a>来实现iframe的潜入，主要函数：</p>
 <ul>
@@ -77,10 +78,11 @@
 <li>frameWidget在html中添加html控件</li>
 </ul>
 <blockquote>
-<p>The goal of widgetframe is to be able to embed widgets inside iframes using NPR’s Pymjs library for responsive iframes. This package provides two functions frameableWidget, and frameWidget. The frameableWidget is used to add extra code to a htmlwidget which allows it to be rendered inside a responsive iframe. The frameWidget returns a htmlwidget which displays content of another htmlwidget inside a responsive iframe.</p>
+<p>The goal of widgetframe is to be able to embed widgets inside iframes using NPR’s Pymjs library for responsive iframes.
+This package provides two functions frameableWidget, and frameWidget. The frameableWidget is used to add extra code to a htmlwidget which allows it to be rendered inside a responsive iframe. The frameWidget returns a htmlwidget which displays content of another htmlwidget inside a responsive iframe.</p>
 </blockquote>
 </div>
-<div id="widgetframer" class="section level3">
+<div id="widgetframe在r中使用" class="section level3">
 <h3><code>widgetframe</code>在R中使用</h3>
 <ul>
 <li>保存htmlwidget为html文件</li>
@@ -98,7 +100,7 @@ library(widgetframe)</code></pre>
 # htmlwidgets::saveWidget(frameableWidget(dt),&#39;dt.html&#39;)</code></pre>
 <p>保存结果为独立的html文件，需要引入的js文件直接通过base64编码在html中，这种html文件相对较大</p>
 </div>
-<div id="widgetframermd" class="section level3">
+<div id="widgetframe在rmd中使用" class="section level3">
 <h3><code>widgetframe</code>在Rmd中使用</h3>
 <p>Rmd文件使用knitr生成html的过程默认删除中间产生的文件及目录，所以添加如下参数才能正常显示，否则提示目录不存在</p>
 <pre class="r"><code># ---
@@ -121,7 +123,7 @@ library(widgetframe)</code></pre>
 <p class="caption">not found</p>
 </div>
 </div>
-<div id="widgetframeblogdown" class="section level3">
+<div id="widgetframe在blogdown中使用" class="section level3">
 <h3><code>widgetframe</code>在blogdown中使用</h3>
 <p>在blogdown中使用widgetframe只需在对应的Rmd文件中进行如下示例操作，无需保存中间的过程文件</p>
 <ul>
@@ -138,8 +140,11 @@ frameWidget(l)</code></pre>
 </ul>
 <pre class="r"><code>library(dygraphs)
 ts &lt;- dygraph(nhtemp, main = &quot;New Haven Temperatures&quot;,
-              height=250, width=&#39;95%&#39;)
-frameWidget(ts)</code></pre>
+              height=250, width=&#39;95%&#39;)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;xts&#39;:
+##   method     from
+##   as.zoo.xts zoo</code></pre>
+<pre class="r"><code>frameWidget(ts)</code></pre>
 <div id="htmlwidget-2" style="width:100%;height:250px;" class="widgetframe html-widget"></div>
 <script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/post/2018-02-20-widgetframe_files/figure-html//widgets/widget_example-dygraphs.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <ul>
@@ -180,21 +185,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -218,7 +226,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

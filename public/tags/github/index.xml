@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Github on 飞舞的尘埃</title>
+    <title>github on 飞舞的尘埃</title>
     <link>/tags/github/</link>
-    <description>Recent content in Github on 飞舞的尘埃</description>
+    <description>Recent content in github on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 30 Apr 2018 00:00:00 +0000</lastBuildDate>
@@ -19,7 +19,7 @@
       <guid>/note/2018/04/30/shiny-display-pdf-file/</guid>
       <description>使用pdf.js来使用在web页面中阅读PDF文件，同时禁止下载、打水印的功能
  PDF.JS 参考 PDF.js 在线pdf阅读插件（禁止打印，下载，每页水印）修改对应代码（JS/HTML）
-shiny web  将修改测试无误的pdf.js保存在shiny项目的www路径下  └── www └── pdfView └── generic ├── build └── web ├── cmaps ├── images └── locale   Shiny app代码  library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;quot;pdf view&amp;quot;), # Sidebar with a slider input for number of bins uiOutput(&amp;quot;iframe_source&amp;quot;) ) server &amp;lt;- function(input, output) { output$iframe_source &amp;lt;- renderUI({ iframe_source = tags$iframe( src=sprintf(&amp;quot;pdfView/generic/web/viewer.</description>
+shiny web  将修改测试无误的pdf.js保存在shiny项目的www路径下  └── www └── pdfView └── generic ├── build └── web ├── cmaps ├── images └── locale  Shiny app代码  library(shiny) # Define UI for application that draws a histogram ui &amp;lt;- fluidPage( # Application title titlePanel(&amp;#34;pdf view&amp;#34;), # Sidebar with a slider input for number of bins  uiOutput(&amp;#34;iframe_source&amp;#34;) ) server &amp;lt;- function(input, output) { output$iframe_source &amp;lt;- renderUI({ iframe_source = tags$iframe( src=sprintf(&amp;#34;pdfView/generic/web/viewer.</description>
     </item>
     
     <item>
@@ -28,7 +28,7 @@ shiny web  将修改测试无误的pdf.js保存在shiny项目的www路径下  �
       <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>/post/2015/03/26/rstudio-git-version-control/</guid>
-      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install   方法二：yum安装（epel源）  yum install git 测试安装成功： git --version   生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.</description>
+      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install  方法二：yum安装（epel源）  yum install git 测试安装成功： git --version  生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.md git commit -m &amp;#34;first commit&amp;#34; git remote add origin https://github.</description>
     </item>
     
   </channel>

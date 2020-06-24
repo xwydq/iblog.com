@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Selectize.js on 飞舞的尘埃</title>
+    <title>selectize.js on 飞舞的尘埃</title>
     <link>/tags/selectize.js/</link>
-    <description>Recent content in Selectize.js on 飞舞的尘埃</description>
+    <description>Recent content in selectize.js on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 06 Feb 2018 00:00:00 +0000</lastBuildDate>
@@ -19,8 +19,8 @@
       <guid>/post/2018/02/06/shiny-tagsinput-by-selectizejs/</guid>
       <description>selectize.js是基于jQuery开发的混合了文本输入框与下拉选择框功能的JS库，对应的GITHUB地址
  最新版本的shiny已经整合了selectize.js 到 selectInput
-&amp;gt; sessionInfo() R version 3.4.3 (2017-11-30) ... other attached packages: [1] shiny_1.0.5  打标签 使用 selectInput/selectizeInput 实现打标签功能
-selectizeInput(inputId=&#39;ids1&#39;, label= tags$h5(&#39;标签效果&#39;), choices = NULL, multiple = TRUE, options = list( placeholder = &#39;Please select/type something&#39;, maxItems = 3, # 最大数量限制 onInitialize = I(&#39;function() { this.setValue(&amp;quot;hello world&amp;quot;); }&#39;), # 未发现具体作用 # class=&amp;quot;demo&amp;quot;, plugins = list(&#39;restore_on_backspace&#39;, # backspace 按钮可以起到编辑效果 &#39;remove_button&#39;, # 显示移除按钮 &#39;drag_drop&#39;), # 可以拖动编辑顺序 create = TRUE, delimiter = &#39;,&#39;, persist = FALSE, onDelete = I(&amp;quot;function(values) { return confirm(values.</description>
+&amp;gt; sessionInfo() R version 3.4.3 (2017-11-30) ... other attached packages: [1] shiny_1.0.5 打标签 使用 selectInput/selectizeInput 实现打标签功能
+selectizeInput(inputId=&amp;#39;ids1&amp;#39;, label= tags$h5(&amp;#39;标签效果&amp;#39;), choices = NULL, multiple = TRUE, options = list( placeholder = &amp;#39;Please select/type something&amp;#39;, maxItems = 3, # 最大数量限制 onInitialize = I(&amp;#39;function() { this.setValue(&amp;#34;hello world&amp;#34;); }&amp;#39;), # 未发现具体作用 # class=&amp;#34;demo&amp;#34;, plugins = list(&amp;#39;restore_on_backspace&amp;#39;, # backspace 按钮可以起到编辑效果 &amp;#39;remove_button&amp;#39;, # 显示移除按钮 &amp;#39;drag_drop&amp;#39;), # 可以拖动编辑顺序 create = TRUE, delimiter = &amp;#39;,&amp;#39;, persist = FALSE, onDelete = I(&amp;#34;function(values) { return confirm(values.</description>
     </item>
     
   </channel>

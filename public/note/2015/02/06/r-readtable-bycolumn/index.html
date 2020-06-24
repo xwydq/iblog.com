@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>R语言选择导入文本数据部分字段 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/r'>R</a>
+  <a href='../../../../../categories/r'>R</a>
   
   
   
@@ -45,11 +45,11 @@
   
   Tags:   
   
-  <a href='/tags/data'>data</a>
+  <a href='../../../../../tags/data'>data</a>
   
-  <a href='/tags/linux'>linux</a>
+  <a href='../../../../../tags/linux'>linux</a>
   
-  <a href='/tags/%E6%80%A7%E8%83%BD'>性能</a>
+  <a href='../../../../../tags/%E6%80%A7%E8%83%BD'>性能</a>
   
   
   
@@ -60,127 +60,106 @@
 
 
 <main>
-
-
 <blockquote>
 <p>背景：文本数据字段太多，只需要读取有用字段，以此降低内存压力方便分析</p>
 </blockquote>
+<h3 id="方法一readtablereadcsv指定列读取">方法一：<code>read.table、read.csv</code>指定列读取</h3>
+<p>直接使用自带函数设定适当的参数（<code>colClasses</code>），该参数需要指定每列数据的类型（可以使用<code>nrows</code>参数读取几行查看<code>class</code>），不需要的列指定为<code>NULL</code>即可。如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dat <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">structure</span>(<span style="color:#a6e22e">list</span>(Year <span style="color:#f92672">=</span> <span style="color:#ae81ff">2009</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2011</span>, Jan <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-41L</span>, <span style="color:#ae81ff">-41L</span>, <span style="color:#ae81ff">-21L</span>), 
+                      Feb <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-27L</span>), Mar <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-2L</span>), 
+                      Apr <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-6L</span>), May <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-10L</span>), 
+                      Jun <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-39L</span>, <span style="color:#ae81ff">-39L</span>, <span style="color:#ae81ff">-32L</span>), Jul <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-13L</span>), 
+                      Aug <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-15L</span>, <span style="color:#ae81ff">-15L</span>, <span style="color:#ae81ff">-12L</span>), Sep <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-30L</span>, <span style="color:#ae81ff">-30L</span>, <span style="color:#ae81ff">-27L</span>), 
+                      Oct <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-30L</span>), Nov <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-21L</span>, <span style="color:#ae81ff">-21L</span>, <span style="color:#ae81ff">-38L</span>), 
+                      Dec <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-29L</span>)), 
+                 .Names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Year&#34;</span>, <span style="color:#e6db74">&#34;Jan&#34;</span>, <span style="color:#e6db74">&#34;Feb&#34;</span>, <span style="color:#e6db74">&#34;Mar&#34;</span>, <span style="color:#e6db74">&#34;Apr&#34;</span>, <span style="color:#e6db74">&#34;May&#34;</span>, <span style="color:#e6db74">&#34;Jun&#34;</span>, 
+                            <span style="color:#e6db74">&#34;Jul&#34;</span>, <span style="color:#e6db74">&#34;Aug&#34;</span>, <span style="color:#e6db74">&#34;Sep&#34;</span>, <span style="color:#e6db74">&#34;Oct&#34;</span>, <span style="color:#e6db74">&#34;Nov&#34;</span>, <span style="color:#e6db74">&#34;Dec&#34;</span>), 
+                 class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data.frame&#34;</span>,
+                 row.names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>, <span style="color:#ae81ff">-3L</span>))
+<span style="color:#a6e22e">write.table</span>(dat, <span style="color:#e6db74">&#34;test.txt&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
 
-<h3 id="方法一-read-table-read-csv-指定列读取">方法一：<code>read.table、read.csv</code>指定列读取</h3>
+<span style="color:#75715e">## 查看每个列的class</span>
+df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.table</span>(<span style="color:#e6db74">&#34;test.txt&#34;</span>, nrow<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+<span style="color:#a6e22e">apply</span>(df, <span style="color:#ae81ff">2</span>, class)
+<span style="color:#75715e"># Year       Jan       Feb       Mar       Apr       May       Jun       Jul       Aug       Sep       Oct       Nov       Dec </span>
+<span style="color:#75715e"># &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34; &#34;integer&#34;</span>
 
-<p>       直接使用自带函数设定适当的参数（<code>colClasses</code>），该参数需要指定每列数据的类型（可以使用<code>nrows</code>参数读取几行查看<code>class</code>），不需要的列指定为<code>NULL</code>即可。如下：</p>
+df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.table</span>(<span style="color:#e6db74">&#34;test.txt&#34;</span>, 
+                 colClasses <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;integer&#34;</span>, <span style="color:#ae81ff">7</span>), <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;NULL&#34;</span>, <span style="color:#ae81ff">6</span>)), 
+                 header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+<span style="color:#75715e"># &gt; df</span>
+<span style="color:#75715e"># Year Jan Feb Mar Apr May Jun</span>
+<span style="color:#75715e"># 1 2009 -41 -27 -25 -31 -31 -39</span>
+<span style="color:#75715e"># 2 2010 -41 -27 -25 -31 -31 -39</span>
+<span style="color:#75715e"># 3 2011 -21 -27  -2  -6 -10 -32</span>
 
-<pre><code class="language-R">dat &lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), 
-                      Feb = c(-27L, -27L, -27L), Mar = c(-25L, -25L, -2L), 
-                      Apr = c(-31L, -31L, -6L), May = c(-31L, -31L, -10L), 
-                      Jun = c(-39L, -39L, -32L), Jul = c(-25L, -25L, -13L), 
-                      Aug = c(-15L, -15L, -12L), Sep = c(-30L, -30L, -27L), 
-                      Oct = c(-27L, -27L, -30L), Nov = c(-21L, -21L, -38L), 
-                      Dec = c(-25L, -25L, -29L)), 
-                 .Names = c(&quot;Year&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, 
-                            &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;), 
-                 class = &quot;data.frame&quot;,
-                 row.names = c(NA, -3L))
-write.table(dat, &quot;test.txt&quot;, row.names=FALSE)
+<span style="color:#a6e22e">write.csv</span>(dat, <span style="color:#e6db74">&#34;test.csv&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.csv</span>(<span style="color:#e6db74">&#34;test.csv&#34;</span>, 
+               colClasses <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;integer&#34;</span>, <span style="color:#ae81ff">7</span>), <span style="color:#a6e22e">rep</span>(<span style="color:#e6db74">&#34;NULL&#34;</span>, <span style="color:#ae81ff">6</span>)), 
+               header <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>)
+<span style="color:#75715e"># &gt; df</span>
+<span style="color:#75715e"># Year Jan Feb Mar Apr May Jun</span>
+<span style="color:#75715e"># 1 2009 -41 -27 -25 -31 -31 -39</span>
+<span style="color:#75715e"># 2 2010 -41 -27 -25 -31 -31 -39</span>
+<span style="color:#75715e"># 3 2011 -21 -27  -2  -6 -10 -32</span>
 
-## 查看每个列的class
-df &lt;- read.table(&quot;test.txt&quot;, nrow=2, header = TRUE)
-apply(df, 2, class)
-# Year       Jan       Feb       Mar       Apr       May       Jun       Jul       Aug       Sep       Oct       Nov       Dec 
-# &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot; &quot;integer&quot;
-
-df &lt;- read.table(&quot;test.txt&quot;, 
-                 colClasses = c(rep(&quot;integer&quot;, 7), rep(&quot;NULL&quot;, 6)), 
-                 header = TRUE)
-# &gt; df
-# Year Jan Feb Mar Apr May Jun
-# 1 2009 -41 -27 -25 -31 -31 -39
-# 2 2010 -41 -27 -25 -31 -31 -39
-# 3 2011 -21 -27  -2  -6 -10 -32
-
-write.csv(dat, &quot;test.csv&quot;, row.names=FALSE)
-df &lt;- read.csv(&quot;test.csv&quot;, 
-               colClasses = c(rep(&quot;integer&quot;, 7), rep(&quot;NULL&quot;, 6)), 
-               header = TRUE)
-# &gt; df
-# Year Jan Feb Mar Apr May Jun
-# 1 2009 -41 -27 -25 -31 -31 -39
-# 2 2010 -41 -27 -25 -31 -31 -39
-# 3 2011 -21 -27  -2  -6 -10 -32
-
-</code></pre>
-
-<h3 id="方法二-使用-package-colbycol">方法二：使用<code>package：colbycol</code></h3>
-
+</code></pre></div><h3 id="方法二使用packagecolbycol">方法二：使用<code>package：colbycol</code></h3>
 <p><a href="http://colbycol.r-forge.r-project.org/"><code>colbycol</code></a>没有安装成功，停止更新，好像也不怎么支持了</p>
-
-<h3 id="方法三-使用其他-r-package-辅助实现-如-rjdbc-数据库操作">方法三：使用其他<code>R package</code>辅助实现（如<code>RJDBC</code>数据库操作）</h3>
-
+<h3 id="方法三使用其他r-package辅助实现如rjdbc数据库操作">方法三：使用其他<code>R package</code>辅助实现（如<code>RJDBC</code>数据库操作）</h3>
 <p>实际就是用<code>Java</code>来解决这个问题，需要安装配置多个环境，维护成本大、太复杂没有去实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#a6e22e">library</span>(RJDBC)
+<span style="color:#a6e22e">write.table</span>(x<span style="color:#f92672">=</span>mtcars, file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mtcars.csv&#34;</span>, sep<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;,&#34;</span>, row.names<span style="color:#f92672">=</span>F, col.names<span style="color:#f92672">=</span>T)
 
-<pre><code class="language-R">library(RJDBC)
-write.table(x=mtcars, file=&quot;mtcars.csv&quot;, sep=&quot;,&quot;, row.names=F, col.names=T)
+path.to.jdbc.driver <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;jdbc//csvjdbc-1.0-18.jar&#34;</span>
+drv <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">JDBC</span>(<span style="color:#e6db74">&#34;org.relique.jdbc.csv.CsvDriver&#34;</span>, path.to.jdbc.driver)
+conn <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dbConnect</span>(drv, <span style="color:#a6e22e">sprintf</span>(<span style="color:#e6db74">&#34;jdbc:relique:csv:%s&#34;</span>, <span style="color:#a6e22e">getwd</span>()))
 
-path.to.jdbc.driver &lt;- &quot;jdbc//csvjdbc-1.0-18.jar&quot;
-drv &lt;- JDBC(&quot;org.relique.jdbc.csv.CsvDriver&quot;, path.to.jdbc.driver)
-conn &lt;- dbConnect(drv, sprintf(&quot;jdbc:relique:csv:%s&quot;, getwd()))
+<span style="color:#a6e22e">head</span>(<span style="color:#a6e22e">dbGetQuery</span>(conn, <span style="color:#e6db74">&#34;select * from mtcars&#34;</span>), <span style="color:#ae81ff">3</span>)
+<span style="color:#75715e"># mpg cyl disp  hp drat    wt  qsec vs am gear carb</span>
+<span style="color:#75715e"># 1   21   6  160 110  3.9  2.62 16.46  0  1    4    4</span>
+<span style="color:#75715e"># 2   21   6  160 110  3.9 2.875 17.02  0  1    4    4</span>
+<span style="color:#75715e"># 3 22.8   4  108  93 3.85  2.32 18.61  1  1    4    1</span>
 
-head(dbGetQuery(conn, &quot;select * from mtcars&quot;), 3)
-# mpg cyl disp  hp drat    wt  qsec vs am gear carb
-# 1   21   6  160 110  3.9  2.62 16.46  0  1    4    4
-# 2   21   6  160 110  3.9 2.875 17.02  0  1    4    4
-# 3 22.8   4  108  93 3.85  2.32 18.61  1  1    4    1
-
-head(dbGetQuery(conn, &quot;select mpg, gear from mtcars&quot;), 3)
-</code></pre>
-
-<h3 id="方法四-借助-linux-命令行工具实现">方法四：借助<code>linux</code>命令行工具实现</h3>
-
+<span style="color:#a6e22e">head</span>(<span style="color:#a6e22e">dbGetQuery</span>(conn, <span style="color:#e6db74">&#34;select mpg, gear from mtcars&#34;</span>), <span style="color:#ae81ff">3</span>)
+</code></pre></div><h3 id="方法四借助linux命令行工具实现">方法四：借助<code>linux</code>命令行工具实现</h3>
 <p>快速，方便；需要熟悉<code>awk，cut</code>的语法</p>
-
 <p><a href="http://www.cnblogs.com/dong008259/archive/2011/12/09/2282679.html"><code>cut</code></a>功能比较单一适合处理分割整齐的数据，而<code>awk</code>的功能更加强大（<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html">awk使用1</a>，<a href="http://coolshell.cn/articles/9070.html">awk使用2</a>）</p>
-
-<pre><code class="language-R">dat &lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), 
-                      Feb = c(-27L, -27L, -27L), Mar = c(-25L, -25L, -2L), 
-                      Apr = c(-31L, -31L, -6L), May = c(-31L, -31L, -10L), 
-                      Jun = c(-39L, -39L, -32L), Jul = c(-25L, -25L, -13L), 
-                      Aug = c(-15L, -15L, -12L), Sep = c(-30L, -30L, -27L), 
-                      Oct = c(-27L, -27L, -30L), Nov = c(-21L, -21L, -38L), 
-                      Dec = c(-25L, -25L, -29L)), 
-                 .Names = c(&quot;Year&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, 
-                            &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;), 
-                 class = &quot;data.frame&quot;,
-                 row.names = c(NA, -3L))
-# 使用制表符分割
-write.table(dat, &quot;test.txt&quot;, row.names=FALSE, sep = &quot;\t&quot;)
-df &lt;- read.table(pipe(&quot;cut -f 1,5 test.txt&quot;), header=TRUE)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">dat <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">structure</span>(<span style="color:#a6e22e">list</span>(Year <span style="color:#f92672">=</span> <span style="color:#ae81ff">2009</span><span style="color:#f92672">:</span><span style="color:#ae81ff">2011</span>, Jan <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-41L</span>, <span style="color:#ae81ff">-41L</span>, <span style="color:#ae81ff">-21L</span>), 
+                      Feb <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-27L</span>), Mar <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-2L</span>), 
+                      Apr <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-6L</span>), May <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-31L</span>, <span style="color:#ae81ff">-10L</span>), 
+                      Jun <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-39L</span>, <span style="color:#ae81ff">-39L</span>, <span style="color:#ae81ff">-32L</span>), Jul <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-13L</span>), 
+                      Aug <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-15L</span>, <span style="color:#ae81ff">-15L</span>, <span style="color:#ae81ff">-12L</span>), Sep <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-30L</span>, <span style="color:#ae81ff">-30L</span>, <span style="color:#ae81ff">-27L</span>), 
+                      Oct <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-27L</span>, <span style="color:#ae81ff">-30L</span>), Nov <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-21L</span>, <span style="color:#ae81ff">-21L</span>, <span style="color:#ae81ff">-38L</span>), 
+                      Dec <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-25L</span>, <span style="color:#ae81ff">-29L</span>)), 
+                 .Names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;Year&#34;</span>, <span style="color:#e6db74">&#34;Jan&#34;</span>, <span style="color:#e6db74">&#34;Feb&#34;</span>, <span style="color:#e6db74">&#34;Mar&#34;</span>, <span style="color:#e6db74">&#34;Apr&#34;</span>, <span style="color:#e6db74">&#34;May&#34;</span>, <span style="color:#e6db74">&#34;Jun&#34;</span>, 
+                            <span style="color:#e6db74">&#34;Jul&#34;</span>, <span style="color:#e6db74">&#34;Aug&#34;</span>, <span style="color:#e6db74">&#34;Sep&#34;</span>, <span style="color:#e6db74">&#34;Oct&#34;</span>, <span style="color:#e6db74">&#34;Nov&#34;</span>, <span style="color:#e6db74">&#34;Dec&#34;</span>), 
+                 class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;data.frame&#34;</span>,
+                 row.names <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#66d9ef">NA</span>, <span style="color:#ae81ff">-3L</span>))
+<span style="color:#75715e"># 使用制表符分割</span>
+<span style="color:#a6e22e">write.table</span>(dat, <span style="color:#e6db74">&#34;test.txt&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;\t&#34;</span>)
+df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.table</span>(<span style="color:#a6e22e">pipe</span>(<span style="color:#e6db74">&#34;cut -f 1,5 test.txt&#34;</span>), header<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
 df
-system(&quot;cut -f 1,5 test.txt&quot;)
-# Year Apr
-# 1 2009 -31
-# 2 2010 -31
-# 3 2011  -6
+<span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;cut -f 1,5 test.txt&#34;</span>)
+<span style="color:#75715e"># Year Apr</span>
+<span style="color:#75715e"># 1 2009 -31</span>
+<span style="color:#75715e"># 2 2010 -31</span>
+<span style="color:#75715e"># 3 2011  -6</span>
 
-# 使用空格分割
-write.table(dat, &quot;test.txt&quot;, row.names=FALSE, sep = &quot; &quot;)
-df &lt;- read.table(pipe(&quot;cut -d ' ' -f 1,5 test.txt&quot;), header=TRUE)
+<span style="color:#75715e"># 使用空格分割</span>
+<span style="color:#a6e22e">write.table</span>(dat, <span style="color:#e6db74">&#34;test.txt&#34;</span>, row.names<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>, sep <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34; &#34;</span>)
+df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read.table</span>(<span style="color:#a6e22e">pipe</span>(<span style="color:#e6db74">&#34;cut -d &#39; &#39; -f 1,5 test.txt&#34;</span>), header<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>)
 df
-system(&quot;cut -d ' ' -f 1,5 test.txt&quot;)
-# Year Apr
-# 1 2009 -31
-# 2 2010 -31
-# 3 2011  -6
-</code></pre>
-
-<h3 id="总结">总结</h3>
-
+<span style="color:#a6e22e">system</span>(<span style="color:#e6db74">&#34;cut -d &#39; &#39; -f 1,5 test.txt&#34;</span>)
+<span style="color:#75715e"># Year Apr</span>
+<span style="color:#75715e"># 1 2009 -31</span>
+<span style="color:#75715e"># 2 2010 -31</span>
+<span style="color:#75715e"># 3 2011  -6</span>
+</code></pre></div><h3 id="总结">总结</h3>
 <ul>
 <li>数据量不是很大且对数据内容了解时，可以使用read.table指定合理的参数colClasses读取。</li>
 <li>数据较大且要求速度建议借助linux下的数据处理工具</li>
 </ul>
-
-<hr />
-
+<hr>
 <p>参考：<a href="http://stackoverflow.com/questions/5788117/only-read-limited-number-of-columns-in-r">Only read limited number of columns in R</a></p>
 
 </main>
@@ -203,21 +182,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -241,7 +223,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

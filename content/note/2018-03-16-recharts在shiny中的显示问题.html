@@ -28,7 +28,7 @@ tags:
 <blockquote>
 <p>在<code>shiny</code>中使用<a href="https://recharts.cosx.org"><code>recharts</code></a>时，出现不能正常显示的问题：<code>ePlot</code>生成的R对象在shiny中可以显示；但是其他画图函数如:<code>eBar</code>、<code>eBmap</code>、<code>eCandle</code>等生成的对象不能正常显示。比较两类对象的差异发现在参数<code>dependencies</code>的设置上存在差异，通过修改变量可以正常显示，应该是依赖的一个bug。后续再查源码…..</p>
 </blockquote>
-<div id="eplot" class="section level3">
+<div id="eplot函数画图" class="section level3">
 <h3><code>ePlot</code>函数画图</h3>
 <p><code>Create rEcharts from an R object</code>，直接使用<code>ePlot</code>函数画图可以正常显示</p>
 <pre class="r"><code>library(recharts)
@@ -49,9 +49,9 @@ ext = list(
 e1 = ePlot(series, ext)
 e1</code></pre>
 <div id="htmlwidget-1" style="width:672px;height:480px;" class="echarts html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"legend":{"show":true,"orient":"horizontal","x":"left","y":"top","data":["Sales"]},"title":{"text":"","subtext":"","x":"center","y":"top"},"calculable":true,"theme":"default","tooltip":{"show":true,"trigger":"item","formatter":"{a} <br/>{b} : {c}"},"series":[{"name":"Sales","type":"bar","data":[5,20,36,10,10,20]}],"xAxis":[{"data":["shirt","cardign","chiffon shirt","pants","heels","socks"]}],"yAxis":[[]]},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"legend":{"show":true,"orient":"horizontal","x":"center","y":"bottom","data":["Sales"]},"title":{"text":"","subtext":"","x":"center","y":"top"},"calculable":true,"theme":"default","tooltip":{"show":true,"trigger":"item","formatter":"{b}: {c}"},"series":[{"name":"Sales","type":"bar","data":[5,20,36,10,10,20]}],"xAxis":[{"data":["shirt","cardign","chiffon shirt","pants","heels","socks"]}],"yAxis":[[]]},"evals":[],"jsHooks":[]}</script>
 </div>
-<div id="ebar" class="section level3">
+<div id="ebar函数画图" class="section level3">
 <h3><code>eBar</code>函数画图</h3>
 <p><code>Create an HTML bar charts widget using the ECharts(version:3.2.2) library</code>，使用<code>eBar</code>函数画图<code>Rmd</code>生成<code>HTML</code>正常，但是在<code>shiny</code>中使用<code>eBar</code>不显示</p>
 <ul>
@@ -70,7 +70,7 @@ e2</code></pre>
 #   e2
 # })</code></pre>
 </div>
-<div id="e1e2" class="section level3">
+<div id="比较e1e2的区别" class="section level3">
 <h3>比较e1、e2的区别</h3>
 <pre class="r"><code>names(e1)</code></pre>
 <pre><code>## [1] &quot;x&quot;             &quot;width&quot;         &quot;height&quot;        &quot;sizingPolicy&quot; 
@@ -84,8 +84,8 @@ e2</code></pre>
 ##   ..$ legend    :List of 5
 ##   .. ..$ show  : logi TRUE
 ##   .. ..$ orient: chr &quot;horizontal&quot;
-##   .. ..$ x     : chr &quot;left&quot;
-##   .. ..$ y     : chr &quot;top&quot;
+##   .. ..$ x     : chr &quot;center&quot;
+##   .. ..$ y     : chr &quot;bottom&quot;
 ##   .. ..$ data  :List of 1
 ##   .. .. ..$ : chr &quot;Sales&quot;
 ##   ..$ title     :List of 4
@@ -98,7 +98,7 @@ e2</code></pre>
 ##   ..$ tooltip   :List of 3
 ##   .. ..$ show     : logi TRUE
 ##   .. ..$ trigger  : chr &quot;item&quot;
-##   .. ..$ formatter: chr &quot;{a} &lt;br/&gt;{b} : {c}&quot;
+##   .. ..$ formatter: chr &quot;{b}: {c}&quot;
 ##   ..$ series    :List of 1
 ##   .. ..$ :List of 3
 ##   .. .. ..$ name: chr &quot;Sales&quot;
@@ -122,11 +122,12 @@ e2</code></pre>
 ##   .. ..$ fill         : logi TRUE
 ##   .. ..$ suppress     : logi FALSE
 ##   .. ..$ paneHeight   : NULL
-##   ..$ browser      :List of 4
+##   ..$ browser      :List of 5
 ##   .. ..$ defaultWidth : NULL
 ##   .. ..$ defaultHeight: NULL
 ##   .. ..$ padding      : NULL
 ##   .. ..$ fill         : logi FALSE
+##   .. ..$ external     : logi FALSE
 ##   ..$ knitr        :List of 3
 ##   .. ..$ defaultWidth : NULL
 ##   .. ..$ defaultHeight: NULL
@@ -236,11 +237,12 @@ e2</code></pre>
 ##   .. ..$ fill         : logi TRUE
 ##   .. ..$ suppress     : logi FALSE
 ##   .. ..$ paneHeight   : NULL
-##   ..$ browser      :List of 4
+##   ..$ browser      :List of 5
 ##   .. ..$ defaultWidth : NULL
 ##   .. ..$ defaultHeight: NULL
 ##   .. ..$ padding      : NULL
 ##   .. ..$ fill         : logi FALSE
+##   .. ..$ external     : logi FALSE
 ##   ..$ knitr        :List of 3
 ##   .. ..$ defaultWidth : NULL
 ##   .. ..$ defaultHeight: NULL
@@ -250,7 +252,7 @@ e2</code></pre>
 ##   .. ..$ name      : chr &quot;default&quot;
 ##   .. ..$ version   : chr &quot;0.0.4&quot;
 ##   .. ..$ src       :List of 1
-##   .. .. ..$ file: chr &quot;/home/xuwy/R/x86_64-redhat-linux-gnu-library/3.4/recharts/htmlwidgets/themes&quot;
+##   .. .. ..$ file: chr &quot;/home/xuwy/R/x86_64-redhat-linux-gnu-library/3.6/recharts/htmlwidgets/themes&quot;
 ##   .. ..$ meta      : NULL
 ##   .. ..$ script    : chr &quot;default.js&quot;
 ##   .. ..$ stylesheet: NULL
@@ -273,7 +275,7 @@ e2</code></pre>
 ##  $ name      : chr &quot;default&quot;
 ##  $ version   : chr &quot;0.0.4&quot;
 ##  $ src       :List of 1
-##   ..$ file: chr &quot;/home/xuwy/R/x86_64-redhat-linux-gnu-library/3.4/recharts/htmlwidgets/themes&quot;
+##   ..$ file: chr &quot;/home/xuwy/R/x86_64-redhat-linux-gnu-library/3.6/recharts/htmlwidgets/themes&quot;
 ##  $ meta      : NULL
 ##  $ script    : chr &quot;default.js&quot;
 ##  $ stylesheet: NULL

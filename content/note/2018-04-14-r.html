@@ -17,7 +17,7 @@ tags:
 <blockquote>
 <p><code>agrep</code>: Approximate String Matching (Fuzzy Matching). Searches for approximate matches to pattern (the first argument) within each element of the string x (the second argument) using the generalized Levenshtein edit distance (the minimal possibly weighted number of insertions, deletions and substitutions needed to transform one string into another). 编辑距离：至少通过几次插入、删除、替换来实现两个字符串等价</p>
 </blockquote>
-<div id="agrep" class="section level3">
+<div id="agrep示例" class="section level3">
 <h3><code>agrep</code>示例</h3>
 <pre class="r"><code>agrep(&quot;lasy&quot;, &quot;1 lazy 2&quot;)</code></pre>
 <pre><code>## [1] 1</code></pre>
@@ -30,7 +30,7 @@ tags:
 <pre class="r"><code>agrep(&quot;laysy&quot;, c(&quot;1 lazy&quot;, &quot;1&quot;, &quot;1 LAZY&quot;), max = 2, ignore.case = TRUE)</code></pre>
 <pre><code>## [1] 1 3</code></pre>
 </div>
-<div id="agrep" class="section level3">
+<div id="agrep中文使用" class="section level3">
 <h3><code>agrep</code>中文使用</h3>
 <pre class="r"><code>s1 = &#39;恒信（华夏幸银业福）&#39;
 s2 = &#39;恒信银业&#39;
@@ -42,7 +42,7 @@ agrep(s1, s2, max = 4, value = TRUE)</code></pre>
 <pre class="r"><code>agrep(s1, s2, max = 0.1, value = TRUE)</code></pre>
 <pre><code>## character(0)</code></pre>
 </div>
-<div class="section level3">
+<div id="特殊字符处理" class="section level3">
 <h3>特殊字符处理</h3>
 <p>删除掉除中英文、数字之外掉所有符号，可以使用以下方法</p>
 <pre class="r"><code>library(stringr)

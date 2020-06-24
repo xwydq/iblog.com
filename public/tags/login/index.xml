@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Login on 飞舞的尘埃</title>
+    <title>login on 飞舞的尘埃</title>
     <link>/tags/login/</link>
-    <description>Recent content in Login on 飞舞的尘埃</description>
+    <description>Recent content in login on 飞舞的尘埃</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 04 Mar 2018 00:00:00 +0000</lastBuildDate>
@@ -19,15 +19,17 @@
       <guid>/note/2018/03/04/shinyapp-login-auth/</guid>
       <description>shiny-server可以方便实现交互式文档报告、web应用的开发，很快生成示例性的展示效果。但是基于开源的shiny-server并不支持用户认证，该功能在pro版本。在实际业务场景中由于数据的敏感性及重要程度都需要对每个应用有相关的认证功能并实现权限管理
  shiny-server的权限管理 shiny-server的权限管理可以看作两个不同的方面：
- 直接对shiny-server的应用程序做权限管理  如shiny-server的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置adding-authentication-to-shiny-server，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦
- 对单个shiny app进行认证/权限管理  为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多
-本文针对第二种方式实现两类shiny app的认证/权限管理
+  直接对shiny-server的应用程序做权限管理
+如shiny-server的应用端口为3838，那么直接对通过该端口的用户进行认证或者管理，实现方式：第三方认证工具auth0+nginx代理设置adding-authentication-to-shiny-server，应该也可以修改为自适的认证方式，需要nodejs配合实现。该方法的优点实现统一管理，所有shiny app由首页登陆实现统一管理，不足之处为每个shiny app分配不同权限比较麻烦
+  对单个shiny app进行认证/权限管理
+为具体的shiny app开发认证/权限管理，直接在shiny开发中实现不需要额外配置，问题是当shiny app太多管理也会比较混乱，有一套能直接套用的模版就用方便很多
+  本文针对第二种方式实现两类shiny app的认证/权限管理
 基于单页面认证/权限管理 主要实现功能：
  登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 recharts一个交互式画图的示例展示 登陆界面到应用界面的过度，将UI全部设为变量  效果展示：
 代码地址：single-page
 关于登陆界面的样式还要做进一步调整，在此未细化
 在shinydashboard包基础上实现dashboard模式的认证/权限管理 因为shinydashboard不能使用上述方法直接直接所有UI（dashboardHeader;dashboardSidebar;dashboardBody）作为整体使用uiOutput输出，只能将这三部分分别动态输出，这里使用shinyjs调整加载登陆页面、及加载后的页面，即在加载登陆页面时隐藏（dashboardHeader;dashboardSidebar）,判断登陆成功再展示
-# 登陆前 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;) # 登陆成功 shinyjs::addClass(selector = &amp;quot;body&amp;quot;, class = &amp;quot;sidebar-collapse&amp;quot;) shinyjs::removeClass(selector = &amp;quot;header&amp;quot;, class = &amp;quot;main-header&amp;quot;)  具体代码地址：dashboard-page
+# 登陆前 shinyjs::addClass(selector = &amp;#34;body&amp;#34;, class = &amp;#34;sidebar-collapse&amp;#34;) shinyjs::removeClass(selector = &amp;#34;header&amp;#34;, class = &amp;#34;main-header&amp;#34;) # 登陆成功 shinyjs::addClass(selector = &amp;#34;body&amp;#34;, class = &amp;#34;sidebar-collapse&amp;#34;) shinyjs::removeClass(selector = &amp;#34;header&amp;#34;, class = &amp;#34;main-header&amp;#34;) 具体代码地址：dashboard-page
 主要实现功能：
  登陆认证，认证失败提示错误信息 自配置/修改登陆认证界面（样式等） 登陆日志的记录功能 调用shinyjs动态操作相关页面样式 将ui; server分离增加扩展性  效果展示：</description>
     </item>

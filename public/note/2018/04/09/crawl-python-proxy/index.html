@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>python爬虫-代理使用 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  <a href='../../../../../categories/%E7%88%AC%E8%99%AB'>爬虫</a>
   
   
   
@@ -45,9 +45,9 @@
   
   Tags:   
   
-  <a href='/tags/%E4%BB%A3%E7%90%86'>代理</a>
+  <a href='../../../../../tags/%E4%BB%A3%E7%90%86'>代理</a>
   
-  <a href='/tags/selenium'>selenium</a>
+  <a href='../../../../../tags/selenium'>selenium</a>
   
   
   
@@ -58,265 +58,229 @@
 
 
 <main>
-
-
 <blockquote>
 <p>http代理是爬虫工作中解决反爬的一项关键措施，下面说明不同场景下代理的使用及其验证</p>
 </blockquote>
-
 <h3 id="requests中使用代理">requests中使用代理</h3>
-
 <ul>
 <li>无加密代理</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> requests
 
-<pre><code class="language-python">import requests
-
-proxy1 = {'http': '117.90.51.49:42668', 'https': '117.90.51.49:42668'}
-resp = requests.get('http://httpbin.org/ip', proxies=proxy1)
-print(resp.json())
-</code></pre>
-
-<ul>
+proxy1 <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;http&#39;</span>: <span style="color:#e6db74">&#39;117.90.51.49:42668&#39;</span>, <span style="color:#e6db74">&#39;https&#39;</span>: <span style="color:#e6db74">&#39;117.90.51.49:42668&#39;</span>}
+resp <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;http://httpbin.org/ip&#39;</span>, proxies<span style="color:#f92672">=</span>proxy1)
+<span style="color:#66d9ef">print</span>(resp<span style="color:#f92672">.</span>json())
+</code></pre></div><ul>
 <li>需认证的代理</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> requests
 
-<pre><code class="language-python">import requests
-
-proxy1 = {'http': 'http://user:passwd@106.15.95.226:9187', 'https': 'https://user:passwd@106.15.95.236:9187'}
-resp = requests.get('http://httpbin.org/ip', proxies=proxy1)
-print(resp.json())
-# {'origin': '101.47.19.29, 106.15.95.236'}
-</code></pre>
-
-<h3 id="selenium-浏览器中使用代理">selenium+浏览器中使用代理</h3>
-
+proxy1 <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;http&#39;</span>: <span style="color:#e6db74">&#39;http://user:passwd@106.15.95.226:9187&#39;</span>, <span style="color:#e6db74">&#39;https&#39;</span>: <span style="color:#e6db74">&#39;https://user:passwd@106.15.95.236:9187&#39;</span>}
+resp <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;http://httpbin.org/ip&#39;</span>, proxies<span style="color:#f92672">=</span>proxy1)
+<span style="color:#66d9ef">print</span>(resp<span style="color:#f92672">.</span>json())
+<span style="color:#75715e"># {&#39;origin&#39;: &#39;101.47.19.29, 106.15.95.236&#39;}</span>
+</code></pre></div><h3 id="selenium浏览器中使用代理">selenium+浏览器中使用代理</h3>
 <h4 id="phantomjs">phantomJS</h4>
-
-<pre><code class="language-Python">## selenium+phantomJS代理
-from selenium import webdriver
-driver = webdriver.PhantomJS(
-    # executable_path = '/usr/local/bin/phantomjs',
-    service_args = [
-    '--ignore-ssl-errors=true',
-   '--proxy=106.15.95.236:9187',  # IP:port
-   '--proxy-type=http',
-   '--proxy-auth=user:passwd', # 如需认证添加
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">## selenium+phantomJS代理</span>
+<span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>PhantomJS(
+    <span style="color:#75715e"># executable_path = &#39;/usr/local/bin/phantomjs&#39;,</span>
+    service_args <span style="color:#f92672">=</span> [
+    <span style="color:#e6db74">&#39;--ignore-ssl-errors=true&#39;</span>,
+   <span style="color:#e6db74">&#39;--proxy=106.15.95.236:9187&#39;</span>,  <span style="color:#75715e"># IP:port</span>
+   <span style="color:#e6db74">&#39;--proxy-type=http&#39;</span>,
+   <span style="color:#e6db74">&#39;--proxy-auth=user:passwd&#39;</span>, <span style="color:#75715e"># 如需认证添加</span>
    ])
-url = 'http://httpbin.org/ip'
-driver.get(url)
-html = driver.page_source
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://httpbin.org/ip&#39;</span>
+driver<span style="color:#f92672">.</span>get(url)
+html <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>page_source
 html
-</code></pre>
-
-<h4 id="chrome">Chrome</h4>
-
+</code></pre></div><h4 id="chrome">Chrome</h4>
 <ul>
 <li>无加密代理</li>
 </ul>
-
-<pre><code class="language-python">## selenium+Chrome代理
-# https://blog.csdn.net/zwq912318834/article/details/78933910
-# 保存Chrome与chromedriver都是最新版
-from selenium import webdriver
-options = webdriver.ChromeOptions()
-options.add_argument('--headless')
-options.add_argument('--disable-gpu')
-#options.set_headless(headless=True)
-options.add_argument('lang=zh_CN.UTF-8')
-options.add_argument('--proxy-server=http://218.66.151.87:31868')
-driver = webdriver.Chrome(
-    executable_path='~/tools/chromedriver',
-    chrome_options=options,
-    service_args=['--ignore-ssl-errors=true'])
-url = 'http://httpbin.org/ip'
-driver.get(url)
-html = driver.page_source
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## selenium+Chrome代理</span>
+<span style="color:#75715e"># https://blog.csdn.net/zwq912318834/article/details/78933910</span>
+<span style="color:#75715e"># 保存Chrome与chromedriver都是最新版</span>
+<span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+options <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>ChromeOptions()
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--headless&#39;</span>)
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--disable-gpu&#39;</span>)
+<span style="color:#75715e">#options.set_headless(headless=True)</span>
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;lang=zh_CN.UTF-8&#39;</span>)
+options<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--proxy-server=http://218.66.151.87:31868&#39;</span>)
+driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome(
+    executable_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;~/tools/chromedriver&#39;</span>,
+    chrome_options<span style="color:#f92672">=</span>options,
+    service_args<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;--ignore-ssl-errors=true&#39;</span>])
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://httpbin.org/ip&#39;</span>
+driver<span style="color:#f92672">.</span>get(url)
+html <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>page_source
 html
-driver.quit()
-#driver.close()
-</code></pre>
-
-<ul>
+driver<span style="color:#f92672">.</span>quit()
+<span style="color:#75715e">#driver.close()</span>
+</code></pre></div><ul>
 <li>需认证的代理</li>
 </ul>
-
 <p>加密代理在Chrome中需要通过插件的方式实现</p>
-
-<pre><code class="language-python"># 验证,失败
-import os
-import re
-import time
-import zipfile
-from selenium import webdriver
-# Chrome代理模板插件地址: https://github.com/revotu/selenium-chrome-auth-proxy
-CHROME_PROXY_HELPER_DIR = 'chrome-proxy-helper'
-# 存储自定义Chrome代理扩展文件的目录
-CUSTOM_CHROME_PROXY_EXTENSIONS_DIR = 'chrome-proxy-extensions'
-def get_chrome_proxy_extension(proxy):
-    &quot;&quot;&quot;获取一个Chrome代理扩展,里面配置有指定的代理(带用户名密码认证)
-    proxy - 指定的代理,格式: username:password@ip:port
-    &quot;&quot;&quot;
-    m = re.compile('([^:]+):([^\@]+)\@([\d\.]+):(\d+)').search(proxy)
-    if m:
-        # 提取代理的各项参数
-        username = m.groups()[0]
-        password = m.groups()[1]
-        ip = m.groups()[2]
-        port = m.groups()[3]
-        # 创建一个定制Chrome代理扩展(zip文件)
-        if not os.path.exists(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR):
-            os.mkdir(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR)
-        extension_file_path = os.path.join(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR, '{}.zip'.format(proxy.replace(':', '_')))
-        if not os.path.exists(extension_file_path):
-            # 扩展文件不存在，创建
-            zf = zipfile.ZipFile(extension_file_path, mode='w')
-            zf.write(os.path.join(CHROME_PROXY_HELPER_DIR, 'manifest.json'), 'manifest.json')
-            # 替换模板中的代理参数
-            background_content = open(os.path.join(CHROME_PROXY_HELPER_DIR, 'background.js')).read()
-            background_content = background_content.replace('%proxy_host', ip)
-            background_content = background_content.replace('%proxy_port', port)
-            background_content = background_content.replace('%username', username)
-            background_content = background_content.replace('%password', password)
-            zf.writestr('background.js', background_content)
-            zf.close()
-        return extension_file_path
-    else:
-        raise Exception('Invalid proxy format. Should be username:password@ip:port')
-if __name__ == '__main__':
-    options = webdriver.ChromeOptions()
-    # 添加一个自定义的代理插件（配置特定的代理，含用户名密码认证）
-    options.add_extension(get_chrome_proxy_extension(proxy='username:password@ip:port'))
-    driver = webdriver.Chrome(chrome_options=options)
-    # 访问一个IP回显网站，查看代理配置是否生效了
-    driver.get('http://httpbin.org/ip')
-    print(driver.page_source)
-    time.sleep(15)
-    driver.quit()
-</code></pre>
-
-<h3 id="代理的使用">代理的使用</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 验证,失败</span>
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> re
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> zipfile
+<span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+<span style="color:#75715e"># Chrome代理模板插件地址: https://github.com/revotu/selenium-chrome-auth-proxy</span>
+CHROME_PROXY_HELPER_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;chrome-proxy-helper&#39;</span>
+<span style="color:#75715e"># 存储自定义Chrome代理扩展文件的目录</span>
+CUSTOM_CHROME_PROXY_EXTENSIONS_DIR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;chrome-proxy-extensions&#39;</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_chrome_proxy_extension</span>(proxy):
+    <span style="color:#e6db74">&#34;&#34;&#34;获取一个Chrome代理扩展,里面配置有指定的代理(带用户名密码认证)
+</span><span style="color:#e6db74">    proxy - 指定的代理,格式: username:password@ip:port
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    m <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">&#39;([^:]+):([^\@]+)\@([\d\.]+):(\d+)&#39;</span>)<span style="color:#f92672">.</span>search(proxy)
+    <span style="color:#66d9ef">if</span> m:
+        <span style="color:#75715e"># 提取代理的各项参数</span>
+        username <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span>groups()[<span style="color:#ae81ff">0</span>]
+        password <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span>groups()[<span style="color:#ae81ff">1</span>]
+        ip <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span>groups()[<span style="color:#ae81ff">2</span>]
+        port <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span>groups()[<span style="color:#ae81ff">3</span>]
+        <span style="color:#75715e"># 创建一个定制Chrome代理扩展(zip文件)</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR):
+            os<span style="color:#f92672">.</span>mkdir(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR)
+        extension_file_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(CUSTOM_CHROME_PROXY_EXTENSIONS_DIR, <span style="color:#e6db74">&#39;{}.zip&#39;</span><span style="color:#f92672">.</span>format(proxy<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;:&#39;</span>, <span style="color:#e6db74">&#39;_&#39;</span>)))
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(extension_file_path):
+            <span style="color:#75715e"># 扩展文件不存在，创建</span>
+            zf <span style="color:#f92672">=</span> zipfile<span style="color:#f92672">.</span>ZipFile(extension_file_path, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;w&#39;</span>)
+            zf<span style="color:#f92672">.</span>write(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(CHROME_PROXY_HELPER_DIR, <span style="color:#e6db74">&#39;manifest.json&#39;</span>), <span style="color:#e6db74">&#39;manifest.json&#39;</span>)
+            <span style="color:#75715e"># 替换模板中的代理参数</span>
+            background_content <span style="color:#f92672">=</span> open(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(CHROME_PROXY_HELPER_DIR, <span style="color:#e6db74">&#39;background.js&#39;</span>))<span style="color:#f92672">.</span>read()
+            background_content <span style="color:#f92672">=</span> background_content<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;%proxy_host&#39;</span>, ip)
+            background_content <span style="color:#f92672">=</span> background_content<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;%proxy_port&#39;</span>, port)
+            background_content <span style="color:#f92672">=</span> background_content<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%u</span><span style="color:#e6db74">sername&#39;</span>, username)
+            background_content <span style="color:#f92672">=</span> background_content<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;%password&#39;</span>, password)
+            zf<span style="color:#f92672">.</span>writestr(<span style="color:#e6db74">&#39;background.js&#39;</span>, background_content)
+            zf<span style="color:#f92672">.</span>close()
+        <span style="color:#66d9ef">return</span> extension_file_path
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#39;Invalid proxy format. Should be username:password@ip:port&#39;</span>)
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    options <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>ChromeOptions()
+    <span style="color:#75715e"># 添加一个自定义的代理插件（配置特定的代理，含用户名密码认证）</span>
+    options<span style="color:#f92672">.</span>add_extension(get_chrome_proxy_extension(proxy<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;username:password@ip:port&#39;</span>))
+    driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome(chrome_options<span style="color:#f92672">=</span>options)
+    <span style="color:#75715e"># 访问一个IP回显网站，查看代理配置是否生效了</span>
+    driver<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;http://httpbin.org/ip&#39;</span>)
+    <span style="color:#66d9ef">print</span>(driver<span style="color:#f92672">.</span>page_source)
+    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">15</span>)
+    driver<span style="color:#f92672">.</span>quit()
+</code></pre></div><h3 id="代理的使用">代理的使用</h3>
 <p>鉴于代理的有效性不能达到100%，在实际使用过程中需要考虑根据代理的有效性来维护一个代理池，以蘑菇代理的返回结果为例</p>
-
-<pre><code class="language-python">import requests
-IP_proxy = 'http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=4162021207ase8293a0a2d853bf27fd12&amp;count=5&amp;expiryDate=0&amp;format=1'
-ip_pool = requests.get(url=IP_proxy)
-ip_pool = ip_pool.json()
-ips = ip_pool['msg']
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> requests
+IP_proxy <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://mvip.piping.mogumiao.com/proxy/api/get_ip_bs?appKey=4162021207ase8293a0a2d853bf27fd12&amp;count=5&amp;expiryDate=0&amp;format=1&#39;</span>
+ip_pool <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url<span style="color:#f92672">=</span>IP_proxy)
+ip_pool <span style="color:#f92672">=</span> ip_pool<span style="color:#f92672">.</span>json()
+ips <span style="color:#f92672">=</span> ip_pool[<span style="color:#e6db74">&#39;msg&#39;</span>]
 ips
-# [{'ip': '60.184.203.95', 'port': '40887'},
-#  {'ip': '115.217.165.163', 'port': '43841'},
-#  {'ip': '113.93.103.139', 'port': '36542'},
-#  {'ip': '180.116.154.245', 'port': '34463'},
-#  {'ip': '117.69.200.122', 'port': '43095'}]
-</code></pre>
-
-<h4 id="持续从接口获取代理">持续从接口获取代理</h4>
-
+<span style="color:#75715e"># [{&#39;ip&#39;: &#39;60.184.203.95&#39;, &#39;port&#39;: &#39;40887&#39;},</span>
+<span style="color:#75715e">#  {&#39;ip&#39;: &#39;115.217.165.163&#39;, &#39;port&#39;: &#39;43841&#39;},</span>
+<span style="color:#75715e">#  {&#39;ip&#39;: &#39;113.93.103.139&#39;, &#39;port&#39;: &#39;36542&#39;},</span>
+<span style="color:#75715e">#  {&#39;ip&#39;: &#39;180.116.154.245&#39;, &#39;port&#39;: &#39;34463&#39;},</span>
+<span style="color:#75715e">#  {&#39;ip&#39;: &#39;117.69.200.122&#39;, &#39;port&#39;: &#39;43095&#39;}]</span>
+</code></pre></div><h4 id="持续从接口获取代理">持续从接口获取代理</h4>
 <p>给定蘑菇代理接口不稳定或者访问限制，使用以下方法多次尝试</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ips_proxy</span>(trys <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>, sleeps <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>):
+    try_num <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    ipros <span style="color:#f92672">=</span> None
+    <span style="color:#66d9ef">while</span> try_num <span style="color:#f92672">&lt;=</span> trys:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;=====&#39;</span>)
+        <span style="color:#66d9ef">try</span>:
+            try_num <span style="color:#f92672">=</span> try_num <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+            ip_pool <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url<span style="color:#f92672">=</span>IP_proxy)
+            ip_pool <span style="color:#f92672">=</span> ip_pool<span style="color:#f92672">.</span>json()
+            <span style="color:#66d9ef">print</span>(ip_pool)
+            <span style="color:#66d9ef">print</span>(ip_pool[<span style="color:#e6db74">&#39;code&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+            <span style="color:#66d9ef">if</span> ip_pool[<span style="color:#e6db74">&#39;code&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span>:
+                ipros <span style="color:#f92672">=</span> ip_pool[<span style="color:#e6db74">&#39;msg&#39;</span>]
+                <span style="color:#75715e"># print(ips)</span>
+                <span style="color:#66d9ef">break</span>
+            <span style="color:#66d9ef">else</span>:
+                time<span style="color:#f92672">.</span>sleep(sleeps)
+                <span style="color:#66d9ef">continue</span>
+        <span style="color:#66d9ef">except</span>:
+            <span style="color:#66d9ef">pass</span>
+    <span style="color:#66d9ef">return</span> ipros
+ips_proxy(<span style="color:#ae81ff">2</span>)
+</code></pre></div><h4 id="代理有效性验证">代理有效性验证</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## 根据IP+port判断http代理是否有效</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_IP</span>(ip, port):
+    <span style="color:#66d9ef">try</span>:
+        telnetlib<span style="color:#f92672">.</span>Telnet(ip, port<span style="color:#f92672">=</span>port, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">except</span>:
+        <span style="color:#66d9ef">return</span> False
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> True
 
-<pre><code class="language-python">def ips_proxy(trys = 20, sleeps = 2):
-    try_num = 1
-    ipros = None
-    while try_num &lt;= trys:
-        print('=====')
-        try:
-            try_num = try_num + 1
-            ip_pool = requests.get(url=IP_proxy)
-            ip_pool = ip_pool.json()
-            print(ip_pool)
-            print(ip_pool['code'] == 0)
-            if ip_pool['code'] == '0':
-                ipros = ip_pool['msg']
-                # print(ips)
-                break
-            else:
-                time.sleep(sleeps)
-                continue
-        except:
-            pass
-    return ipros
-ips_proxy(2)
-</code></pre>
-
-<h4 id="代理有效性验证">代理有效性验证</h4>
-
-<pre><code class="language-python">## 根据IP+port判断http代理是否有效
-def test_IP(ip, port):
-    try:
-        telnetlib.Telnet(ip, port=port, timeout=1)
-    except:
-        return False
-    else:
-        return True
-
-# 过滤无效代理
-def filter_validIP(ips):
-    res = []
-    for i in ips:
-        ip = i['ip']
-        port = i['port']
-        if test_IP(ip, port):
-            res.append(i)
-    return res
-</code></pre>
-
-<h4 id="更新代理池">更新代理池</h4>
-
+<span style="color:#75715e"># 过滤无效代理</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">filter_validIP</span>(ips):
+    res <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ips:
+        ip <span style="color:#f92672">=</span> i[<span style="color:#e6db74">&#39;ip&#39;</span>]
+        port <span style="color:#f92672">=</span> i[<span style="color:#e6db74">&#39;port&#39;</span>]
+        <span style="color:#66d9ef">if</span> test_IP(ip, port):
+            res<span style="color:#f92672">.</span>append(i)
+    <span style="color:#66d9ef">return</span> res
+</code></pre></div><h4 id="更新代理池">更新代理池</h4>
 <p>假定<code>ips</code>为内存中的代理池变量，可以在<code>request</code>的过程中根据请求时长、返回结果来更新<code>ips</code></p>
-
-<pre><code class="language-python">header_code = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Encoding': 'gzip, deflate',
-    'Connection': 'keep-alive'
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">header_code <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;User-Agent&#39;</span>: <span style="color:#e6db74">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36&#39;</span>,
+    <span style="color:#e6db74">&#39;Accept&#39;</span>: <span style="color:#e6db74">&#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#39;</span>,
+    <span style="color:#e6db74">&#39;Accept-Encoding&#39;</span>: <span style="color:#e6db74">&#39;gzip, deflate&#39;</span>,
+    <span style="color:#e6db74">&#39;Connection&#39;</span>: <span style="color:#e6db74">&#39;keep-alive&#39;</span>
 }
-def get_html_withproxy(url, trys=10):
-    try_num = 1
-    global ips
-    # print(ips)
-    while try_num &lt;= trys:
-        # print(try_num &lt;= trys)
-        try:
-            randi = random.sample(range(0, len(ips)), 1)
-            ip_t = ips[randi[0]]
-            ip = ip_t['ip']
-            port = ip_t['port']
-            proxies = ip + ':' + port
-            proxies_http = 'http://' + proxies
-            proxies_https = 'https://' + proxies
-            proxys = {'http': proxies_http, 'https': proxies_https}
-            # print(proxys)
-            u1 = requests.get(url, headers=header_code, proxies=proxys, timeout=2)
-            # print(u1)
-        except:
-            ips.pop(randi[0])
-            try_num = try_num + 1
-            # print(try_num)
-            if len(ips) &lt; 3: #当代理数量过少重新获取
-                # ip_pool = requests.get(url=IP_proxy)
-                # ip_pool = ip_pool.json()
-                # ips = ip_pool['msg']
-                ips = ips.extend(ips_proxy())
-        else:
-            break
-    if try_num &lt;= trys:
-        return u1
-    else:
-        return None
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_html_withproxy</span>(url, trys<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+    try_num <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">global</span> ips
+    <span style="color:#75715e"># print(ips)</span>
+    <span style="color:#66d9ef">while</span> try_num <span style="color:#f92672">&lt;=</span> trys:
+        <span style="color:#75715e"># print(try_num &lt;= trys)</span>
+        <span style="color:#66d9ef">try</span>:
+            randi <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>sample(range(<span style="color:#ae81ff">0</span>, len(ips)), <span style="color:#ae81ff">1</span>)
+            ip_t <span style="color:#f92672">=</span> ips[randi[<span style="color:#ae81ff">0</span>]]
+            ip <span style="color:#f92672">=</span> ip_t[<span style="color:#e6db74">&#39;ip&#39;</span>]
+            port <span style="color:#f92672">=</span> ip_t[<span style="color:#e6db74">&#39;port&#39;</span>]
+            proxies <span style="color:#f92672">=</span> ip <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;:&#39;</span> <span style="color:#f92672">+</span> port
+            proxies_http <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://&#39;</span> <span style="color:#f92672">+</span> proxies
+            proxies_https <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://&#39;</span> <span style="color:#f92672">+</span> proxies
+            proxys <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;http&#39;</span>: proxies_http, <span style="color:#e6db74">&#39;https&#39;</span>: proxies_https}
+            <span style="color:#75715e"># print(proxys)</span>
+            u1 <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url, headers<span style="color:#f92672">=</span>header_code, proxies<span style="color:#f92672">=</span>proxys, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+            <span style="color:#75715e"># print(u1)</span>
+        <span style="color:#66d9ef">except</span>:
+            ips<span style="color:#f92672">.</span>pop(randi[<span style="color:#ae81ff">0</span>])
+            try_num <span style="color:#f92672">=</span> try_num <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+            <span style="color:#75715e"># print(try_num)</span>
+            <span style="color:#66d9ef">if</span> len(ips) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>: <span style="color:#75715e">#当代理数量过少重新获取</span>
+                <span style="color:#75715e"># ip_pool = requests.get(url=IP_proxy)</span>
+                <span style="color:#75715e"># ip_pool = ip_pool.json()</span>
+                <span style="color:#75715e"># ips = ip_pool[&#39;msg&#39;]</span>
+                ips <span style="color:#f92672">=</span> ips<span style="color:#f92672">.</span>extend(ips_proxy())
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">break</span>
+    <span style="color:#66d9ef">if</span> try_num <span style="color:#f92672">&lt;=</span> trys:
+        <span style="color:#66d9ef">return</span> u1
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> None
 
-ip_pool = requests.get(url=IP_proxy)
-ip_pool = ip_pool.json()
-ips = ip_pool['msg']
-# ips = filter_validIP(ips)
+ip_pool <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url<span style="color:#f92672">=</span>IP_proxy)
+ip_pool <span style="color:#f92672">=</span> ip_pool<span style="color:#f92672">.</span>json()
+ips <span style="color:#f92672">=</span> ip_pool[<span style="color:#e6db74">&#39;msg&#39;</span>]
+<span style="color:#75715e"># ips = filter_validIP(ips)</span>
 
-## 热销产品
-url = 'http://www.huaxintrust.com/productlist.asp?page=1&amp;pid=1'
-rvt = get_html_withproxy(url)
+<span style="color:#75715e">## 热销产品</span>
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://www.huaxintrust.com/productlist.asp?page=1&amp;pid=1&#39;</span>
+rvt <span style="color:#f92672">=</span> get_html_withproxy(url)
 rvt
-</code></pre>
-
+</code></pre></div>
 </main>
 
   <footer>
@@ -337,21 +301,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -375,7 +342,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

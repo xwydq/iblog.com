@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>爬虫：AMAC私募基金管理人 | 飞舞的尘埃</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="../../../../../css/style.css" />
+    <link rel="stylesheet" href="../../../../../css/fonts.css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
   </head>
 
@@ -13,15 +13,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/">Home</a></li>
+      <li><a href="../../../../../">Home</a></li>
       
-      <li><a href="/about/">About</a></li>
+      <li><a href="../../../../../about/">About</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="../../../../../categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="../../../../../tags/">Tags</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="../../../../../index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -36,7 +36,7 @@
   
   Categories:   
   
-  <a href='/categories/%E7%88%AC%E8%99%AB'>爬虫</a>
+  <a href='../../../../../categories/%E7%88%AC%E8%99%AB'>爬虫</a>
   
   
   
@@ -45,7 +45,7 @@
   
   Tags:   
   
-  <a href='/tags/%E5%9F%BA%E9%87%91'>基金</a>
+  <a href='../../../../../tags/%E5%9F%BA%E9%87%91'>基金</a>
   
   
   
@@ -56,79 +56,57 @@
 
 
 <main>
-
-
-<h2 id="基金业协会备案信息之-基金管理人-http-gs-amac-org-cn-amac-infodisc-res-pof-manager-index-html">基金业协会备案信息之：<a href="http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html">基金管理人</a></h2>
-
+<h2 id="基金业协会备案信息之基金管理人httpgsamacorgcnamac-infodiscrespofmanagerindexhtml">基金业协会备案信息之：<a href="http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html">基金管理人</a></h2>
 <h3 id="模块引入">模块引入</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
+<span style="color:#f92672">import</span> random
+<span style="color:#f92672">import</span> math
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> datetime
+<span style="color:#f92672">from</span> sqlalchemy <span style="color:#f92672">import</span> create_engine
+<span style="color:#f92672">from</span> lxml <span style="color:#f92672">import</span> etree
+<span style="color:#f92672">import</span> re
 
-<pre><code class="language-python">import requests
-import pandas as pd
-import random
-import math
-import time
-import datetime
-from sqlalchemy import create_engine
-from lxml import etree
-import re
-
-requests.__version__
-# '2.18.4'
-</code></pre>
-
-<h3 id="基金管理人列表">基金管理人列表</h3>
-
+requests<span style="color:#f92672">.</span>__version__
+<span style="color:#75715e"># &#39;2.18.4&#39;</span>
+</code></pre></div><h3 id="基金管理人列表">基金管理人列表</h3>
 <p><code>chrome</code>打开<code>network</code>查看请求，具体请求API为 POST，接口：<code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager</code>，参数：<code>?rand=0.24323480064904235&amp;page=1&amp;size=20</code></p>
-
 <ul>
 <li>rand：0-1随机数</li>
 <li>page：页码(第1页：page=0)</li>
 <li>size：每页显示的记录数</li>
 </ul>
-
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fp449zir50j31kw0q2kb3.jpg" alt="network请求" />
-<img src="https://ws1.sinaimg.cn/large/006tNc79ly1fp8n9t1i8tj311m0q4dks.jpg" alt="具体参数" /></p>
-
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fp449zir50j31kw0q2kb3.jpg" alt="network请求">
+<img src="https://ws1.sinaimg.cn/large/006tNc79ly1fp8n9t1i8tj311m0q4dks.jpg" alt="具体参数"></p>
 <p>参数说明：</p>
-
 <ul>
 <li>Query String Parameters: params，查询参数</li>
 <li>Request Payload: json，为空{}时，也需要添加该参数，否则有可能报错</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># url = &#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;page=0&amp;size=20&#39;</span>
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://gs.amac.org.cn/amac-infodisc/api/pof/manager&#39;</span>
 
-<pre><code class="language-python"># url = 'http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;page=0&amp;size=20'
-url = 'http://gs.amac.org.cn/amac-infodisc/api/pof/manager'
+paras <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;rand&#34;</span>: <span style="color:#ae81ff">0.24121315630506435</span>,
+         <span style="color:#e6db74">&#34;page&#34;</span>: <span style="color:#ae81ff">4</span>,
+         <span style="color:#e6db74">&#34;size&#34;</span>: <span style="color:#ae81ff">2</span>}
 
-paras = {&quot;rand&quot;: 0.24121315630506435,
-         &quot;page&quot;: 4,
-         &quot;size&quot;: 2}
-
-headers = {
-    'Content-Type': 'application/json'
+headers <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>
 }
   
-rs = requests.post(url=url, headers=headers, params = paras, json={})
-print(rs.url)
-print(rs.text)
+rs <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url<span style="color:#f92672">=</span>url, headers<span style="color:#f92672">=</span>headers, params <span style="color:#f92672">=</span> paras, json<span style="color:#f92672">=</span>{})
+<span style="color:#66d9ef">print</span>(rs<span style="color:#f92672">.</span>url)
+<span style="color:#66d9ef">print</span>(rs<span style="color:#f92672">.</span>text)
 
-</code></pre>
-
-<pre><code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;page=4&amp;size=2
+</code></pre></div><pre><code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.24121315630506435&amp;page=4&amp;size=2
 {&quot;content&quot;:[{&quot;id&quot;:&quot;101000000446&quot;,&quot;managerName&quot;:&quot;鼎晖股权投资管理（天津）有限公司&quot;,&quot;artificialPersonName&quot;:&quot;吴尚志&quot;,&quot;registerNo&quot;:&quot;P1000301&quot;,&quot;establishDate&quot;:1211414400000,&quot;managerHasProduct&quot;:null,&quot;url&quot;:&quot;101000000446.html&quot;,&quot;registerDate&quot;:1395014400000,&quot;registerAddress&quot;:&quot;天津市滨海新区滨海新区经济技术开发区南港工业区综合服务区办公楼D座二层202室（开发区金融服务中心托管第77号）&quot;,&quot;registerProvince&quot;:&quot;天津市&quot;,&quot;registerCity&quot;:&quot;滨海新区&quot;,&quot;regAdrAgg&quot;:&quot;天津市&quot;,&quot;fundCount&quot;:12,&quot;fundScale&quot;:1381634.712859,&quot;paidInCapital&quot;:2049953.1490,&quot;subscribedCapital&quot;:2642307.0000,&quot;hasSpecialTips&quot;:false,&quot;inBlacklist&quot;:false,&quot;hasCreditTips&quot;:false,&quot;regCoordinate&quot;:null,&quot;officeCoordinate&quot;:&quot;39.92271378228864,116.46714895633674&quot;,&quot;officeAddress&quot;:&quot;北京市朝阳区朝阳区东三环中路5号财富金融中心25层&quot;,&quot;officeProvince&quot;:&quot;北京市&quot;,&quot;officeCity&quot;:&quot;朝阳区&quot;,&quot;primaryInvestType&quot;:&quot;私募股权、创业投资基金管理人&quot;},{&quot;id&quot;:&quot;101000000308&quot;,&quot;managerName&quot;:&quot;广东中科招商创业投资管理有限责任公司&quot;,&quot;artificialPersonName&quot;:&quot;杜昌焘&quot;,&quot;registerNo&quot;:&quot;P1000302&quot;,&quot;establishDate&quot;:1247616000000,&quot;managerHasProduct&quot;:null,&quot;url&quot;:&quot;101000000308.html&quot;,&quot;registerDate&quot;:1395014400000,&quot;registerAddress&quot;:&quot;广东省广州市萝岗区广州高新技术产业开发区科学大道235号1001房之八&quot;,&quot;registerProvince&quot;:&quot;广东省&quot;,&quot;registerCity&quot;:&quot;广州市&quot;,&quot;regAdrAgg&quot;:&quot;广东省&quot;,&quot;fundCount&quot;:27,&quot;fundScale&quot;:1111650.707103,&quot;paidInCapital&quot;:972690.4115,&quot;subscribedCapital&quot;:979315.4115,&quot;hasSpecialTips&quot;:false,&quot;inBlacklist&quot;:false,&quot;hasCreditTips&quot;:false,&quot;regCoordinate&quot;:&quot;23.17761537939722,113.463880297835&quot;,&quot;officeCoordinate&quot;:&quot;23.123979636327483,113.32975831850844&quot;,&quot;officeAddress&quot;:&quot;广东省广州市天河区天河区珠江新城珠江西路5号广州国际金融中心西塔21层&quot;,&quot;officeProvince&quot;:&quot;广东省&quot;,&quot;officeCity&quot;:&quot;广州市&quot;,&quot;primaryInvestType&quot;:&quot;私募股权、创业投资基金管理人&quot;}],&quot;last&quot;:false,&quot;totalPages&quot;:11631,&quot;totalElements&quot;:23262,&quot;sort&quot;:[{&quot;direction&quot;:&quot;ASC&quot;,&quot;property&quot;:&quot;registerDate&quot;,&quot;ignoreCase&quot;:false,&quot;nullHandling&quot;:&quot;NATIVE&quot;,&quot;ascending&quot;:true,&quot;descending&quot;:false}],&quot;size&quot;:2,&quot;number&quot;:4,&quot;first&quot;:false,&quot;numberOfElements&quot;:2}
-</code></pre>
-
-<p>结果转化为pandas.DataFrame类型</p>
-
-<pre><code class="language-python">dict_dat = rs.json()
-df_pd = pd.DataFrame.from_dict(dict_dat['content'])
+</code></pre><p>结果转化为pandas.DataFrame类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dict_dat <span style="color:#f92672">=</span> rs<span style="color:#f92672">.</span>json()
+df_pd <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame<span style="color:#f92672">.</span>from_dict(dict_dat[<span style="color:#e6db74">&#39;content&#39;</span>])
 df_pd
-</code></pre>
-
-<div>
-<style>
-
-```
-.dataframe thead tr:only-child th {
+</code></pre></div><!-- raw HTML omitted -->
+<pre><code>.dataframe thead tr:only-child th {
     text-align: right;
 }
 
@@ -139,120 +117,96 @@ df_pd
 .dataframe tbody tr th {
     vertical-align: top;
 }
-```
-
-</style>
-<table border="1" class="dataframe">
-  <thead>
-
-```
-<tr style="text-align: right;">
-  <th></th>
-  <th>artificialPersonName</th>
-  <th>establishDate</th>
-  <th>fundCount</th>
-  <th>fundScale</th>
-  <th>hasCreditTips</th>
-  <th>hasSpecialTips</th>
-  <th>id</th>
-  <th>inBlacklist</th>
-  <th>managerHasProduct</th>
-  <th>managerName</th>
-  <th>...</th>
-  <th>primaryInvestType</th>
-  <th>regAdrAgg</th>
-  <th>regCoordinate</th>
-  <th>registerAddress</th>
-  <th>registerCity</th>
-  <th>registerDate</th>
-  <th>registerNo</th>
-  <th>registerProvince</th>
-  <th>subscribedCapital</th>
-  <th>url</th>
-</tr>
-```
-
-  </thead>
-  <tbody>
-
-```
-<tr>
-  <th>0</th>
-  <td>吴尚志</td>
-  <td>1211414400000</td>
-  <td>12</td>
-  <td>1.381635e+06</td>
-  <td>False</td>
-  <td>False</td>
-  <td>101000000446</td>
-  <td>False</td>
-  <td>None</td>
-  <td>鼎晖股权投资管理（天津）有限公司</td>
-  <td>...</td>
-  <td>私募股权、创业投资基金管理人</td>
-  <td>天津市</td>
-  <td>None</td>
-  <td>天津市滨海新区滨海新区经济技术开发区南港工业区综合服务区办公楼D座二层202室（开发区金融服...</td>
-  <td>滨海新区</td>
-  <td>1395014400000</td>
-  <td>P1000301</td>
-  <td>天津市</td>
-  <td>2.642307e+06</td>
-  <td>101000000446.html</td>
-</tr>
-<tr>
-  <th>1</th>
-  <td>杜昌焘</td>
-  <td>1247616000000</td>
-  <td>27</td>
-  <td>1.111651e+06</td>
-  <td>False</td>
-  <td>False</td>
-  <td>101000000308</td>
-  <td>False</td>
-  <td>None</td>
-  <td>广东中科招商创业投资管理有限责任公司</td>
-  <td>...</td>
-  <td>私募股权、创业投资基金管理人</td>
-  <td>广东省</td>
-  <td>23.17761537939722,113.463880297835</td>
-  <td>广东省广州市萝岗区广州高新技术产业开发区科学大道235号1001房之八</td>
-  <td>广州市</td>
-  <td>1395014400000</td>
-  <td>P1000302</td>
-  <td>广东省</td>
-  <td>9.793154e+05</td>
-  <td>101000000308.html</td>
-</tr>
-```
-
-  </tbody>
-</table>
-<p>2 rows × 25 columns</p>
-</div>
-
+</code></pre><p><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<pre><code>&lt;tr style=&quot;text-align: right;&quot;&gt;
+  &lt;th&gt;&lt;/th&gt;
+  &lt;th&gt;artificialPersonName&lt;/th&gt;
+  &lt;th&gt;establishDate&lt;/th&gt;
+  &lt;th&gt;fundCount&lt;/th&gt;
+  &lt;th&gt;fundScale&lt;/th&gt;
+  &lt;th&gt;hasCreditTips&lt;/th&gt;
+  &lt;th&gt;hasSpecialTips&lt;/th&gt;
+  &lt;th&gt;id&lt;/th&gt;
+  &lt;th&gt;inBlacklist&lt;/th&gt;
+  &lt;th&gt;managerHasProduct&lt;/th&gt;
+  &lt;th&gt;managerName&lt;/th&gt;
+  &lt;th&gt;...&lt;/th&gt;
+  &lt;th&gt;primaryInvestType&lt;/th&gt;
+  &lt;th&gt;regAdrAgg&lt;/th&gt;
+  &lt;th&gt;regCoordinate&lt;/th&gt;
+  &lt;th&gt;registerAddress&lt;/th&gt;
+  &lt;th&gt;registerCity&lt;/th&gt;
+  &lt;th&gt;registerDate&lt;/th&gt;
+  &lt;th&gt;registerNo&lt;/th&gt;
+  &lt;th&gt;registerProvince&lt;/th&gt;
+  &lt;th&gt;subscribedCapital&lt;/th&gt;
+  &lt;th&gt;url&lt;/th&gt;
+&lt;/tr&gt;
+</code></pre><!-- raw HTML omitted -->
+<pre><code>&lt;tr&gt;
+  &lt;th&gt;0&lt;/th&gt;
+  &lt;td&gt;吴尚志&lt;/td&gt;
+  &lt;td&gt;1211414400000&lt;/td&gt;
+  &lt;td&gt;12&lt;/td&gt;
+  &lt;td&gt;1.381635e+06&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;101000000446&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;None&lt;/td&gt;
+  &lt;td&gt;鼎晖股权投资管理（天津）有限公司&lt;/td&gt;
+  &lt;td&gt;...&lt;/td&gt;
+  &lt;td&gt;私募股权、创业投资基金管理人&lt;/td&gt;
+  &lt;td&gt;天津市&lt;/td&gt;
+  &lt;td&gt;None&lt;/td&gt;
+  &lt;td&gt;天津市滨海新区滨海新区经济技术开发区南港工业区综合服务区办公楼D座二层202室（开发区金融服...&lt;/td&gt;
+  &lt;td&gt;滨海新区&lt;/td&gt;
+  &lt;td&gt;1395014400000&lt;/td&gt;
+  &lt;td&gt;P1000301&lt;/td&gt;
+  &lt;td&gt;天津市&lt;/td&gt;
+  &lt;td&gt;2.642307e+06&lt;/td&gt;
+  &lt;td&gt;101000000446.html&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;th&gt;1&lt;/th&gt;
+  &lt;td&gt;杜昌焘&lt;/td&gt;
+  &lt;td&gt;1247616000000&lt;/td&gt;
+  &lt;td&gt;27&lt;/td&gt;
+  &lt;td&gt;1.111651e+06&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;101000000308&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;None&lt;/td&gt;
+  &lt;td&gt;广东中科招商创业投资管理有限责任公司&lt;/td&gt;
+  &lt;td&gt;...&lt;/td&gt;
+  &lt;td&gt;私募股权、创业投资基金管理人&lt;/td&gt;
+  &lt;td&gt;广东省&lt;/td&gt;
+  &lt;td&gt;23.17761537939722,113.463880297835&lt;/td&gt;
+  &lt;td&gt;广东省广州市萝岗区广州高新技术产业开发区科学大道235号1001房之八&lt;/td&gt;
+  &lt;td&gt;广州市&lt;/td&gt;
+  &lt;td&gt;1395014400000&lt;/td&gt;
+  &lt;td&gt;P1000302&lt;/td&gt;
+  &lt;td&gt;广东省&lt;/td&gt;
+  &lt;td&gt;9.793154e+05&lt;/td&gt;
+  &lt;td&gt;101000000308.html&lt;/td&gt;
+&lt;/tr&gt;
+</code></pre><!-- raw HTML omitted -->
 <p>加入日期范围筛选</p>
-
-<pre><code class="language-python">date_range = {&quot;establishDate&quot;: {&quot;from&quot;: &quot;2017-11-02&quot;, &quot;to&quot;: &quot;2018-02-02&quot;}}
-paras = {&quot;rand&quot;: random.random(),
-         &quot;page&quot;: 0,
-         &quot;size&quot;: 4}
-rs = requests.post(url=url, headers=headers, params = paras,
-                   json=date_range)
-print(rs.url)
-dict_dat = rs.json()
-df_pd = pd.DataFrame.from_dict(dict_dat['content'])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">date_range <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;establishDate&#34;</span>: {<span style="color:#e6db74">&#34;from&#34;</span>: <span style="color:#e6db74">&#34;2017-11-02&#34;</span>, <span style="color:#e6db74">&#34;to&#34;</span>: <span style="color:#e6db74">&#34;2018-02-02&#34;</span>}}
+paras <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;rand&#34;</span>: random<span style="color:#f92672">.</span>random(),
+         <span style="color:#e6db74">&#34;page&#34;</span>: <span style="color:#ae81ff">0</span>,
+         <span style="color:#e6db74">&#34;size&#34;</span>: <span style="color:#ae81ff">4</span>}
+rs <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>post(url<span style="color:#f92672">=</span>url, headers<span style="color:#f92672">=</span>headers, params <span style="color:#f92672">=</span> paras,
+                   json<span style="color:#f92672">=</span>date_range)
+<span style="color:#66d9ef">print</span>(rs<span style="color:#f92672">.</span>url)
+dict_dat <span style="color:#f92672">=</span> rs<span style="color:#f92672">.</span>json()
+df_pd <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame<span style="color:#f92672">.</span>from_dict(dict_dat[<span style="color:#e6db74">&#39;content&#39;</span>])
 df_pd
-</code></pre>
-
-<pre><code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.9056699244551177&amp;page=0&amp;size=4
-</code></pre>
-
-<div>
-<style>
-
-```
-.dataframe thead tr:only-child th {
+</code></pre></div><pre><code>http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.9056699244551177&amp;page=0&amp;size=4
+</code></pre><!-- raw HTML omitted -->
+<pre><code>.dataframe thead tr:only-child th {
     text-align: right;
 }
 
@@ -263,274 +217,252 @@ df_pd
 .dataframe tbody tr th {
     vertical-align: top;
 }
-```
-
-</style>
-<table border="1" class="dataframe">
-  <thead>
-
-```
-<tr style="text-align: right;">
-  <th></th>
-  <th>artificialPersonName</th>
-  <th>establishDate</th>
-  <th>fundCount</th>
-  <th>fundScale</th>
-  <th>hasCreditTips</th>
-  <th>hasSpecialTips</th>
-  <th>id</th>
-  <th>inBlacklist</th>
-  <th>managerHasProduct</th>
-  <th>managerName</th>
-  <th>...</th>
-  <th>primaryInvestType</th>
-  <th>regAdrAgg</th>
-  <th>regCoordinate</th>
-  <th>registerAddress</th>
-  <th>registerCity</th>
-  <th>registerDate</th>
-  <th>registerNo</th>
-  <th>registerProvince</th>
-  <th>subscribedCapital</th>
-  <th>url</th>
-</tr>
-```
-
-  </thead>
-  <tbody>
-
-```
-<tr>
-  <th>0</th>
-  <td>张志良</td>
-  <td>1510704000000</td>
-  <td>0</td>
-  <td>0</td>
-  <td>False</td>
-  <td>False</td>
-  <td>1711221511103201</td>
-  <td>False</td>
-  <td>False</td>
-  <td>北京屹唐联合投资管理有限公司</td>
-  <td>...</td>
-  <td>私募股权、创业投资基金管理人</td>
-  <td>北京市</td>
-  <td>39.79008460858685,116.5313401936383</td>
-  <td>北京市大兴区大兴区北京市北京经济技术开发区荣昌东街甲5号3号楼7层701-3室</td>
-  <td>大兴区</td>
-  <td>1514505600000</td>
-  <td>P1066606</td>
-  <td>北京市</td>
-  <td>0.0</td>
-  <td>1711221511103201.html</td>
-</tr>
-<tr>
-  <th>1</th>
-  <td>黎代福</td>
-  <td>1510185600000</td>
-  <td>0</td>
-  <td>0</td>
-  <td>False</td>
-  <td>False</td>
-  <td>1711201409106565</td>
-  <td>False</td>
-  <td>False</td>
-  <td>深圳市建信远致投贷联动股权投资基金管理有限公司</td>
-  <td>...</td>
-  <td>私募股权、创业投资基金管理人</td>
-  <td>深圳市</td>
-  <td>22.54423473206776,114.06008610208522</td>
-  <td>广东省深圳市福田区福田街道深南大道4009投资大厦14A</td>
-  <td>深圳市</td>
-  <td>1515456000000</td>
-  <td>P1066724</td>
-  <td>广东省</td>
-  <td>0.0</td>
-  <td>1711201409106565.html</td>
-</tr>
-<tr>
-  <th>2</th>
-  <td>贾翔宇</td>
-  <td>1509926400000</td>
-  <td>0</td>
-  <td>0</td>
-  <td>False</td>
-  <td>False</td>
-  <td>1711151340101418</td>
-  <td>False</td>
-  <td>False</td>
-  <td>芜湖元祐投资管理有限公司</td>
-  <td>...</td>
-  <td>私募股权、创业投资基金管理人</td>
-  <td>安徽省</td>
-  <td>31.351965582559195,118.38724548573022</td>
-  <td>安徽省芜湖市镜湖区荆峰路60-1号</td>
-  <td>芜湖市</td>
-  <td>1516320000000</td>
-  <td>P1066906</td>
-  <td>安徽省</td>
-  <td>0.0</td>
-  <td>1711151340101418.html</td>
-</tr>
-<tr>
-  <th>3</th>
-  <td>杜炎斌</td>
-  <td>1510790400000</td>
-  <td>0</td>
-  <td>0</td>
-  <td>False</td>
-  <td>False</td>
-  <td>1711232310107506</td>
-  <td>False</td>
-  <td>False</td>
-  <td>西藏聚信发展股权投资基金管理有限公司</td>
-  <td>...</td>
-  <td>私募股权、创业投资基金管理人</td>
-  <td>西藏自治区</td>
-  <td>29.629444241792186,91.07674760971572</td>
-  <td>西藏自治区拉萨市城关区柳梧新区柳梧大厦1602号</td>
-  <td>拉萨市</td>
-  <td>1516320000000</td>
-  <td>P1066927</td>
-  <td>西藏自治区</td>
-  <td>0.0</td>
-  <td>1711232310107506.html</td>
-</tr>
-```
-
-  </tbody>
-</table>
-<p>4 rows × 25 columns</p>
-</div>
-
+</code></pre><p><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<pre><code>&lt;tr style=&quot;text-align: right;&quot;&gt;
+  &lt;th&gt;&lt;/th&gt;
+  &lt;th&gt;artificialPersonName&lt;/th&gt;
+  &lt;th&gt;establishDate&lt;/th&gt;
+  &lt;th&gt;fundCount&lt;/th&gt;
+  &lt;th&gt;fundScale&lt;/th&gt;
+  &lt;th&gt;hasCreditTips&lt;/th&gt;
+  &lt;th&gt;hasSpecialTips&lt;/th&gt;
+  &lt;th&gt;id&lt;/th&gt;
+  &lt;th&gt;inBlacklist&lt;/th&gt;
+  &lt;th&gt;managerHasProduct&lt;/th&gt;
+  &lt;th&gt;managerName&lt;/th&gt;
+  &lt;th&gt;...&lt;/th&gt;
+  &lt;th&gt;primaryInvestType&lt;/th&gt;
+  &lt;th&gt;regAdrAgg&lt;/th&gt;
+  &lt;th&gt;regCoordinate&lt;/th&gt;
+  &lt;th&gt;registerAddress&lt;/th&gt;
+  &lt;th&gt;registerCity&lt;/th&gt;
+  &lt;th&gt;registerDate&lt;/th&gt;
+  &lt;th&gt;registerNo&lt;/th&gt;
+  &lt;th&gt;registerProvince&lt;/th&gt;
+  &lt;th&gt;subscribedCapital&lt;/th&gt;
+  &lt;th&gt;url&lt;/th&gt;
+&lt;/tr&gt;
+</code></pre><!-- raw HTML omitted -->
+<pre><code>&lt;tr&gt;
+  &lt;th&gt;0&lt;/th&gt;
+  &lt;td&gt;张志良&lt;/td&gt;
+  &lt;td&gt;1510704000000&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;1711221511103201&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;北京屹唐联合投资管理有限公司&lt;/td&gt;
+  &lt;td&gt;...&lt;/td&gt;
+  &lt;td&gt;私募股权、创业投资基金管理人&lt;/td&gt;
+  &lt;td&gt;北京市&lt;/td&gt;
+  &lt;td&gt;39.79008460858685,116.5313401936383&lt;/td&gt;
+  &lt;td&gt;北京市大兴区大兴区北京市北京经济技术开发区荣昌东街甲5号3号楼7层701-3室&lt;/td&gt;
+  &lt;td&gt;大兴区&lt;/td&gt;
+  &lt;td&gt;1514505600000&lt;/td&gt;
+  &lt;td&gt;P1066606&lt;/td&gt;
+  &lt;td&gt;北京市&lt;/td&gt;
+  &lt;td&gt;0.0&lt;/td&gt;
+  &lt;td&gt;1711221511103201.html&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;th&gt;1&lt;/th&gt;
+  &lt;td&gt;黎代福&lt;/td&gt;
+  &lt;td&gt;1510185600000&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;1711201409106565&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;深圳市建信远致投贷联动股权投资基金管理有限公司&lt;/td&gt;
+  &lt;td&gt;...&lt;/td&gt;
+  &lt;td&gt;私募股权、创业投资基金管理人&lt;/td&gt;
+  &lt;td&gt;深圳市&lt;/td&gt;
+  &lt;td&gt;22.54423473206776,114.06008610208522&lt;/td&gt;
+  &lt;td&gt;广东省深圳市福田区福田街道深南大道4009投资大厦14A&lt;/td&gt;
+  &lt;td&gt;深圳市&lt;/td&gt;
+  &lt;td&gt;1515456000000&lt;/td&gt;
+  &lt;td&gt;P1066724&lt;/td&gt;
+  &lt;td&gt;广东省&lt;/td&gt;
+  &lt;td&gt;0.0&lt;/td&gt;
+  &lt;td&gt;1711201409106565.html&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;th&gt;2&lt;/th&gt;
+  &lt;td&gt;贾翔宇&lt;/td&gt;
+  &lt;td&gt;1509926400000&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;1711151340101418&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;芜湖元祐投资管理有限公司&lt;/td&gt;
+  &lt;td&gt;...&lt;/td&gt;
+  &lt;td&gt;私募股权、创业投资基金管理人&lt;/td&gt;
+  &lt;td&gt;安徽省&lt;/td&gt;
+  &lt;td&gt;31.351965582559195,118.38724548573022&lt;/td&gt;
+  &lt;td&gt;安徽省芜湖市镜湖区荆峰路60-1号&lt;/td&gt;
+  &lt;td&gt;芜湖市&lt;/td&gt;
+  &lt;td&gt;1516320000000&lt;/td&gt;
+  &lt;td&gt;P1066906&lt;/td&gt;
+  &lt;td&gt;安徽省&lt;/td&gt;
+  &lt;td&gt;0.0&lt;/td&gt;
+  &lt;td&gt;1711151340101418.html&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;th&gt;3&lt;/th&gt;
+  &lt;td&gt;杜炎斌&lt;/td&gt;
+  &lt;td&gt;1510790400000&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;0&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;1711232310107506&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;False&lt;/td&gt;
+  &lt;td&gt;西藏聚信发展股权投资基金管理有限公司&lt;/td&gt;
+  &lt;td&gt;...&lt;/td&gt;
+  &lt;td&gt;私募股权、创业投资基金管理人&lt;/td&gt;
+  &lt;td&gt;西藏自治区&lt;/td&gt;
+  &lt;td&gt;29.629444241792186,91.07674760971572&lt;/td&gt;
+  &lt;td&gt;西藏自治区拉萨市城关区柳梧新区柳梧大厦1602号&lt;/td&gt;
+  &lt;td&gt;拉萨市&lt;/td&gt;
+  &lt;td&gt;1516320000000&lt;/td&gt;
+  &lt;td&gt;P1066927&lt;/td&gt;
+  &lt;td&gt;西藏自治区&lt;/td&gt;
+  &lt;td&gt;0.0&lt;/td&gt;
+  &lt;td&gt;1711232310107506.html&lt;/td&gt;
+&lt;/tr&gt;
+</code></pre><!-- raw HTML omitted -->
 <h3 id="基金管理人基本信息">基金管理人基本信息</h3>
-
 <ul>
 <li><code>pd.read_html</code>直接读取<code>&lt;table&gt;</code>标签下的内容为dataframe</li>
 <li>字段名称的中英文转化</li>
 <li>无效/空白值的筛选</li>
 <li>产品列表的提取</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ManagerDetail</span>(object):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        dfname_dict <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;基金管理人全称(中文):&#34;</span>: <span style="color:#e6db74">&#34;manager_namecn&#34;</span>,
+                       <span style="color:#e6db74">&#34;基金管理人全称(英文):&#34;</span>: <span style="color:#e6db74">&#34;manager_nameen&#34;</span>,
+                       <span style="color:#e6db74">&#34;组织机构代码:&#34;</span>: <span style="color:#e6db74">&#34;manager_gov_code&#34;</span>,
+                       <span style="color:#e6db74">&#34;注册资本(万元)(人民币):&#34;</span>: <span style="color:#e6db74">&#34;reg_capital&#34;</span>,
+                       <span style="color:#e6db74">&#34;企业性质:&#34;</span>: <span style="color:#e6db74">&#34;company_nature&#34;</span>,
+                       <span style="color:#e6db74">&#34;员工人数:&#34;</span>: <span style="color:#e6db74">&#34;employee_num&#34;</span>,
+                       <span style="color:#e6db74">&#34;是否为会员:&#34;</span>: <span style="color:#e6db74">&#34;is_vip&#34;</span>,
+                       <span style="color:#e6db74">&#34;当前会员类型:&#34;</span>: <span style="color:#e6db74">&#34;vip_type&#34;</span>,
+                       <span style="color:#e6db74">&#34;法律意见书状态:&#34;</span>: <span style="color:#e6db74">&#34;legal_status&#34;</span>,
+                       <span style="color:#e6db74">&#34;律师事务所名称:&#34;</span>: <span style="color:#e6db74">&#34;legal_name&#34;</span>,
+                       <span style="color:#e6db74">&#34;律师姓名:&#34;</span>: <span style="color:#e6db74">&#34;lawyer_name&#34;</span>,
+                       <span style="color:#e6db74">&#34;法定代表人/执行事务合伙人(委派代表)姓名:&#34;</span>: <span style="color:#e6db74">&#34;legal_representname&#34;</span>,
+                       <span style="color:#e6db74">&#34;实缴资本(万元)(人民币):&#34;</span>: <span style="color:#e6db74">&#34;reg_capital_real&#34;</span>,
+                       <span style="color:#e6db74">&#34;注册资本实缴比例:&#34;</span>: <span style="color:#e6db74">&#34;reg_capital_pct&#34;</span>,
+                       <span style="color:#e6db74">&#34;机构网址:&#34;</span>: <span style="color:#e6db74">&#34;gov_website&#34;</span>,
+                       <span style="color:#e6db74">&#34;入会时间:&#34;</span>: <span style="color:#e6db74">&#34;admission_date&#34;</span>,
+                       <span style="color:#e6db74">&#34;机构信息最后更新时间:&#34;</span>: <span style="color:#e6db74">&#34;gov_last_update&#34;</span>,
+                       <span style="color:#e6db74">&#34;特别提示信息:&#34;</span>: <span style="color:#e6db74">&#34;special_info&#34;</span>,
+                       <span style="color:#e6db74">&#34;是否有从业资格:&#34;</span>: <span style="color:#e6db74">&#34;is_qualify&#34;</span>,
+                       <span style="color:#e6db74">&#34;资格取得方式:&#34;</span>: <span style="color:#e6db74">&#34;qualify_way&#34;</span>,
+                       <span style="color:#e6db74">&#34;业务类型:&#34;</span>: <span style="color:#e6db74">&#34;business_type&#34;</span>}
 
-<pre><code class="language-python">class ManagerDetail(object):
-    def __init__(self):
-        dfname_dict = {&quot;基金管理人全称(中文):&quot;: &quot;manager_namecn&quot;,
-                       &quot;基金管理人全称(英文):&quot;: &quot;manager_nameen&quot;,
-                       &quot;组织机构代码:&quot;: &quot;manager_gov_code&quot;,
-                       &quot;注册资本(万元)(人民币):&quot;: &quot;reg_capital&quot;,
-                       &quot;企业性质:&quot;: &quot;company_nature&quot;,
-                       &quot;员工人数:&quot;: &quot;employee_num&quot;,
-                       &quot;是否为会员:&quot;: &quot;is_vip&quot;,
-                       &quot;当前会员类型:&quot;: &quot;vip_type&quot;,
-                       &quot;法律意见书状态:&quot;: &quot;legal_status&quot;,
-                       &quot;律师事务所名称:&quot;: &quot;legal_name&quot;,
-                       &quot;律师姓名:&quot;: &quot;lawyer_name&quot;,
-                       &quot;法定代表人/执行事务合伙人(委派代表)姓名:&quot;: &quot;legal_representname&quot;,
-                       &quot;实缴资本(万元)(人民币):&quot;: &quot;reg_capital_real&quot;,
-                       &quot;注册资本实缴比例:&quot;: &quot;reg_capital_pct&quot;,
-                       &quot;机构网址:&quot;: &quot;gov_website&quot;,
-                       &quot;入会时间:&quot;: &quot;admission_date&quot;,
-                       &quot;机构信息最后更新时间:&quot;: &quot;gov_last_update&quot;,
-                       &quot;特别提示信息:&quot;: &quot;special_info&quot;,
-                       &quot;是否有从业资格:&quot;: &quot;is_qualify&quot;,
-                       &quot;资格取得方式:&quot;: &quot;qualify_way&quot;,
-                       &quot;业务类型:&quot;: &quot;business_type&quot;}
+        dfname_base <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame()
+        dfname_base[<span style="color:#e6db74">&#39;index_cn&#39;</span>] <span style="color:#f92672">=</span> list(dfname_dict<span style="color:#f92672">.</span>keys())
+        dfname_base[<span style="color:#e6db74">&#39;index_en&#39;</span>] <span style="color:#f92672">=</span> list(dfname_dict<span style="color:#f92672">.</span>values())
 
-        dfname_base = pd.DataFrame()
-        dfname_base['index_cn'] = list(dfname_dict.keys())
-        dfname_base['index_en'] = list(dfname_dict.values())
-
-        self.url_format = 'http://gs.amac.org.cn/amac-infodisc/res/pof/manager/%s.html'
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Encoding': 'gzip, deflate',
-            'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-            'Connection': 'keep-alive',
-            'Content-Type': 'application/json'
+        self<span style="color:#f92672">.</span>url_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://gs.amac.org.cn/amac-infodisc/res/pof/manager/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.html&#39;</span>
+        self<span style="color:#f92672">.</span>headers <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74">&#39;User-Agent&#39;</span>: <span style="color:#e6db74">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept&#39;</span>: <span style="color:#e6db74">&#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept-Encoding&#39;</span>: <span style="color:#e6db74">&#39;gzip, deflate&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept-Language&#39;</span>: <span style="color:#e6db74">&#39;zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7&#39;</span>,
+            <span style="color:#e6db74">&#39;Connection&#39;</span>: <span style="color:#e6db74">&#39;keep-alive&#39;</span>,
+            <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>
         }
-        self.dfname_base = dfname_base
-        self.xpath_pro = '//td[@class=&quot;td-content&quot;]/p/a'
+        self<span style="color:#f92672">.</span>dfname_base <span style="color:#f92672">=</span> dfname_base
+        self<span style="color:#f92672">.</span>xpath_pro <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;//td[@class=&#34;td-content&#34;]/p/a&#39;</span>
 
-    def get_managerInfo(self, id):
-        url = self.url_format % id
-        rs = requests.get(url, headers=self.headers)
-        # rs.text
-        rs.encoding = 'UTF-8'
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_managerInfo</span>(self, id):
+        url <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>url_format <span style="color:#f92672">%</span> id
+        rs <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url, headers<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>headers)
+        <span style="color:#75715e"># rs.text</span>
+        rs<span style="color:#f92672">.</span>encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;UTF-8&#39;</span>
 
-        tabs = pd.read_html(rs.text)
+        tabs <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_html(rs<span style="color:#f92672">.</span>text)
 
-        # 机构基本信息
-        tab1 = tabs[0].iloc[2:23, 0:2]
-        tab2 = tabs[0].iloc[2:23, 2:4]
-        tab3 = tabs[0]
-        tab3 = tab3.loc[tab3.iloc[:, 0].isin(['机构信息最后更新时间:', '特别提示信息:'])]
-        tab3 = tab3.iloc[:, 0:2]
+        <span style="color:#75715e"># 机构基本信息</span>
+        tab1 <span style="color:#f92672">=</span> tabs[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>iloc[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">2</span>]
+        tab2 <span style="color:#f92672">=</span> tabs[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>iloc[<span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">4</span>]
+        tab3 <span style="color:#f92672">=</span> tabs[<span style="color:#ae81ff">0</span>]
+        tab3 <span style="color:#f92672">=</span> tab3<span style="color:#f92672">.</span>loc[tab3<span style="color:#f92672">.</span>iloc[:, <span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>isin([<span style="color:#e6db74">&#39;机构信息最后更新时间:&#39;</span>, <span style="color:#e6db74">&#39;特别提示信息:&#39;</span>])]
+        tab3 <span style="color:#f92672">=</span> tab3<span style="color:#f92672">.</span>iloc[:, <span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">2</span>]
         tab3
 
-        tab1.columns = ['index_cn', 'val']
-        tab2.columns = ['index_cn', 'val']
-        tab3.columns = ['index_cn', 'val']
-        tab_base = tab1.append(tab2)
-        tab_base = pd.concat([tab1, tab2, tab3], axis=0, ignore_index=True)
-        tab_base = tab_base.dropna()
+        tab1<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;index_cn&#39;</span>, <span style="color:#e6db74">&#39;val&#39;</span>]
+        tab2<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;index_cn&#39;</span>, <span style="color:#e6db74">&#39;val&#39;</span>]
+        tab3<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;index_cn&#39;</span>, <span style="color:#e6db74">&#39;val&#39;</span>]
+        tab_base <span style="color:#f92672">=</span> tab1<span style="color:#f92672">.</span>append(tab2)
+        tab_base <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>concat([tab1, tab2, tab3], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, ignore_index<span style="color:#f92672">=</span>True)
+        tab_base <span style="color:#f92672">=</span> tab_base<span style="color:#f92672">.</span>dropna()
 
-        tab_base = pd.merge(self.dfname_base, tab_base, how='left')
-        tab_base.index = tab_base['index_en']
-        tab_base = tab_base[['val']]
-        # tab_base.dropna()
-        # tab_base
+        tab_base <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>merge(self<span style="color:#f92672">.</span>dfname_base, tab_base, how<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;left&#39;</span>)
+        tab_base<span style="color:#f92672">.</span>index <span style="color:#f92672">=</span> tab_base[<span style="color:#e6db74">&#39;index_en&#39;</span>]
+        tab_base <span style="color:#f92672">=</span> tab_base[[<span style="color:#e6db74">&#39;val&#39;</span>]]
+        <span style="color:#75715e"># tab_base.dropna()</span>
+        <span style="color:#75715e"># tab_base</span>
 
-        tab_base['val'] = ['' if isinstance(x, float) and math.isnan(x) else x for x in tab_base['val']]
-        tab_base = tab_base.T
-        tab_base['manager_namecn'][0] = tab_base['manager_namecn'][0].split(' ')[1]
-        tab_base['m_id'] = id
+        tab_base[<span style="color:#e6db74">&#39;val&#39;</span>] <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">if</span> isinstance(x, float) <span style="color:#f92672">and</span> math<span style="color:#f92672">.</span>isnan(x) <span style="color:#66d9ef">else</span> x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> tab_base[<span style="color:#e6db74">&#39;val&#39;</span>]]
+        tab_base <span style="color:#f92672">=</span> tab_base<span style="color:#f92672">.</span>T
+        tab_base[<span style="color:#e6db74">&#39;manager_namecn&#39;</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> tab_base[<span style="color:#e6db74">&#39;manager_namecn&#39;</span>][<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39; &#39;</span>)[<span style="color:#ae81ff">1</span>]
+        tab_base[<span style="color:#e6db74">&#39;m_id&#39;</span>] <span style="color:#f92672">=</span> id
 
 
-        ## 法定代表人简历
-        cols_resume = set(['时间', '任职单位', '职务'])
-        cols_admin = set(['高管姓名', '职务', '是否具有基金从业资格'])
-        for ti in range(1, len(tabs)):
-            cols = list(tabs[ti].columns)
-            if (set(cols) == cols_resume):
-                tab_resume = tabs[ti]
-                tab_resume.columns = ['period_date', 'service_company', 'position']
-                tab_resume['m_id'] = id
-            ## 高管信息
-            if (set(cols) == cols_admin):
-                tab_admin = tabs[ti]
-                tab_admin.columns = ['admin_name', 'position', 'is_passfund']
-                tab_admin['m_id'] = id
-                break
+        <span style="color:#75715e">## 法定代表人简历</span>
+        cols_resume <span style="color:#f92672">=</span> set([<span style="color:#e6db74">&#39;时间&#39;</span>, <span style="color:#e6db74">&#39;任职单位&#39;</span>, <span style="color:#e6db74">&#39;职务&#39;</span>])
+        cols_admin <span style="color:#f92672">=</span> set([<span style="color:#e6db74">&#39;高管姓名&#39;</span>, <span style="color:#e6db74">&#39;职务&#39;</span>, <span style="color:#e6db74">&#39;是否具有基金从业资格&#39;</span>])
+        <span style="color:#66d9ef">for</span> ti <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, len(tabs)):
+            cols <span style="color:#f92672">=</span> list(tabs[ti]<span style="color:#f92672">.</span>columns)
+            <span style="color:#66d9ef">if</span> (set(cols) <span style="color:#f92672">==</span> cols_resume):
+                tab_resume <span style="color:#f92672">=</span> tabs[ti]
+                tab_resume<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;period_date&#39;</span>, <span style="color:#e6db74">&#39;service_company&#39;</span>, <span style="color:#e6db74">&#39;position&#39;</span>]
+                tab_resume[<span style="color:#e6db74">&#39;m_id&#39;</span>] <span style="color:#f92672">=</span> id
+            <span style="color:#75715e">## 高管信息</span>
+            <span style="color:#66d9ef">if</span> (set(cols) <span style="color:#f92672">==</span> cols_admin):
+                tab_admin <span style="color:#f92672">=</span> tabs[ti]
+                tab_admin<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;admin_name&#39;</span>, <span style="color:#e6db74">&#39;position&#39;</span>, <span style="color:#e6db74">&#39;is_passfund&#39;</span>]
+                tab_admin[<span style="color:#e6db74">&#39;m_id&#39;</span>] <span style="color:#f92672">=</span> id
+                <span style="color:#66d9ef">break</span>
 
-        ## 发行产品list
-        try:
-            r1_html = etree.HTML(rs.text)
-            prodts = r1_html.xpath(self.xpath_pro)
+        <span style="color:#75715e">## 发行产品list</span>
+        <span style="color:#66d9ef">try</span>:
+            r1_html <span style="color:#f92672">=</span> etree<span style="color:#f92672">.</span>HTML(rs<span style="color:#f92672">.</span>text)
+            prodts <span style="color:#f92672">=</span> r1_html<span style="color:#f92672">.</span>xpath(self<span style="color:#f92672">.</span>xpath_pro)
 
-            prodt_nm = [re.sub('：|\s', '', x.xpath('string()')) for x in prodts]
-            prodt_id = [re.findall(r&quot;\d+&quot;, x.xpath('@href')[0])[0] for x in prodts]
-            tab_prodt = pd.DataFrame.from_records([prodt_id, prodt_nm]).T
-            tab_prodt.columns = ['prodt_id', 'prodt_nm']
-            tab_prodt['m_id'] = id
-        except:
-            tab_prodt = None
+            prodt_nm <span style="color:#f92672">=</span> [re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">&#39;：|\s&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, x<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;string()&#39;</span>)) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> prodts]
+            prodt_id <span style="color:#f92672">=</span> [re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;\d+&#34;</span>, x<span style="color:#f92672">.</span>xpath(<span style="color:#e6db74">&#39;@href&#39;</span>)[<span style="color:#ae81ff">0</span>])[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> prodts]
+            tab_prodt <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame<span style="color:#f92672">.</span>from_records([prodt_id, prodt_nm])<span style="color:#f92672">.</span>T
+            tab_prodt<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;prodt_id&#39;</span>, <span style="color:#e6db74">&#39;prodt_nm&#39;</span>]
+            tab_prodt[<span style="color:#e6db74">&#39;m_id&#39;</span>] <span style="color:#f92672">=</span> id
+        <span style="color:#66d9ef">except</span>:
+            tab_prodt <span style="color:#f92672">=</span> None
 
-        res = {
-            'tab_base': tab_base,
-            'tab_resume': tab_resume,
-            'tab_admin': tab_admin,
-            'tab_prodt': tab_prodt
+        res <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74">&#39;tab_base&#39;</span>: tab_base,
+            <span style="color:#e6db74">&#39;tab_resume&#39;</span>: tab_resume,
+            <span style="color:#e6db74">&#39;tab_admin&#39;</span>: tab_admin,
+            <span style="color:#e6db74">&#39;tab_prodt&#39;</span>: tab_prodt
         }
-        return res
+        <span style="color:#66d9ef">return</span> res
 
-</code></pre>
-
-<pre><code class="language-python">managerdel = ManagerDetail()
-managerdel.get_managerInfo(101000000138)
-</code></pre>
-
-<pre><code>{'tab_admin':   admin_name        position is_passfund          m_id
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">managerdel <span style="color:#f92672">=</span> ManagerDetail()
+managerdel<span style="color:#f92672">.</span>get_managerInfo(<span style="color:#ae81ff">101000000138</span>)
+</code></pre></div><pre><code>{'tab_admin':   admin_name        position is_passfund          m_id
  0        杨晓华  法定代表人 总经理 执行董事     是(资格认定)  101000000138
  1         周娟    合规风控 信息填报负责人     是(通过考试)  101000000138
  2        张存相            副总经理     是(通过考试)  101000000138
@@ -627,89 +559,79 @@ managerdel.get_managerInfo(101000000138)
  8   1989.09 -  1992.04       深圳平安公司对外业务部      副经理  101000000138
  9   1987.09 -  1989.09            大连海运学院       教师  101000000138
  10  1983.09 -  1985.09            大连海运学院       教师  101000000138}
-</code></pre>
+</code></pre><h3 id="产品信息提取">产品信息提取</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Product</span>(object):
+    <span style="color:#66d9ef">def</span> __init__(self):
+        dfname_dict <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;基金名称:&#34;</span>: <span style="color:#e6db74">&#34;fund_nm&#34;</span>,
+                       <span style="color:#e6db74">&#34;基金编号:&#34;</span>: <span style="color:#e6db74">&#34;fund_code&#34;</span>,
+                       <span style="color:#e6db74">&#34;成立时间:&#34;</span>: <span style="color:#e6db74">&#34;establish_date&#34;</span>,
+                       <span style="color:#e6db74">&#34;备案时间:&#34;</span>: <span style="color:#e6db74">&#34;record_date&#34;</span>,
+                       <span style="color:#e6db74">&#34;基金备案阶段:&#34;</span>: <span style="color:#e6db74">&#34;record_stage&#34;</span>,
+                       <span style="color:#e6db74">&#34;基金类型:&#34;</span>: <span style="color:#e6db74">&#34;fund_type&#34;</span>,
+                       <span style="color:#e6db74">&#34;币种:&#34;</span>: <span style="color:#e6db74">&#34;currency_type&#34;</span>,
+                       <span style="color:#e6db74">&#34;基金管理人名称:&#34;</span>: <span style="color:#e6db74">&#34;fund_manager&#34;</span>,
+                       <span style="color:#e6db74">&#34;管理类型:&#34;</span>: <span style="color:#e6db74">&#34;manager_type&#34;</span>,
+                       <span style="color:#e6db74">&#34;托管人名称:&#34;</span>: <span style="color:#e6db74">&#34;trustee_name&#34;</span>,
+                       <span style="color:#e6db74">&#34;运作状态:&#34;</span>: <span style="color:#e6db74">&#34;operate_status&#34;</span>,
+                       <span style="color:#e6db74">&#34;基金信息最后更新时间:&#34;</span>: <span style="color:#e6db74">&#34;last_update&#34;</span>,
+                       <span style="color:#e6db74">&#34;基金协会特别提示（针对基金）:&#34;</span>: <span style="color:#e6db74">&#34;specail_message&#34;</span>,
+                       <span style="color:#e6db74">&#34;月报:&#34;</span>: <span style="color:#e6db74">&#34;report_month&#34;</span>,
+                       <span style="color:#e6db74">&#34;半年报:&#34;</span>: <span style="color:#e6db74">&#34;report_halfyear&#34;</span>,
+                       <span style="color:#e6db74">&#34;年报:&#34;</span>: <span style="color:#e6db74">&#34;report_year&#34;</span>,
+                       <span style="color:#e6db74">&#34;季报:&#34;</span>: <span style="color:#e6db74">&#34;report_season&#34;</span>}
 
-<h3 id="产品信息提取">产品信息提取</h3>
+        dfname_base <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame()
+        dfname_base[<span style="color:#e6db74">&#39;index_cn&#39;</span>] <span style="color:#f92672">=</span> list(dfname_dict<span style="color:#f92672">.</span>keys())
+        dfname_base[<span style="color:#e6db74">&#39;index_en&#39;</span>] <span style="color:#f92672">=</span> list(dfname_dict<span style="color:#f92672">.</span>values())
 
-<pre><code class="language-python">class Product(object):
-    def __init__(self):
-        dfname_dict = {&quot;基金名称:&quot;: &quot;fund_nm&quot;,
-                       &quot;基金编号:&quot;: &quot;fund_code&quot;,
-                       &quot;成立时间:&quot;: &quot;establish_date&quot;,
-                       &quot;备案时间:&quot;: &quot;record_date&quot;,
-                       &quot;基金备案阶段:&quot;: &quot;record_stage&quot;,
-                       &quot;基金类型:&quot;: &quot;fund_type&quot;,
-                       &quot;币种:&quot;: &quot;currency_type&quot;,
-                       &quot;基金管理人名称:&quot;: &quot;fund_manager&quot;,
-                       &quot;管理类型:&quot;: &quot;manager_type&quot;,
-                       &quot;托管人名称:&quot;: &quot;trustee_name&quot;,
-                       &quot;运作状态:&quot;: &quot;operate_status&quot;,
-                       &quot;基金信息最后更新时间:&quot;: &quot;last_update&quot;,
-                       &quot;基金协会特别提示（针对基金）:&quot;: &quot;specail_message&quot;,
-                       &quot;月报:&quot;: &quot;report_month&quot;,
-                       &quot;半年报:&quot;: &quot;report_halfyear&quot;,
-                       &quot;年报:&quot;: &quot;report_year&quot;,
-                       &quot;季报:&quot;: &quot;report_season&quot;}
-
-        dfname_base = pd.DataFrame()
-        dfname_base['index_cn'] = list(dfname_dict.keys())
-        dfname_base['index_en'] = list(dfname_dict.values())
-
-        self.url_format = 'http://gs.amac.org.cn/amac-infodisc/res/pof/fund/%s.html'
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-            'Accept-Encoding': 'gzip, deflate',
-            'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-            'Connection': 'keep-alive',
-            'Content-Type': 'application/json'
+        self<span style="color:#f92672">.</span>url_format <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://gs.amac.org.cn/amac-infodisc/res/pof/fund/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.html&#39;</span>
+        self<span style="color:#f92672">.</span>headers <span style="color:#f92672">=</span> {
+            <span style="color:#e6db74">&#39;User-Agent&#39;</span>: <span style="color:#e6db74">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.167 Safari/537.36&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept&#39;</span>: <span style="color:#e6db74">&#39;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept-Encoding&#39;</span>: <span style="color:#e6db74">&#39;gzip, deflate&#39;</span>,
+            <span style="color:#e6db74">&#39;Accept-Language&#39;</span>: <span style="color:#e6db74">&#39;zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7&#39;</span>,
+            <span style="color:#e6db74">&#39;Connection&#39;</span>: <span style="color:#e6db74">&#39;keep-alive&#39;</span>,
+            <span style="color:#e6db74">&#39;Content-Type&#39;</span>: <span style="color:#e6db74">&#39;application/json&#39;</span>
         }
-        self.dfname_base = dfname_base
-        self.xpath_pro = '//td[@class=&quot;td-content&quot;]/p/a'
+        self<span style="color:#f92672">.</span>dfname_base <span style="color:#f92672">=</span> dfname_base
+        self<span style="color:#f92672">.</span>xpath_pro <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;//td[@class=&#34;td-content&#34;]/p/a&#39;</span>
 
-    def get_productInfo(self, id):
-        url = self.url_format % id
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_productInfo</span>(self, id):
+        url <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>url_format <span style="color:#f92672">%</span> id
 
-        try:
-            rs = requests.get(url, headers=self.headers)
-            # rs.text
-            rs.encoding = 'UTF-8'
+        <span style="color:#66d9ef">try</span>:
+            rs <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url, headers<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>headers)
+            <span style="color:#75715e"># rs.text</span>
+            rs<span style="color:#f92672">.</span>encoding <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;UTF-8&#39;</span>
 
-            tabs = pd.read_html(rs.text)
+            tabs <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_html(rs<span style="color:#f92672">.</span>text)
 
-            # 机构基本信息
-            tab_base = tabs[0].iloc[:, 0:2]
+            <span style="color:#75715e"># 机构基本信息</span>
+            tab_base <span style="color:#f92672">=</span> tabs[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>iloc[:, <span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">2</span>]
 
-            tab_base.columns = ['index_cn', 'val']
-            tab_base = tab_base.dropna()
-            # print(tab_base)
+            tab_base<span style="color:#f92672">.</span>columns <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;index_cn&#39;</span>, <span style="color:#e6db74">&#39;val&#39;</span>]
+            tab_base <span style="color:#f92672">=</span> tab_base<span style="color:#f92672">.</span>dropna()
+            <span style="color:#75715e"># print(tab_base)</span>
 
-            tab_base = pd.merge(self.dfname_base, tab_base, how='left')
-            tab_base.index = tab_base['index_en']
-            tab_base = tab_base[['val']]
-            # tab_base.dropna()
-            # tab_base
+            tab_base <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>merge(self<span style="color:#f92672">.</span>dfname_base, tab_base, how<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;left&#39;</span>)
+            tab_base<span style="color:#f92672">.</span>index <span style="color:#f92672">=</span> tab_base[<span style="color:#e6db74">&#39;index_en&#39;</span>]
+            tab_base <span style="color:#f92672">=</span> tab_base[[<span style="color:#e6db74">&#39;val&#39;</span>]]
+            <span style="color:#75715e"># tab_base.dropna()</span>
+            <span style="color:#75715e"># tab_base</span>
 
-            tab_base['val'] = ['' if isinstance(x, float) and math.isnan(x) else x for x in tab_base['val']]
-            tab_base = tab_base.T
-            # print(tab_base)
-            # tab_base['manager_namecn'][0] = tab_base['manager_namecn'][0].split(' ')[1]
-            tab_base['p_id'] = id
+            tab_base[<span style="color:#e6db74">&#39;val&#39;</span>] <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">if</span> isinstance(x, float) <span style="color:#f92672">and</span> math<span style="color:#f92672">.</span>isnan(x) <span style="color:#66d9ef">else</span> x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> tab_base[<span style="color:#e6db74">&#39;val&#39;</span>]]
+            tab_base <span style="color:#f92672">=</span> tab_base<span style="color:#f92672">.</span>T
+            <span style="color:#75715e"># print(tab_base)</span>
+            <span style="color:#75715e"># tab_base[&#39;manager_namecn&#39;][0] = tab_base[&#39;manager_namecn&#39;][0].split(&#39; &#39;)[1]</span>
+            tab_base[<span style="color:#e6db74">&#39;p_id&#39;</span>] <span style="color:#f92672">=</span> id
 
-            return tab_base
-        except:
-            return None
-</code></pre>
-
-<pre><code class="language-python">prodt = Product()
-prodt.get_productInfo(1707311041109392)
-</code></pre>
-
-<div>
-<style>
-
-```
-.dataframe thead tr:only-child th {
+            <span style="color:#66d9ef">return</span> tab_base
+        <span style="color:#66d9ef">except</span>:
+            <span style="color:#66d9ef">return</span> None
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">prodt <span style="color:#f92672">=</span> Product()
+prodt<span style="color:#f92672">.</span>get_productInfo(<span style="color:#ae81ff">1707311041109392</span>)
+</code></pre></div><!-- raw HTML omitted -->
+<pre><code>.dataframe thead tr:only-child th {
     text-align: right;
 }
 
@@ -720,66 +642,52 @@ prodt.get_productInfo(1707311041109392)
 .dataframe tbody tr th {
     vertical-align: top;
 }
-```
-
-</style>
-<table border="1" class="dataframe">
-  <thead>
-
-```
-<tr style="text-align: right;">
-  <th>index_en</th>
-  <th>fund_nm</th>
-  <th>fund_code</th>
-  <th>establish_date</th>
-  <th>record_date</th>
-  <th>record_stage</th>
-  <th>fund_type</th>
-  <th>currency_type</th>
-  <th>fund_manager</th>
-  <th>manager_type</th>
-  <th>trustee_name</th>
-  <th>operate_status</th>
-  <th>last_update</th>
-  <th>specail_message</th>
-  <th>report_month</th>
-  <th>report_halfyear</th>
-  <th>report_year</th>
-  <th>report_season</th>
-  <th>p_id</th>
-</tr>
-```
-
-  </thead>
-  <tbody>
-
-```
-<tr>
-  <th>val</th>
-  <td>平安道远投资管理（上海）有限公司*聚盈6号私募投资基金</td>
-  <td>SW3120</td>
-  <td>2017-07-14</td>
-  <td>2017-08-01</td>
-  <td>暂行办法实施后成立的基金</td>
-  <td>私募证券投资基金</td>
-  <td>人民币现钞</td>
-  <td>平安道远投资管理（上海）有限公司</td>
-  <td>受托管理</td>
-  <td>平安银行股份有限公司</td>
-  <td>正在运作</td>
-  <td>2017-08-01</td>
-  <td></td>
-  <td>应披露0条，按时披露0条，未披露0条；</td>
-  <td>应披露0条，按时披露0条，未披露0条；</td>
-  <td>应披露0条，按时披露0条，未披露0条；</td>
-  <td>应披露2条，按时披露2条，未披露0条；</td>
-  <td>1707311041109392</td>
-</tr>
-```
-
-  </tbody>
-</table>
-</div>
+</code></pre><p><!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<pre><code>&lt;tr style=&quot;text-align: right;&quot;&gt;
+  &lt;th&gt;index_en&lt;/th&gt;
+  &lt;th&gt;fund_nm&lt;/th&gt;
+  &lt;th&gt;fund_code&lt;/th&gt;
+  &lt;th&gt;establish_date&lt;/th&gt;
+  &lt;th&gt;record_date&lt;/th&gt;
+  &lt;th&gt;record_stage&lt;/th&gt;
+  &lt;th&gt;fund_type&lt;/th&gt;
+  &lt;th&gt;currency_type&lt;/th&gt;
+  &lt;th&gt;fund_manager&lt;/th&gt;
+  &lt;th&gt;manager_type&lt;/th&gt;
+  &lt;th&gt;trustee_name&lt;/th&gt;
+  &lt;th&gt;operate_status&lt;/th&gt;
+  &lt;th&gt;last_update&lt;/th&gt;
+  &lt;th&gt;specail_message&lt;/th&gt;
+  &lt;th&gt;report_month&lt;/th&gt;
+  &lt;th&gt;report_halfyear&lt;/th&gt;
+  &lt;th&gt;report_year&lt;/th&gt;
+  &lt;th&gt;report_season&lt;/th&gt;
+  &lt;th&gt;p_id&lt;/th&gt;
+&lt;/tr&gt;
+</code></pre><!-- raw HTML omitted -->
+<pre><code>&lt;tr&gt;
+  &lt;th&gt;val&lt;/th&gt;
+  &lt;td&gt;平安道远投资管理（上海）有限公司*聚盈6号私募投资基金&lt;/td&gt;
+  &lt;td&gt;SW3120&lt;/td&gt;
+  &lt;td&gt;2017-07-14&lt;/td&gt;
+  &lt;td&gt;2017-08-01&lt;/td&gt;
+  &lt;td&gt;暂行办法实施后成立的基金&lt;/td&gt;
+  &lt;td&gt;私募证券投资基金&lt;/td&gt;
+  &lt;td&gt;人民币现钞&lt;/td&gt;
+  &lt;td&gt;平安道远投资管理（上海）有限公司&lt;/td&gt;
+  &lt;td&gt;受托管理&lt;/td&gt;
+  &lt;td&gt;平安银行股份有限公司&lt;/td&gt;
+  &lt;td&gt;正在运作&lt;/td&gt;
+  &lt;td&gt;2017-08-01&lt;/td&gt;
+  &lt;td&gt;&lt;/td&gt;
+  &lt;td&gt;应披露0条，按时披露0条，未披露0条；&lt;/td&gt;
+  &lt;td&gt;应披露0条，按时披露0条，未披露0条；&lt;/td&gt;
+  &lt;td&gt;应披露0条，按时披露0条，未披露0条；&lt;/td&gt;
+  &lt;td&gt;应披露2条，按时披露2条，未披露0条；&lt;/td&gt;
+  &lt;td&gt;1707311041109392&lt;/td&gt;
+&lt;/tr&gt;
+</code></pre><!-- raw HTML omitted -->
 
 </main>
 
@@ -801,21 +709,24 @@ hljs.initHighlightingOnLoad();
 
 
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-113712825-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-113712825-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
 
 
 
 
   <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -839,7 +750,7 @@ ga('send', 'pageview');
 
   
   <hr/>
-  &copy; <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
+  © <a href="https://xwydq.netlify.com/">大葱</a> 2017 &ndash; 2018 | <a href="https://github.com/xwydq">Github</a>
   
   </footer>
   </body>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>性能 on 飞舞的尘埃</title>
@@ -18,7 +18,7 @@
       
       <guid>/note/2015/02/06/r-readtable-bycolumn/</guid>
       <description>背景：文本数据字段太多，只需要读取有用字段，以此降低内存压力方便分析
- 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
+ 方法一：read.table、read.csv指定列读取 直接使用自带函数设定适当的参数（colClasses），该参数需要指定每列数据的类型（可以使用nrows参数读取几行查看class），不需要的列指定为NULL即可。如下：
 dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = c(-27L, -27L, -27L), Mar = c(-25L, -25L, -2L), Apr = c(-31L, -31L, -6L), May = c(-31L, -31L, -10L), Jun = c(-39L, -39L, -32L), Jul = c(-25L, -25L, -13L), Aug = c(-15L, -15L, -12L), Sep = c(-30L, -30L, -27L), Oct = c(-27L, -27L, -30L), Nov = c(-21L, -21L, -38L), Dec = c(-25L, -25L, -29L)), .</description>
     </item>
     
@@ -29,7 +29,7 @@ dat &amp;lt;- structure(list(Year = 2009:2011, Jan = c(-41L, -41L, -21L), Feb = 
       
       <guid>/note/2013/09/22/r-loop-dataframe-vs-matrix/</guid>
       <description>一直以来，在R中使用data.frame处理数据跟方便，大多数统计函数直接支持data.frame类型的运算，虽说在R中要尽可能避免使用循环，but由于能力与临时需要，循环还是不经意间就出现了。今天对一个例子测试下，R循环中使用matrix的速度明显大于使用data.frame。有如下简单循环代码：
-test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 0.310 0.015 0.324 test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝 # 1.868 0.002 1.868  结果差距明显（5倍多）！！</description>
+test &amp;lt;- matrix(0, nrow=1000, ncol=50) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝  # 0.310 0.015 0.324  test &amp;lt;- matrix(0, nrow=1000, ncol=50) test &amp;lt;- as.data.frame(test) system.time(for(i in 1:nrow(test)){ for(j in 1:ncol(test)){ test[i,j] &amp;lt;- rnorm(1) } }) # 用户 系统 流逝  # 1.868 0.002 1.868 结果差距明显（5倍多）！！</description>
     </item>
     
   </channel>

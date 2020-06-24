@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RStudio on 飞舞的尘埃</title>
@@ -17,7 +17,7 @@
       <pubDate>Thu, 26 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>/post/2015/03/26/rstudio-git-version-control/</guid>
-      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install   方法二：yum安装（epel源）  yum install git 测试安装成功： git --version   生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.</description>
+      <description>git安装  方法一：源码安装  # //先安装git依赖的包 yum install zlib-devel yum install openssl-devel yum install perl yum install cpio yum install expat-devel yum install gettext-devel //安装autoconf yum install autoconf # //安装git wget http://www.codemonkey.org.uk/projects/git-snapshots/git/git-latest.tar.gz tar xzvf git-latest.tar.gz cd git-{date} autoconf ./configure --with-curl=/usr/local make make install  方法二：yum安装（epel源）  yum install git 测试安装成功： git --version  生成github的测试项目  mkdir ~/githubtest touch README.md echo intime-data-analyse &amp;gt;&amp;gt; README.md git init git add README.md git commit -m &amp;#34;first commit&amp;#34; git remote add origin https://github.</description>
     </item>
     
   </channel>
